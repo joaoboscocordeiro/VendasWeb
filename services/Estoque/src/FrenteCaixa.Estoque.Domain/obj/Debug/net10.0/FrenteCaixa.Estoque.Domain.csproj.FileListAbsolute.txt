@@ -1,0 +1,11 @@
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\bin\Debug\net10.0\FrenteCaixa.Estoque.Domain.deps.json
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\bin\Debug\net10.0\FrenteCaixa.Estoque.Domain.dll
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\bin\Debug\net10.0\FrenteCaixa.Estoque.Domain.pdb
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\obj\Debug\net10.0\FrenteCaixa.Estoque.Domain.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\obj\Debug\net10.0\FrenteCaixa.Estoque.Domain.AssemblyInfoInputs.cache
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\obj\Debug\net10.0\FrenteCaixa.Estoque.Domain.AssemblyInfo.cs
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\obj\Debug\net10.0\FrenteCaixa.Estoque.Domain.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\obj\Debug\net10.0\FrenteCaixa.Estoque.Domain.dll
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\obj\Debug\net10.0\refint\FrenteCaixa.Estoque.Domain.dll
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\obj\Debug\net10.0\FrenteCaixa.Estoque.Domain.pdb
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Domain\obj\Debug\net10.0\ref\FrenteCaixa.Estoque.Domain.dll

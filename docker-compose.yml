@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: frente-caixa-postgres
+    environment:
+      POSTGRES_USER: frente_caixa
+      POSTGRES_PASSWORD: frente_caixa_dev
+      POSTGRES_DB: frente_caixa_admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - frente_caixa_postgres:/var/lib/postgresql
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U frente_caixa -d frente_caixa_admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: frente-caixa-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: frente_caixa
+      RABBITMQ_DEFAULT_PASS: frente_caixa_dev
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - frente_caixa_rabbitmq:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  frente_caixa_postgres:
+  frente_caixa_rabbitmq:

@@ -1,0 +1,11 @@
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\bin\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.deps.json
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\bin\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.dll
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\bin\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.pdb
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.AssemblyInfoInputs.cache
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.AssemblyInfo.cs
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.dll
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\obj\Debug\net10.0\refint\FrenteCaixa.Pagamentos.Domain.dll
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Domain.pdb
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Domain\obj\Debug\net10.0\ref\FrenteCaixa.Pagamentos.Domain.dll

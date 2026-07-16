@@ -1,0 +1,15 @@
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\bin\Debug\net10.0\FrenteCaixa.Estoque.Application.deps.json
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\bin\Debug\net10.0\FrenteCaixa.Estoque.Application.dll
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\bin\Debug\net10.0\FrenteCaixa.Estoque.Application.pdb
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\bin\Debug\net10.0\FrenteCaixa.Estoque.Domain.dll
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\bin\Debug\net10.0\FrenteCaixa.Estoque.Domain.pdb
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\FrenteCaixa.Estoque.Application.csproj.AssemblyReference.cache
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\FrenteCaixa.Estoque.Application.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\FrenteCaixa.Estoque.Application.AssemblyInfoInputs.cache
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\FrenteCaixa.Estoque.Application.AssemblyInfo.cs
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\FrenteCaixa.Estoque.Application.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\FrenteCa.B1931D69.Up2Date
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\FrenteCaixa.Estoque.Application.dll
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\refint\FrenteCaixa.Estoque.Application.dll
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\FrenteCaixa.Estoque.Application.pdb
+F:\Projetos\FrenteCaixa\services\Estoque\src\FrenteCaixa.Estoque.Application\obj\Debug\net10.0\ref\FrenteCaixa.Estoque.Application.dll

@@ -1,0 +1,12 @@
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.csproj.AssemblyReference.cache
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.AssemblyInfoInputs.cache
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.AssemblyInfo.cs
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.deps.json
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.dll
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.pdb
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.dll
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\refint\FrenteCaixa.BuildingBlocks.dll
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.pdb
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\ref\FrenteCaixa.BuildingBlocks.dll

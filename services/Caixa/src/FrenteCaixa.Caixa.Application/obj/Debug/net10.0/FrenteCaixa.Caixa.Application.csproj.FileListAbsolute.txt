@@ -1,0 +1,15 @@
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\bin\Debug\net10.0\FrenteCaixa.Caixa.Application.deps.json
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\bin\Debug\net10.0\FrenteCaixa.Caixa.Application.dll
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\bin\Debug\net10.0\FrenteCaixa.Caixa.Application.pdb
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\bin\Debug\net10.0\FrenteCaixa.Caixa.Domain.dll
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\bin\Debug\net10.0\FrenteCaixa.Caixa.Domain.pdb
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\FrenteCaixa.Caixa.Application.csproj.AssemblyReference.cache
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\FrenteCaixa.Caixa.Application.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\FrenteCaixa.Caixa.Application.AssemblyInfoInputs.cache
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\FrenteCaixa.Caixa.Application.AssemblyInfo.cs
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\FrenteCaixa.Caixa.Application.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\FrenteCa.6EE800C3.Up2Date
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\FrenteCaixa.Caixa.Application.dll
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\refint\FrenteCaixa.Caixa.Application.dll
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\FrenteCaixa.Caixa.Application.pdb
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Application\obj\Debug\net10.0\ref\FrenteCaixa.Caixa.Application.dll

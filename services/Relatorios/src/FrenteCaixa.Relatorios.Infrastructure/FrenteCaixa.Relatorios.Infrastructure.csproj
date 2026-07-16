@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\FrenteCaixa.Relatorios.Application\FrenteCaixa.Relatorios.Application.csproj" />
+    <ProjectReference Include="..\FrenteCaixa.Relatorios.Domain\FrenteCaixa.Relatorios.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\building-blocks\FrenteCaixa.BuildingBlocks\FrenteCaixa.BuildingBlocks.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

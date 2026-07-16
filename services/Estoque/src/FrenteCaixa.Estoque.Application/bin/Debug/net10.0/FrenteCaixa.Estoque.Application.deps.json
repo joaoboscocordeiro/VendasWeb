@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "FrenteCaixa.Estoque.Application/1.0.0": {
+        "dependencies": {
+          "FrenteCaixa.Estoque.Domain": "1.0.0"
+        },
+        "runtime": {
+          "FrenteCaixa.Estoque.Application.dll": {}
+        }
+      },
+      "FrenteCaixa.Estoque.Domain/1.0.0": {
+        "runtime": {
+          "FrenteCaixa.Estoque.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FrenteCaixa.Estoque.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FrenteCaixa.Estoque.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
