@@ -137,6 +137,60 @@ public sealed class CaixaEndpointsTests
     }
 
     [Fact]
+    public async Task cash_operator_can_get_register_summary()
+    {
+        using var factory = new CaixaApiFactory();
+        var caixaAberto = await factory.SemearCaixaAbertoAsync(valorInicial: 25m);
+        await factory.SemearVendaProjetadaAsync(caixaAberto.Id, "Dinheiro", 40m);
+        await factory.SemearVendaProjetadaAsync(caixaAberto.Id, "Pix", 15m);
+        var client = factory.CreateClient();
+        Autenticar(client, "VENDEDOR", CaixaApiFactory.OperadorPadraoId);
+
+        var resposta = await client.GetAsync($"/cash-registers/{caixaAberto.Id}/summary");
+        var resumo = await resposta.Content.ReadFromJsonAsync<ResumoCaixaResponse>();
+
+        Assert.Equal(HttpStatusCode.OK, resposta.StatusCode);
+        Assert.NotNull(resumo);
+        Assert.Equal(2, resumo.QuantidadeVendas);
+        Assert.Equal(55m, resumo.TotalVendido);
+        Assert.Equal(65m, resumo.DinheiroEsperado);
+        Assert.Contains(resumo.TotaisPorFormaPagamento, total =>
+            total.FormaPagamento == "Dinheiro" && total.Total == 40m);
+    }
+
+    [Fact]
+    public async Task cash_summary_without_sales_returns_zero_totals()
+    {
+        using var factory = new CaixaApiFactory();
+        var caixaAberto = await factory.SemearCaixaAbertoAsync(valorInicial: 25m);
+        var client = factory.CreateClient();
+        Autenticar(client, "VENDEDOR", CaixaApiFactory.OperadorPadraoId);
+
+        var resposta = await client.GetAsync($"/cash-registers/{caixaAberto.Id}/summary");
+        var resumo = await resposta.Content.ReadFromJsonAsync<ResumoCaixaResponse>();
+
+        Assert.Equal(HttpStatusCode.OK, resposta.StatusCode);
+        Assert.NotNull(resumo);
+        Assert.Equal(0, resumo.QuantidadeVendas);
+        Assert.Equal(0m, resumo.TotalVendido);
+        Assert.Equal(25m, resumo.DinheiroEsperado);
+        Assert.Empty(resumo.TotaisPorFormaPagamento);
+    }
+
+    [Fact]
+    public async Task cash_summary_rejects_other_operator_register()
+    {
+        using var factory = new CaixaApiFactory();
+        var caixaAberto = await factory.SemearCaixaAbertoAsync(CaixaApiFactory.OutroOperadorId);
+        var client = factory.CreateClient();
+        Autenticar(client, "VENDEDOR", CaixaApiFactory.OperadorPadraoId);
+
+        var resposta = await client.GetAsync($"/cash-registers/{caixaAberto.Id}/summary");
+
+        Assert.Equal(HttpStatusCode.NotFound, resposta.StatusCode);
+    }
+
+    [Fact]
     public async Task cash_current_requires_authentication()
     {
         using var factory = new CaixaApiFactory();

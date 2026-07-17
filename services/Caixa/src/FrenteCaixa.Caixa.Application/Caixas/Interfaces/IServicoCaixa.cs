@@ -23,4 +23,9 @@ public interface IServicoCaixa
         Guid operadorId,
         Guid caixaId,
         CancellationToken cancellationToken);
+
+    Task<ResultadoOperacao<ResumoCaixaResponse>> ObterResumoAsync(
+        Guid operadorId,
+        Guid caixaId,
+        CancellationToken cancellationToken);
 }

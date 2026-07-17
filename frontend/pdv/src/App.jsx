@@ -62,6 +62,7 @@ function App() {
   const [bootstrap, setBootstrap] = useState(null)
   const [caixaAtual, setCaixaAtual] = useState(null)
   const [movimentacoesCaixa, setMovimentacoesCaixa] = useState([])
+  const [resumoCaixa, setResumoCaixa] = useState(null)
   const [venda, setVenda] = useState(null)
   const [loading, setLoading] = useState('')
   const [error, setError] = useState('')
@@ -80,6 +81,13 @@ function App() {
   const trocoPrevisto = checkoutForm.formaPagamento === 'Dinheiro'
     ? Math.max(0, valorPagoCheckout - Number(venda?.total ?? 0))
     : 0
+  const valorFechamentoInformado = closeCashForm.valorFechamento === ''
+    ? null
+    : Number(closeCashForm.valorFechamento)
+  const diferencaFechamentoPrevista =
+    valorFechamentoInformado === null || !resumoCaixa
+      ? null
+      : valorFechamentoInformado - Number(resumoCaixa.dinheiroEsperado)
 
   const totalItens = useMemo(() => {
     return venda?.itens?.reduce((sum, item) => sum + Number(item.quantidade), 0) ?? 0
@@ -90,6 +98,7 @@ function App() {
       setBootstrap(null)
       setCaixaAtual(null)
       setMovimentacoesCaixa([])
+      setResumoCaixa(null)
       setVenda(null)
       setCheckoutResult(null)
       setProductResults([])
@@ -135,10 +144,15 @@ function App() {
       setBootstrap(bootstrapResponse)
       setCaixaAtual(caixaResponse)
       if (caixaResponse?.status === 'Aberto') {
-        const movimentacoes = await requestJson('/bff/pdv/cash-register/current/movements', { token })
+        const [movimentacoes, resumo] = await Promise.all([
+          requestJson('/bff/pdv/cash-register/current/movements', { token }),
+          requestJson('/bff/pdv/cash-register/current/summary', { token }),
+        ])
         setMovimentacoesCaixa(movimentacoes)
+        setResumoCaixa(resumo)
       } else {
         setMovimentacoesCaixa([])
+        setResumoCaixa(null)
       }
     } catch (err) {
       setError(err.message)
@@ -164,7 +178,11 @@ function App() {
       const movimentacoes = await requestJson('/bff/pdv/cash-register/current/movements', {
         token: auth.accessToken,
       })
+      const resumo = await requestJson('/bff/pdv/cash-register/current/summary', {
+        token: auth.accessToken,
+      })
       setMovimentacoesCaixa(movimentacoes)
+      setResumoCaixa(resumo)
       setCashForm(initialCashForm)
     } catch (err) {
       setError(err.message)
@@ -275,6 +293,7 @@ function App() {
     setCheckoutResult(null)
     setCaixaAtual(null)
     setMovimentacoesCaixa([])
+    setResumoCaixa(null)
     setError('')
   }
 
@@ -306,6 +325,7 @@ function App() {
       })
       setCaixaAtual(caixa)
       setMovimentacoesCaixa([])
+      setResumoCaixa(null)
       setCloseCashForm(initialCloseCashForm)
       setVenda(null)
       setCheckoutResult(null)
@@ -351,6 +371,10 @@ function App() {
         valorPago: valorPagoCheckout,
         troco: trocoPrevisto,
       })
+      const resumo = await requestJson('/bff/pdv/cash-register/current/summary', {
+        token: auth.accessToken,
+      })
+      setResumoCaixa(resumo)
       setSelectedProduct(null)
       setItemForm(initialItemForm)
     } catch (err) {
@@ -550,6 +574,44 @@ function App() {
                   {loading === 'abrir-caixa' ? 'Abrindo...' : 'Abrir caixa'}
                 </button>
               </form>
+            )}
+
+            {caixaAberto && (
+              <>
+                {resumoCaixa && (
+                  <div className="cash-turn-summary" aria-label="Resumo do turno">
+                    <Metric
+                      label="Vendas"
+                      value={String(resumoCaixa.quantidadeVendas)}
+                    />
+                    <Metric
+                      label="Total vendido"
+                      value={formatMoney(resumoCaixa.totalVendido, currency, casasDecimais)}
+                      strong
+                    />
+                    <Metric
+                      label="Dinheiro esperado"
+                      value={formatMoney(resumoCaixa.dinheiroEsperado, currency, casasDecimais)}
+                    />
+                    {diferencaFechamentoPrevista !== null && (
+                      <Metric
+                        label="Diferenca"
+                        value={formatMoney(diferencaFechamentoPrevista, currency, casasDecimais)}
+                      />
+                    )}
+                    {resumoCaixa.totaisPorFormaPagamento?.length > 0 && (
+                      <div className="payment-totals">
+                        {resumoCaixa.totaisPorFormaPagamento.map((total) => (
+                          <span key={total.formaPagamento}>
+                            <strong>{total.formaPagamento}</strong>
+                            <em>{formatMoney(total.total, currency, casasDecimais)}</em>
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </>
             )}
 
             {caixaAberto && (

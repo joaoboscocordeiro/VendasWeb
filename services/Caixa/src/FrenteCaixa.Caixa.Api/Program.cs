@@ -153,6 +153,28 @@ caixas.MapGet("/{id:guid}/movements", async (
     .RequireAuthorization("OperadorCaixa")
     .WithName("ListarMovimentacoesCaixa");
 
+caixas.MapGet("/{id:guid}/summary", async (
+        Guid id,
+        ClaimsPrincipal usuario,
+        IServicoCaixa servicoCaixa,
+        CancellationToken cancellationToken) =>
+    {
+        var operadorId = ObterOperadorId(usuario);
+
+        if (operadorId is null)
+        {
+            return Results.BadRequest(new RespostaErro("Token nao contem operador valido."));
+        }
+
+        var resultado = await servicoCaixa.ObterResumoAsync(operadorId.Value, id, cancellationToken);
+
+        return resultado.Sucesso
+            ? Results.Ok(resultado.Valor)
+            : MapearFalha(resultado);
+    })
+    .RequireAuthorization("OperadorCaixa")
+    .WithName("ObterResumoCaixa");
+
 app.Run();
 
 static void GarantirConfiguracaoJwt(WebApplicationBuilder builder)

@@ -242,6 +242,43 @@ pdv.MapGet("/cash-register/current/movements", async (
     })
     .WithName("ListarMovimentacoesCaixaAtualPdv");
 
+pdv.MapGet("/cash-register/current/summary", async (
+        HttpRequest request,
+        IPdvCaixaService caixaService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var caixa = await caixaService.ObterAtualAsync(
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            if (caixa is null)
+            {
+                return Results.NotFound(new RespostaErro("Nenhum caixa aberto para o operador."));
+            }
+
+            var resumo = await caixaService.ObterResumoAsync(
+                caixa.Id,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(resumo);
+        }
+        catch (PdvCaixaHttpException ex)
+        {
+            return MapearFalhaCaixa(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Caixa indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ObterResumoCaixaAtualPdv");
+
 pdv.MapPost("/cash-register/{id:guid}/close", async (
         Guid id,
         FecharCaixaPdvRequest fecharCaixa,

@@ -96,6 +96,24 @@ public sealed class CaixaPdvService : IPdvCaixaService
             ?? [];
     }
 
+    public async Task<PdvResumoCaixaResponse> ObterResumoAsync(
+        Guid caixaId,
+        string authorizationHeader,
+        CancellationToken cancellationToken)
+    {
+        using var request = CriarRequest(
+            HttpMethod.Get,
+            $"/cash-registers/{caixaId}/summary",
+            authorizationHeader);
+        using var response = await _httpClient.SendAsync(request, cancellationToken);
+        await GarantirSucessoAsync(response, cancellationToken);
+
+        return await response.Content.ReadFromJsonAsync<PdvResumoCaixaResponse>(
+                JsonOptions,
+                cancellationToken)
+            ?? throw new InvalidOperationException("Servico de Caixa retornou resumo vazio.");
+    }
+
     private HttpRequestMessage CriarRequest(
         HttpMethod method,
         string caminho,

@@ -101,6 +101,40 @@ public sealed class PdvCaixaTests
     }
 
     [Fact]
+    public async Task bff_pdv_cash_register_current_summary_returns_summary()
+    {
+        using var factory = new BffApiFactory();
+        var client = factory.CreateClient();
+        Autenticar(client, "VENDEDOR");
+
+        var resposta = await client.GetAsync("/pdv/cash-register/current/summary");
+        var resumo = await resposta.Content.ReadFromJsonAsync<PdvResumoCaixaResponse>();
+
+        Assert.Equal(HttpStatusCode.OK, resposta.StatusCode);
+        Assert.NotNull(resumo);
+        Assert.Equal(2, resumo.QuantidadeVendas);
+        Assert.Equal(55m, resumo.TotalVendido);
+        Assert.Equal(65m, resumo.DinheiroEsperado);
+        Assert.Contains(resumo.TotaisPorFormaPagamento, total =>
+            total.FormaPagamento == "Dinheiro" && total.Total == 40m);
+        Assert.Equal(factory.CaixaService.CaixaAtual!.Id, factory.CaixaService.UltimoCaixaId);
+        Assert.StartsWith("Bearer ", factory.CaixaService.UltimoAuthorizationHeader);
+    }
+
+    [Fact]
+    public async Task bff_pdv_cash_register_current_summary_missing_cash_register_returns_not_found()
+    {
+        using var factory = new BffApiFactory();
+        factory.CaixaService.CaixaAtual = null;
+        var client = factory.CreateClient();
+        Autenticar(client, "VENDEDOR");
+
+        var resposta = await client.GetAsync("/pdv/cash-register/current/summary");
+
+        Assert.Equal(HttpStatusCode.NotFound, resposta.StatusCode);
+    }
+
+    [Fact]
     public async Task bff_pdv_cash_register_close_rejects_negative_value()
     {
         using var factory = new BffApiFactory();

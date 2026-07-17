@@ -438,6 +438,65 @@ code {
   white-space: nowrap;
 }
 
+.cash-turn-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.cash-turn-summary .metric {
+  border-right: 1px solid var(--line);
+  padding: 10px 12px;
+}
+
+.cash-turn-summary .metric:nth-child(4n) {
+  border-right: 0;
+}
+
+.cash-turn-summary .metric strong {
+  font-size: 0.98rem;
+}
+
+.payment-totals {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(90px, 1fr));
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-soft);
+  padding: 10px;
+}
+
+.payment-totals span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #ffffff;
+  padding: 8px 9px;
+}
+
+.payment-totals strong {
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.payment-totals em {
+  min-width: 0;
+  color: var(--text);
+  font-style: normal;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
 .cash-panel .inline-form,
 .start-sale-form {
   grid-template-columns: minmax(180px, 1fr) auto;
@@ -752,6 +811,18 @@ code {
 
   .operator-chip {
     flex: 1;
+  }
+
+  .cash-turn-summary {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+
+  .cash-turn-summary .metric:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .payment-totals {
+    grid-template-columns: 1fr;
   }
 
   .inline-form,

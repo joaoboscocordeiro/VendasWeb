@@ -21,4 +21,5 @@ As chamadas HTTP usam proxy local:
 - `/bff` -> `http://localhost:5265`
 - `/vendas` -> `http://localhost:5165`
 
-O checkout permanece fora deste recorte; a tela opera somente venda em andamento.
+Fluxo atual da tela: login, bootstrap do BFF, abertura de caixa, busca de produto,
+venda em andamento, checkout, resumo do turno e fechamento de caixa.

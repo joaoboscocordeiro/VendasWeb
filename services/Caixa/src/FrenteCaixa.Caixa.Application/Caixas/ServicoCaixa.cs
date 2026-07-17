@@ -113,6 +113,50 @@ public sealed class ServicoCaixa : IServicoCaixa
         return ResultadoOperacao<IReadOnlyCollection<MovimentacaoCaixaResponse>>.Ok(response);
     }
 
+    public async Task<ResultadoOperacao<ResumoCaixaResponse>> ObterResumoAsync(
+        Guid operadorId,
+        Guid caixaId,
+        CancellationToken cancellationToken)
+    {
+        var caixa = await _caixas.ObterPorIdAsync(caixaId, cancellationToken);
+
+        if (caixa is null || caixa.OperadorId != operadorId)
+        {
+            return ResultadoOperacao<ResumoCaixaResponse>.NaoEncontrado("Caixa nao encontrado.");
+        }
+
+        var vendas = await _caixas.ListarVendasProjetadasAsync(caixaId, cancellationToken);
+        var totaisPorFormaPagamento = vendas
+            .GroupBy(venda => venda.FormaPagamento)
+            .OrderBy(grupo => grupo.Key)
+            .Select(grupo => new TotalFormaPagamentoCaixaResponse(
+                grupo.Key,
+                grupo.Count(),
+                grupo.Sum(venda => venda.ValorTotal)))
+            .ToArray();
+
+        var totalVendido = vendas.Sum(venda => venda.ValorTotal);
+        var dinheiroVendido = totaisPorFormaPagamento
+            .Where(total => string.Equals(total.FormaPagamento, "Dinheiro", StringComparison.OrdinalIgnoreCase))
+            .Sum(total => total.Total);
+        var dinheiroEsperado = caixa.ValorInicial + dinheiroVendido;
+        var diferencaPrevista = caixa.ValorFechamento is null
+            ? (decimal?)null
+            : caixa.ValorFechamento.Value - dinheiroEsperado;
+
+        return ResultadoOperacao<ResumoCaixaResponse>.Ok(new ResumoCaixaResponse(
+            caixa.Id,
+            caixa.OperadorId,
+            caixa.Status.ToString(),
+            caixa.ValorInicial,
+            caixa.ValorFechamento,
+            vendas.Count,
+            totalVendido,
+            dinheiroEsperado,
+            diferencaPrevista,
+            totaisPorFormaPagamento));
+    }
+
     private static CaixaOperacionalResponse MapearCaixa(CaixaOperacional caixa)
     {
         return new CaixaOperacionalResponse(

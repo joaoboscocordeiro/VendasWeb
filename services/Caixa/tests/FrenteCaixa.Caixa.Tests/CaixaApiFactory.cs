@@ -28,18 +28,21 @@ public sealed class CaixaApiFactory : WebApplicationFactory<Program>
                 ["ConnectionStrings:Caixa"] = "Host=localhost;Database=frente_caixa_caixa_testes",
                 ["Jwt:Issuer"] = JwtIssuer,
                 ["Jwt:Audience"] = JwtAudience,
-                ["Jwt:Chave"] = JwtKey
+                ["Jwt:Chave"] = JwtKey,
+                ["RabbitMqConsumers:VendaConcluida:Habilitado"] = "false"
             });
         });
 
         builder.ConfigureServices(services =>
         {
             services.RemoveAll<ICaixaRepositorio>();
+            services.RemoveAll<IInboxRepositorioCaixa>();
             services.RemoveAll<IUnidadeTrabalho>();
             services.RemoveAll<IRelogio>();
 
             services.AddSingleton<BancoCaixaEmMemoria>();
             services.AddScoped<ICaixaRepositorio, CaixaRepositorioEmMemoria>();
+            services.AddScoped<IInboxRepositorioCaixa, InboxRepositorioCaixaEmMemoria>();
             services.AddScoped<IUnidadeTrabalho, UnidadeTrabalhoEmMemoria>();
             services.AddSingleton<IRelogio, RelogioFixo>();
         });
@@ -61,6 +64,28 @@ public sealed class CaixaApiFactory : WebApplicationFactory<Program>
         await Task.CompletedTask;
 
         return caixa;
+    }
+
+    public async Task SemearVendaProjetadaAsync(
+        Guid caixaId,
+        string formaPagamento,
+        decimal valorTotal,
+        Guid? operadorId = null)
+    {
+        using var scope = Services.CreateScope();
+        var banco = scope.ServiceProvider.GetRequiredService<BancoCaixaEmMemoria>();
+        var venda = VendaCaixaProjetada.Criar(
+            Guid.NewGuid(),
+            caixaId,
+            operadorId ?? OperadorPadraoId,
+            Guid.NewGuid(),
+            formaPagamento,
+            valorTotal,
+            DateTimeOffset.UtcNow,
+            DateTimeOffset.UtcNow);
+
+        banco.VendasProjetadas.Add(venda);
+        await Task.CompletedTask;
     }
 
     public void Limpar()

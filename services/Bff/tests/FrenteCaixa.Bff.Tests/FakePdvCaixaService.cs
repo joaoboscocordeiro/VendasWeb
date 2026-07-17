@@ -34,6 +34,21 @@ public sealed class FakePdvCaixaService : IPdvCaixaService
             DateTimeOffset.Parse("2026-07-17T08:00:00-03:00"))
     ];
 
+    public PdvResumoCaixaResponse Resumo { get; set; } = new(
+        Guid.Parse("a74f66b6-e812-47c8-a661-7787c069d38d"),
+        Guid.Parse("1f2dfaa8-49bf-49ad-8961-cd613d75a5b8"),
+        "Aberto",
+        25m,
+        null,
+        2,
+        55m,
+        65m,
+        null,
+        [
+            new("Dinheiro", 1, 40m),
+            new("Pix", 1, 15m)
+        ]);
+
     public Task<PdvCaixaResponse?> ObterAtualAsync(
         string authorizationHeader,
         CancellationToken cancellationToken)
@@ -98,5 +113,16 @@ public sealed class FakePdvCaixaService : IPdvCaixaService
             .ToArray();
 
         return Task.FromResult(movimentacoes);
+    }
+
+    public Task<PdvResumoCaixaResponse> ObterResumoAsync(
+        Guid caixaId,
+        string authorizationHeader,
+        CancellationToken cancellationToken)
+    {
+        UltimoAuthorizationHeader = authorizationHeader;
+        UltimoCaixaId = caixaId;
+
+        return Task.FromResult(Resumo with { CaixaId = caixaId });
     }
 }

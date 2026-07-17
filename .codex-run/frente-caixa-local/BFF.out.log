@@ -65,25 +65,7 @@ info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
       Sending HTTP request GET http://localhost:5002/api/saude
 warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Caixa.
-      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
-       ---> System.TimeoutException: A task was canceled.
-       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
-         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
-         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
-         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         --- End of inner exception stack trace ---
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
-warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Identidade.
+      Falha ao consultar health do servico Estoque.
       System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
        ---> System.TimeoutException: A task was canceled.
        ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
@@ -119,7 +101,7 @@ warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
          at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
          at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
 warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Estoque.
+      Falha ao consultar health do servico Caixa.
       System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
        ---> System.TimeoutException: A task was canceled.
        ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
@@ -138,6 +120,150 @@ warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
          at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
 warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
       Falha ao consultar health do servico CatalogoProdutos.
+      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
+       ---> System.TimeoutException: A task was canceled.
+       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         --- End of inner exception stack trace ---
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
+warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
+      Falha ao consultar health do servico Identidade.
+      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
+       ---> System.TimeoutException: A task was canceled.
+       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         --- End of inner exception stack trace ---
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
+warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
+      Falha ao consultar health do servico Relatorios.
+      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
+       ---> System.TimeoutException: A task was canceled.
+       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         --- End of inner exception stack trace ---
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
+warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
+      Falha ao consultar health do servico Identidade.
+      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
+       ---> System.TimeoutException: A task was canceled.
+       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         --- End of inner exception stack trace ---
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
+warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
+      Falha ao consultar health do servico CatalogoProdutos.
+      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
+       ---> System.TimeoutException: A task was canceled.
+       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         --- End of inner exception stack trace ---
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
+warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
+      Falha ao consultar health do servico Estoque.
+      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
+       ---> System.TimeoutException: A task was canceled.
+       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         --- End of inner exception stack trace ---
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
+warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
+      Falha ao consultar health do servico Pagamentos.
+      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
+       ---> System.TimeoutException: A task was canceled.
+       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         --- End of inner exception stack trace ---
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
+warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
+      Falha ao consultar health do servico Caixa.
+      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
+       ---> System.TimeoutException: A task was canceled.
+       ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+         at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         --- End of inner exception stack trace ---
+         --- End of inner exception stack trace ---
+         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
+warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
+      Falha ao consultar health do servico Vendas.
       System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
        ---> System.TimeoutException: A task was canceled.
        ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
@@ -178,188 +304,6 @@ warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
        ---> System.TimeoutException: A task was canceled.
        ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
          at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
-         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
-         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         --- End of inner exception stack trace ---
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
-warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico CatalogoProdutos.
-      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
-       ---> System.TimeoutException: The operation was canceled.
-       ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
-       ---> System.IO.IOException: Unable to read data from the transport connection: A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo..
-       ---> System.Net.Sockets.SocketException (995): A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo.
-         --- End of inner exception stack trace ---
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
-         at System.Net.Http.HttpConnection.InitialFillAsync(Boolean async)
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
-         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         --- End of inner exception stack trace ---
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
-warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Vendas.
-      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
-       ---> System.TimeoutException: The operation was canceled.
-       ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
-       ---> System.IO.IOException: Unable to read data from the transport connection: A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo..
-       ---> System.Net.Sockets.SocketException (995): A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo.
-         --- End of inner exception stack trace ---
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
-         at System.Net.Http.HttpConnection.InitialFillAsync(Boolean async)
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
-         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         --- End of inner exception stack trace ---
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
-warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Caixa.
-      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
-       ---> System.TimeoutException: The operation was canceled.
-       ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
-       ---> System.IO.IOException: Unable to read data from the transport connection: A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo..
-       ---> System.Net.Sockets.SocketException (995): A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo.
-         --- End of inner exception stack trace ---
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
-         at System.Net.Http.HttpConnection.InitialFillAsync(Boolean async)
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
-         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         --- End of inner exception stack trace ---
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
-warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Estoque.
-      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
-       ---> System.TimeoutException: The operation was canceled.
-       ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
-       ---> System.IO.IOException: Unable to read data from the transport connection: A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo..
-       ---> System.Net.Sockets.SocketException (995): A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo.
-         --- End of inner exception stack trace ---
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
-         at System.Net.Http.HttpConnection.InitialFillAsync(Boolean async)
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
-         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         --- End of inner exception stack trace ---
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
-warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Identidade.
-      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
-       ---> System.TimeoutException: The operation was canceled.
-       ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
-       ---> System.IO.IOException: Unable to read data from the transport connection: A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo..
-       ---> System.Net.Sockets.SocketException (995): A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo.
-         --- End of inner exception stack trace ---
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
-         at System.Net.Http.HttpConnection.InitialFillAsync(Boolean async)
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
-         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         --- End of inner exception stack trace ---
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
-warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Pagamentos.
-      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
-       ---> System.TimeoutException: The operation was canceled.
-       ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
-       ---> System.IO.IOException: Unable to read data from the transport connection: A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo..
-       ---> System.Net.Sockets.SocketException (995): A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo.
-         --- End of inner exception stack trace ---
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
-         at System.Net.Http.HttpConnection.InitialFillAsync(Boolean async)
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
-         at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         --- End of inner exception stack trace ---
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
-         at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
-         at FrenteCaixa.Bff.Api.Pdv.BackendHealthClient.ObterStatusAsync(BackendServicoOptions servico, CancellationToken cancellationToken) in F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\Pdv\BackendHealthClient.cs:line 29
-warn: FrenteCaixa.Bff.Api.Pdv.BackendHealthClient[0]
-      Falha ao consultar health do servico Relatorios.
-      System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 2 seconds elapsing.
-       ---> System.TimeoutException: The operation was canceled.
-       ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
-       ---> System.IO.IOException: Unable to read data from the transport connection: A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo..
-       ---> System.Net.Sockets.SocketException (995): A opera‡Æo de E/S foi anulada devido a uma sa¡da de thread ou a uma requisi‡Æo de aplicativo.
-         --- End of inner exception stack trace ---
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
-         at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
-         at System.Net.Http.HttpConnection.InitialFillAsync(Boolean async)
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
-         --- End of inner exception stack trace ---
-         at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
          at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
          at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
          at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
@@ -429,90 +373,210 @@ info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
       Sending HTTP request GET http://localhost:5002/api/saude
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 3.6428ms - 200
+      Received HTTP response headers after 6.2389ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 3.2532ms - 200
+      Received HTTP response headers after 11.4066ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 2.9453ms - 200
-info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 10.3309ms - 200
-info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 8.7161ms - 200
-info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 8.3326ms - 200
+      Received HTTP response headers after 6.0141ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 10.9872ms - 200
+      Received HTTP response headers after 7.569ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 11.0288ms - 200
+      End processing HTTP request after 11.3444ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 11.6159ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 14.1144ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 17.5591ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 11.0544ms - 200
+      Received HTTP response headers after 15.1036ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 11.0918ms - 200
+      End processing HTTP request after 15.1523ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 10.9556ms - 200
-info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 10.9839ms - 200
+      Received HTTP response headers after 14.813ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 10.8996ms - 200
+      Received HTTP response headers after 8.8772ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 10.9226ms - 200
+      End processing HTTP request after 14.8553ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 8.9263ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 13.646ms - 200
+      Received HTTP response headers after 8.69ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 13.6798ms - 200
+      End processing HTTP request after 8.7165ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 13.4237ms - 200
-info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 13.4463ms - 200
+      Received HTTP response headers after 13.2195ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 13.5168ms - 200
-info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 13.5338ms - 200
+      Received HTTP response headers after 8.5678ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 13.6672ms - 200
-info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 13.6844ms - 200
+      Received HTTP response headers after 14.144ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 13.8407ms - 200
+      Received HTTP response headers after 14.4196ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 13.8758ms - 200
+      End processing HTTP request after 13.2451ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 8.5949ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 14.1712ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 14.4595ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 14.4065ms - 200
+      Received HTTP response headers after 8.4159ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 14.4364ms - 200
+      End processing HTTP request after 8.44ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
-      Received HTTP response headers after 14.8211ms - 200
+      Received HTTP response headers after 13.9641ms - 200
 info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
-      End processing HTTP request after 14.847ms - 200
+      End processing HTTP request after 13.9931ms - 200
 info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:5062/cash-registers/current
 info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
       Sending HTTP request GET http://localhost:5062/cash-registers/current
 info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
-      Received HTTP response headers after 3444.7991ms - 200
+      Received HTTP response headers after 3500.966ms - 404
 info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
-      End processing HTTP request after 3444.8746ms - 200
+      End processing HTTP request after 3501.0579ms - 404
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request POST http://localhost:5062/cash-registers/open
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request POST http://localhost:5062/cash-registers/open
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 369.0545ms - 201
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 369.153ms - 201
 info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:5062/cash-registers/current
 info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
       Sending HTTP request GET http://localhost:5062/cash-registers/current
 info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
-      Received HTTP response headers after 81.5156ms - 200
+      Received HTTP response headers after 71.2457ms - 200
 info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
-      End processing HTTP request after 81.6071ms - 200
+      End processing HTTP request after 71.305ms - 200
 info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:5062/cash-registers/4612a192-6655-4ccf-99c4-b653d30a98ac/movements
+      Start processing HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
 info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
-      Sending HTTP request GET http://localhost:5062/cash-registers/4612a192-6655-4ccf-99c4-b653d30a98ac/movements
+      Sending HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
 info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
-      Received HTTP response headers after 133.0126ms - 200
+      Received HTTP response headers after 114.5719ms - 200
 info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
-      End processing HTTP request after 133.0825ms - 200
+      End processing HTTP request after 114.6407ms - 200
 info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
-      Start processing HTTP request POST http://localhost:5062/cash-registers/4612a192-6655-4ccf-99c4-b653d30a98ac/close
+      Start processing HTTP request GET http://localhost:5062/cash-registers/current
 info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
-      Sending HTTP request POST http://localhost:5062/cash-registers/4612a192-6655-4ccf-99c4-b653d30a98ac/close
+      Sending HTTP request GET http://localhost:5062/cash-registers/current
 info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
-      Received HTTP response headers after 261.2061ms - 200
+      Received HTTP response headers after 7.0494ms - 200
 info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
-      End processing HTTP request after 261.2793ms - 200
+      End processing HTTP request after 7.1124ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 3.7329ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 3.8219ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 8.3724ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 8.4331ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 14.9026ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 15.0967ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 10.7668ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 10.8281ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 4.586ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 4.6468ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 7.4677ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 7.621ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 3.3605ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 3.4655ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 7.2067ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 7.2767ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 11.4803ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 11.6926ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 9.7703ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 9.8447ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 5.6031ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 5.8366ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 8.5755ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 8.7217ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/current
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 3.6569ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 3.7331ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/cash-registers/585660dd-0e7a-48ef-a01e-4b66bc1f1a85/summary
+info: System.Net.Http.HttpClient.IPdvCaixaService.ClientHandler[101]
+      Received HTTP response headers after 7.8945ms - 200
+info: System.Net.Http.HttpClient.IPdvCaixaService.LogicalHandler[101]
+      End processing HTTP request after 7.9361ms - 200

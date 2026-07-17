@@ -1,4 +1,5 @@
 using FrenteCaixa.Caixa.Domain.Caixas;
+using FrenteCaixa.BuildingBlocks.Inbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace FrenteCaixa.Caixa.Infrastructure.Persistencia;
@@ -12,6 +13,8 @@ public sealed class CaixaDbContext : DbContext
 
     public DbSet<CaixaOperacional> CaixasOperacionais => Set<CaixaOperacional>();
     public DbSet<MovimentacaoCaixa> MovimentacoesCaixa => Set<MovimentacaoCaixa>();
+    public DbSet<VendaCaixaProjetada> VendasCaixaProjetadas => Set<VendaCaixaProjetada>();
+    public DbSet<RegistroInbox> InboxMensagens => Set<RegistroInbox>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,6 +55,34 @@ public sealed class CaixaDbContext : DbContext
             entity.Property(movimentacao => movimentacao.CriadaEm).IsRequired();
 
             entity.HasIndex(movimentacao => movimentacao.CaixaId);
+        });
+
+        modelBuilder.Entity<VendaCaixaProjetada>(entity =>
+        {
+            entity.ToTable("vendas_caixa_projetadas");
+            entity.HasKey(venda => venda.VendaId);
+
+            entity.Property(venda => venda.VendaId).ValueGeneratedNever();
+            entity.Property(venda => venda.CaixaId).IsRequired();
+            entity.Property(venda => venda.OperadorId).IsRequired();
+            entity.Property(venda => venda.PagamentoId).IsRequired();
+            entity.Property(venda => venda.FormaPagamento).HasMaxLength(24).IsRequired();
+            entity.Property(venda => venda.ValorTotal).HasPrecision(18, 2).IsRequired();
+            entity.Property(venda => venda.OcorridaEm).IsRequired();
+            entity.Property(venda => venda.ProjetadaEm).IsRequired();
+
+            entity.HasIndex(venda => venda.CaixaId);
+            entity.HasIndex(venda => venda.OperadorId);
+        });
+
+        modelBuilder.Entity<RegistroInbox>(entity =>
+        {
+            entity.ToTable("inbox_mensagens");
+            entity.HasKey(mensagem => mensagem.MensagemId);
+
+            entity.Property(mensagem => mensagem.MensagemId).ValueGeneratedNever();
+            entity.Property(mensagem => mensagem.RoutingKey).HasMaxLength(180).IsRequired();
+            entity.Property(mensagem => mensagem.ConsumidoEm).IsRequired();
         });
     }
 }

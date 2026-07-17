@@ -38,6 +38,20 @@ public sealed class CaixaRepositorio : ICaixaRepositorio
         await _dbContext.MovimentacoesCaixa.AddAsync(movimentacao, cancellationToken);
     }
 
+    public Task<VendaCaixaProjetada?> ObterVendaProjetadaAsync(
+        Guid vendaId,
+        CancellationToken cancellationToken)
+    {
+        return _dbContext.VendasCaixaProjetadas.FindAsync([vendaId], cancellationToken).AsTask();
+    }
+
+    public async Task AdicionarVendaProjetadaAsync(
+        VendaCaixaProjetada venda,
+        CancellationToken cancellationToken)
+    {
+        await _dbContext.VendasCaixaProjetadas.AddAsync(venda, cancellationToken);
+    }
+
     public async Task<IReadOnlyCollection<MovimentacaoCaixa>> ListarMovimentacoesAsync(
         Guid caixaId,
         CancellationToken cancellationToken)
@@ -46,6 +60,17 @@ public sealed class CaixaRepositorio : ICaixaRepositorio
             .AsNoTracking()
             .Where(movimentacao => movimentacao.CaixaId == caixaId)
             .OrderBy(movimentacao => movimentacao.CriadaEm)
+            .ToArrayAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyCollection<VendaCaixaProjetada>> ListarVendasProjetadasAsync(
+        Guid caixaId,
+        CancellationToken cancellationToken)
+    {
+        return await _dbContext.VendasCaixaProjetadas
+            .AsNoTracking()
+            .Where(venda => venda.CaixaId == caixaId)
+            .OrderBy(venda => venda.OcorridaEm)
             .ToArrayAsync(cancellationToken);
     }
 }

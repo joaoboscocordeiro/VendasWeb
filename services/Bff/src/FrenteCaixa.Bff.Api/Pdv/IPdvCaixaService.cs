@@ -21,4 +21,9 @@ public interface IPdvCaixaService
         Guid caixaId,
         string authorizationHeader,
         CancellationToken cancellationToken);
+
+    Task<PdvResumoCaixaResponse> ObterResumoAsync(
+        Guid caixaId,
+        string authorizationHeader,
+        CancellationToken cancellationToken);
 }

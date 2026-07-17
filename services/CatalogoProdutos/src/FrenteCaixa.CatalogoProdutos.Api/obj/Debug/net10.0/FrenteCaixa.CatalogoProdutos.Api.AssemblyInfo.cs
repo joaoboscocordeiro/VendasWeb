@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrenteCaixa.CatalogoProdutos.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c7f92d4b134531adf3027148c4115c61e04c1ba")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+acf0cccbdc9f604a4ffdf2a9d5c6ba3da000e235")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrenteCaixa.CatalogoProdutos.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrenteCaixa.CatalogoProdutos.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

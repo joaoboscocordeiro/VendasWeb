@@ -8,3 +8,28 @@ info: Microsoft.Hosting.Lifetime[0]
       Content root path: F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Api
 warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
       Failed to determine the https port for redirect.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (66ms) [Parameters=[@__mensagemId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM inbox_mensagens AS i
+          WHERE i."MensagemId" = @__mensagemId_0)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@__vendaId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT v0."VendaId", v0."CaixaId", v0."ConcluidaEm", v0."FormaPagamento", v0."OperadorId", v0."PagamentoId", v0."ProjetadaEm", v0."ValorTotal", i."Id", i."DescricaoProduto", i."PrecoUnitario", i."ProdutoId", i."Quantidade", i."Subtotal", i."VendaId"
+      FROM (
+          SELECT v."VendaId", v."CaixaId", v."ConcluidaEm", v."FormaPagamento", v."OperadorId", v."PagamentoId", v."ProjetadaEm", v."ValorTotal"
+          FROM vendas_concluidas AS v
+          WHERE v."VendaId" = @__vendaId_0
+          LIMIT 2
+      ) AS v0
+      LEFT JOIN itens_vendas_concluidas AS i ON v0."VendaId" = i."VendaId"
+      ORDER BY v0."VendaId"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Guid), @p4='?' (DbType = Guid), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Guid), @p8='?' (DbType = Guid), @p9='?' (DbType = DateTime), @p10='?' (DbType = Decimal), @p11='?' (DbType = Guid), @p12='?', @p13='?' (DbType = Decimal), @p14='?' (DbType = Guid), @p15='?' (DbType = Decimal), @p16='?' (DbType = Decimal), @p17='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO inbox_mensagens ("MensagemId", "ConsumidoEm", "RoutingKey")
+      VALUES (@p0, @p1, @p2);
+      INSERT INTO vendas_concluidas ("VendaId", "CaixaId", "ConcluidaEm", "FormaPagamento", "OperadorId", "PagamentoId", "ProjetadaEm", "ValorTotal")
+      VALUES (@p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+      INSERT INTO itens_vendas_concluidas ("Id", "DescricaoProduto", "PrecoUnitario", "ProdutoId", "Quantidade", "Subtotal", "VendaId")
+      VALUES (@p11, @p12, @p13, @p14, @p15, @p16, @p17);

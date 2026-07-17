@@ -22,6 +22,24 @@ namespace FrenteCaixa.Caixa.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("FrenteCaixa.BuildingBlocks.Inbox.RegistroInbox", b =>
+                {
+                    b.Property<Guid>("MensagemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("ConsumidoEm")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RoutingKey")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
+
+                    b.HasKey("MensagemId");
+
+                    b.ToTable("inbox_mensagens", (string)null);
+                });
+
             modelBuilder.Entity("FrenteCaixa.Caixa.Domain.Caixas.CaixaOperacional", b =>
                 {
                     b.Property<Guid>("Id")
@@ -92,6 +110,44 @@ namespace FrenteCaixa.Caixa.Infrastructure.Migrations
                     b.HasIndex("CaixaId");
 
                     b.ToTable("movimentacoes_caixa", (string)null);
+                });
+
+            modelBuilder.Entity("FrenteCaixa.Caixa.Domain.Caixas.VendaCaixaProjetada", b =>
+                {
+                    b.Property<Guid>("VendaId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CaixaId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FormaPagamento")
+                        .IsRequired()
+                        .HasMaxLength(24)
+                        .HasColumnType("character varying(24)");
+
+                    b.Property<DateTimeOffset>("OcorridaEm")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("OperadorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PagamentoId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("ProjetadaEm")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.HasKey("VendaId");
+
+                    b.HasIndex("CaixaId");
+
+                    b.HasIndex("OperadorId");
+
+                    b.ToTable("vendas_caixa_projetadas", (string)null);
                 });
 #pragma warning restore 612, 618
         }

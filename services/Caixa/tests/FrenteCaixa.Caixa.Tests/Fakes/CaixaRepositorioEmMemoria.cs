@@ -43,6 +43,22 @@ public sealed class CaixaRepositorioEmMemoria : ICaixaRepositorio
         return Task.CompletedTask;
     }
 
+    public Task<VendaCaixaProjetada?> ObterVendaProjetadaAsync(
+        Guid vendaId,
+        CancellationToken cancellationToken)
+    {
+        var venda = _banco.VendasProjetadas.SingleOrDefault(item => item.VendaId == vendaId);
+
+        return Task.FromResult(venda);
+    }
+
+    public Task AdicionarVendaProjetadaAsync(VendaCaixaProjetada venda, CancellationToken cancellationToken)
+    {
+        _banco.VendasProjetadas.Add(venda);
+
+        return Task.CompletedTask;
+    }
+
     public Task<IReadOnlyCollection<MovimentacaoCaixa>> ListarMovimentacoesAsync(
         Guid caixaId,
         CancellationToken cancellationToken)
@@ -53,5 +69,17 @@ public sealed class CaixaRepositorioEmMemoria : ICaixaRepositorio
             .ToArray();
 
         return Task.FromResult<IReadOnlyCollection<MovimentacaoCaixa>>(movimentacoes);
+    }
+
+    public Task<IReadOnlyCollection<VendaCaixaProjetada>> ListarVendasProjetadasAsync(
+        Guid caixaId,
+        CancellationToken cancellationToken)
+    {
+        var vendas = _banco.VendasProjetadas
+            .Where(venda => venda.CaixaId == caixaId)
+            .OrderBy(venda => venda.OcorridaEm)
+            .ToArray();
+
+        return Task.FromResult<IReadOnlyCollection<VendaCaixaProjetada>>(vendas);
     }
 }
