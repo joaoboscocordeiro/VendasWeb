@@ -15,6 +15,7 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
 
     public FakeBackendHealthClient BackendHealthClient { get; } = new();
     public FakePdvProdutosService ProdutosService { get; } = new();
+    public FakePdvCaixaService CaixaService { get; } = new();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -34,7 +35,10 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
                 ["PdvBootstrap:Servicos:0:HealthPath"] = "/api/saude",
                 ["PdvBootstrap:Servicos:1:Nome"] = "Estoque",
                 ["PdvBootstrap:Servicos:1:BaseUrl"] = "http://estoque.local",
-                ["PdvBootstrap:Servicos:1:HealthPath"] = "/api/saude"
+                ["PdvBootstrap:Servicos:1:HealthPath"] = "/api/saude",
+                ["PdvBootstrap:Servicos:2:Nome"] = "Caixa",
+                ["PdvBootstrap:Servicos:2:BaseUrl"] = "http://caixa.local",
+                ["PdvBootstrap:Servicos:2:HealthPath"] = "/api/saude"
             });
         });
 
@@ -42,6 +46,7 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
         {
             services.RemoveAll<IBackendHealthClient>();
             services.RemoveAll<IPdvProdutosService>();
+            services.RemoveAll<IPdvCaixaService>();
 
             services.AddSingleton(BackendHealthClient);
             services.AddSingleton<IBackendHealthClient>(sp =>
@@ -49,6 +54,9 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
             services.AddSingleton(ProdutosService);
             services.AddSingleton<IPdvProdutosService>(sp =>
                 sp.GetRequiredService<FakePdvProdutosService>());
+            services.AddSingleton(CaixaService);
+            services.AddSingleton<IPdvCaixaService>(sp =>
+                sp.GetRequiredService<FakePdvCaixaService>());
         });
     }
 }

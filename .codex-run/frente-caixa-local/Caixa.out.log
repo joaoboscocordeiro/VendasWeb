@@ -8,3 +8,39 @@ info: Microsoft.Hosting.Lifetime[0]
       Content root path: F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Api
 warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
       Failed to determine the https port for redirect.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (58ms) [Parameters=[@__operadorId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT c."Id", c."AbertoEm", c."AtualizadoEm", c."FechadoEm", c."OperadorId", c."Status", c."ValorFechamento", c."ValorInicial"
+      FROM caixas_operacionais AS c
+      WHERE c."OperadorId" = @__operadorId_0 AND c."Status" = 'Aberto'
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@__operadorId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT c."Id", c."AbertoEm", c."AtualizadoEm", c."FechadoEm", c."OperadorId", c."Status", c."ValorFechamento", c."ValorInicial"
+      FROM caixas_operacionais AS c
+      WHERE c."OperadorId" = @__operadorId_0 AND c."Status" = 'Aberto'
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT c."Id", c."AbertoEm", c."AtualizadoEm", c."FechadoEm", c."OperadorId", c."Status", c."ValorFechamento", c."ValorInicial"
+      FROM caixas_operacionais AS c
+      WHERE c."Id" = @__p_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__caixaId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT m."Id", m."CaixaId", m."CriadaEm", m."Descricao", m."OperadorId", m."Tipo", m."Valor"
+      FROM movimentacoes_caixa AS m
+      WHERE m."CaixaId" = @__caixaId_0
+      ORDER BY m."CriadaEm"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT c."Id", c."AbertoEm", c."AtualizadoEm", c."FechadoEm", c."OperadorId", c."Status", c."ValorFechamento", c."ValorInicial"
+      FROM caixas_operacionais AS c
+      WHERE c."Id" = @__p_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (13ms) [Parameters=[@p4='?' (DbType = Guid), @p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?', @p3='?' (DbType = Decimal), @p5='?' (DbType = Guid), @p6='?' (DbType = Guid), @p7='?' (DbType = DateTime), @p8='?', @p9='?' (DbType = Guid), @p10='?', @p11='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+      UPDATE caixas_operacionais SET "AtualizadoEm" = @p0, "FechadoEm" = @p1, "Status" = @p2, "ValorFechamento" = @p3
+      WHERE "Id" = @p4;
+      INSERT INTO movimentacoes_caixa ("Id", "CaixaId", "CriadaEm", "Descricao", "OperadorId", "Tipo", "Valor")
+      VALUES (@p5, @p6, @p7, @p8, @p9, @p10, @p11);

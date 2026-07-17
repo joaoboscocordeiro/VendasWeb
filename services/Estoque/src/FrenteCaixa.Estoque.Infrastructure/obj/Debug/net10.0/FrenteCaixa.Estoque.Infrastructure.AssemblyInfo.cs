@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrenteCaixa.Estoque.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4800ecc3ee49be7ed810b810efc95b9892d59f94")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c7f92d4b134531adf3027148c4115c61e04c1ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrenteCaixa.Estoque.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrenteCaixa.Estoque.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

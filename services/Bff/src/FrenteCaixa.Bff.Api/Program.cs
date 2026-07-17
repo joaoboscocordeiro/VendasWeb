@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -18,6 +19,10 @@ builder.Services.AddHttpClient<IBackendHealthClient, BackendHealthClient>(client
     client.Timeout = TimeSpan.FromSeconds(2);
 });
 builder.Services.AddHttpClient<IPdvProdutosService, CatalogoProdutosPdvService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(5);
+});
+builder.Services.AddHttpClient<IPdvCaixaService, CaixaPdvService>(client =>
 {
     client.Timeout = TimeSpan.FromSeconds(5);
 });
@@ -137,6 +142,142 @@ pdv.MapGet("/products/by-barcode/{ean}", async (
     })
     .WithName("ObterProdutoPdvPorCodigoBarras");
 
+pdv.MapGet("/cash-register/current", async (
+        HttpRequest request,
+        IPdvCaixaService caixaService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var caixa = await caixaService.ObterAtualAsync(
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return caixa is null
+                ? Results.NotFound(new RespostaErro("Nenhum caixa aberto para o operador."))
+                : Results.Ok(caixa);
+        }
+        catch (PdvCaixaHttpException ex)
+        {
+            return MapearFalhaCaixa(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Caixa indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ObterCaixaAtualPdv");
+
+pdv.MapPost("/cash-register/open", async (
+        AbrirCaixaPdvRequest abrirCaixa,
+        HttpRequest request,
+        IPdvCaixaService caixaService,
+        CancellationToken cancellationToken) =>
+    {
+        if (abrirCaixa.ValorInicial < 0)
+        {
+            return Results.BadRequest(new RespostaErro("Valor inicial nao pode ser negativo."));
+        }
+
+        try
+        {
+            var caixa = await caixaService.AbrirAsync(
+                abrirCaixa,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Created($"/pdv/cash-register/current", caixa);
+        }
+        catch (PdvCaixaHttpException ex)
+        {
+            return MapearFalhaCaixa(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Caixa indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("AbrirCaixaPdv");
+
+pdv.MapGet("/cash-register/current/movements", async (
+        HttpRequest request,
+        IPdvCaixaService caixaService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var caixa = await caixaService.ObterAtualAsync(
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            if (caixa is null)
+            {
+                return Results.NotFound(new RespostaErro("Nenhum caixa aberto para o operador."));
+            }
+
+            var movimentacoes = await caixaService.ListarMovimentacoesAsync(
+                caixa.Id,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(movimentacoes);
+        }
+        catch (PdvCaixaHttpException ex)
+        {
+            return MapearFalhaCaixa(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Caixa indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ListarMovimentacoesCaixaAtualPdv");
+
+pdv.MapPost("/cash-register/{id:guid}/close", async (
+        Guid id,
+        FecharCaixaPdvRequest fecharCaixa,
+        HttpRequest request,
+        IPdvCaixaService caixaService,
+        CancellationToken cancellationToken) =>
+    {
+        if (fecharCaixa.ValorFechamento < 0)
+        {
+            return Results.BadRequest(new RespostaErro("Valor de fechamento nao pode ser negativo."));
+        }
+
+        try
+        {
+            var caixa = await caixaService.FecharAsync(
+                id,
+                fecharCaixa,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(caixa);
+        }
+        catch (PdvCaixaHttpException ex)
+        {
+            return MapearFalhaCaixa(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Caixa indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("FecharCaixaPdv");
+
 app.Run();
 
 static void GarantirConfiguracaoJwt(WebApplicationBuilder builder)
@@ -168,6 +309,20 @@ static ConfiguracaoJwt ObterConfiguracaoJwt(IConfiguration configuration)
         secaoJwt["Issuer"] ?? "FrenteCaixa.Identidade",
         secaoJwt["Audience"] ?? "FrenteCaixa.Backend",
         secaoJwt["Chave"] ?? string.Empty);
+}
+
+static IResult MapearFalhaCaixa(PdvCaixaHttpException ex)
+{
+    return ex.StatusCode switch
+    {
+        HttpStatusCode.BadRequest => Results.BadRequest(new RespostaErro("Requisicao invalida para o Caixa.")),
+        HttpStatusCode.Conflict => Results.Conflict(new RespostaErro("Conflito na operacao de caixa.")),
+        HttpStatusCode.NotFound => Results.NotFound(new RespostaErro("Nenhum caixa aberto para o operador.")),
+        _ => Results.Problem(
+            title: "Servico de Caixa retornou erro.",
+            detail: ex.Message,
+            statusCode: StatusCodes.Status502BadGateway)
+    };
 }
 
 internal sealed record RespostaSaude(string Servico, string Status);

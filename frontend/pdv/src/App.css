@@ -381,6 +381,103 @@ code {
   padding: 14px;
 }
 
+.cash-panel {
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+  padding: 14px;
+}
+
+.cash-panel .inline-form {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.cash-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #c7dedc;
+  border-radius: 8px;
+  background: #f5fffd;
+  padding: 11px 12px;
+}
+
+.cash-summary span,
+.form-note {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.cash-summary strong,
+.form-note strong {
+  min-width: 0;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.cash-summary small,
+.form-note span {
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.cash-summary em {
+  color: var(--primary-strong);
+  font-style: normal;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.cash-panel .inline-form,
+.start-sale-form {
+  grid-template-columns: minmax(180px, 1fr) auto;
+}
+
+.close-cash-form {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.cash-movements {
+  display: grid;
+  gap: 6px;
+}
+
+.cash-movement-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #ffffff;
+  padding: 8px 10px;
+}
+
+.cash-movement-row span {
+  min-width: 0;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.cash-movement-row strong {
+  color: var(--primary-strong);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
 .product-finder {
   display: grid;
   gap: 12px;
@@ -534,34 +631,99 @@ code {
   text-align: center;
 }
 
-.checkout-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+.checkout-panel {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) minmax(240px, 1.2fr) minmax(150px, 0.8fr) minmax(120px, 0.7fr) auto;
+  align-items: end;
+  gap: 12px;
   border: 1px solid #c7dedc;
   border-radius: 8px;
   background: linear-gradient(135deg, #f5fffd, #ffffff 58%, #f9fbff);
   padding: 14px;
 }
 
-.checkout-bar div {
+.checkout-summary,
+.change-preview {
   display: grid;
   gap: 2px;
   min-width: 0;
 }
 
-.checkout-bar span {
+.checkout-summary span,
+.change-preview span {
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
-.checkout-bar strong {
+.checkout-summary strong {
   color: var(--primary-strong);
   font-size: 1.6rem;
   overflow-wrap: anywhere;
+}
+
+.change-preview strong {
+  color: var(--text);
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(72px, 1fr));
+  gap: 8px;
+  min-width: 0;
+}
+
+.payment-mode {
+  min-height: 44px;
+  border: 1px solid var(--line-strong);
+  color: var(--text-soft);
+  background: #ffffff;
+  padding: 0 10px;
+  font-weight: 900;
+}
+
+.payment-mode:not(:disabled):hover,
+.payment-mode.active {
+  border-color: #93bfba;
+  color: #115c58;
+  background: var(--primary-soft);
+}
+
+.checkout-action {
+  min-width: 130px;
+}
+
+.checkout-result {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 4px;
+  border: 1px solid #c2e4cd;
+  border-radius: 8px;
+  background: #f2fff6;
+  color: var(--success);
+  padding: 10px 12px;
+}
+
+.checkout-result span {
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.checkout-result strong,
+.checkout-result small,
+.checkout-result em {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.checkout-result em {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 900;
 }
 
 @media (max-width: 1020px) {
@@ -580,9 +742,8 @@ code {
   }
 
   .topbar,
-  .checkout-bar {
+  .checkout-panel {
     align-items: stretch;
-    flex-direction: column;
   }
 
   .operator-strip {
@@ -595,10 +756,12 @@ code {
 
   .inline-form,
   .item-form,
+  .checkout-panel,
   .product-search-form,
   .barcode-form,
   .selected-product,
-  .product-result-row {
+  .product-result-row,
+  .payment-methods {
     grid-template-columns: 1fr;
   }
 
