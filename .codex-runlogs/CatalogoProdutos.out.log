@@ -37,3 +37,45 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
       WHERE o."ProcessadoEm" IS NULL
       ORDER BY o."CriadoEm"
       LIMIT @__p_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT o."Id", o."CriadoEm", o."PayloadJson", o."ProcessadoEm", o."RoutingKey", o."Tentativas", o."Tipo", o."UltimoErro", o."Versao"
+      FROM outbox_mensagens AS o
+      WHERE o."ProcessadoEm" IS NULL
+      ORDER BY o."CriadoEm"
+      LIMIT @__p_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT o."Id", o."CriadoEm", o."PayloadJson", o."ProcessadoEm", o."RoutingKey", o."Tentativas", o."Tipo", o."UltimoErro", o."Versao"
+      FROM outbox_mensagens AS o
+      WHERE o."ProcessadoEm" IS NULL
+      ORDER BY o."CriadoEm"
+      LIMIT @__p_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT o."Id", o."CriadoEm", o."PayloadJson", o."ProcessadoEm", o."RoutingKey", o."Tentativas", o."Tipo", o."UltimoErro", o."Versao"
+      FROM outbox_mensagens AS o
+      WHERE o."ProcessadoEm" IS NULL
+      ORDER BY o."CriadoEm"
+      LIMIT @__p_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT o."Id", o."CriadoEm", o."PayloadJson", o."ProcessadoEm", o."RoutingKey", o."Tentativas", o."Tipo", o."UltimoErro", o."Versao"
+      FROM outbox_mensagens AS o
+      WHERE o."ProcessadoEm" IS NULL
+      ORDER BY o."CriadoEm"
+      LIMIT @__p_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT o."Id", o."CriadoEm", o."PayloadJson", o."ProcessadoEm", o."RoutingKey", o."Tentativas", o."Tipo", o."UltimoErro", o."Versao"
+      FROM outbox_mensagens AS o
+      WHERE o."ProcessadoEm" IS NULL
+      ORDER BY o."CriadoEm"
+      LIMIT @__p_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT o."Id", o."CriadoEm", o."PayloadJson", o."ProcessadoEm", o."RoutingKey", o."Tentativas", o."Tipo", o."UltimoErro", o."Versao"
+      FROM outbox_mensagens AS o
+      WHERE o."ProcessadoEm" IS NULL
+      ORDER BY o."CriadoEm"
+      LIMIT @__p_0
