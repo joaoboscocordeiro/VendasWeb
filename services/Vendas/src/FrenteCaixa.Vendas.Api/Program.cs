@@ -156,6 +156,39 @@ vendas.MapDelete("/{id:guid}/items/{itemId:guid}", async (
     })
     .WithName("RemoverItemVenda");
 
+vendas.MapPost("/{id:guid}/checkout", async (
+        Guid id,
+        FinalizarVendaRequest request,
+        ClaimsPrincipal usuario,
+        HttpContext httpContext,
+        IServicoVendas servicoVendas,
+        CancellationToken cancellationToken) =>
+    {
+        var operadorId = ObterOperadorId(usuario);
+
+        if (operadorId is null)
+        {
+            return Results.BadRequest(new RespostaErro("Token nao contem operador valido."));
+        }
+
+        var accessToken = ObterAccessToken(httpContext);
+
+        if (accessToken is null)
+        {
+            return Results.BadRequest(new RespostaErro("Token de acesso e obrigatorio."));
+        }
+
+        var resultado = await servicoVendas.FinalizarAsync(
+            operadorId.Value,
+            id,
+            request,
+            accessToken,
+            cancellationToken);
+
+        return resultado.Sucesso ? Results.Ok(resultado.Valor) : MapearFalha(resultado);
+    })
+    .WithName("FinalizarVenda");
+
 app.Run();
 
 static void GarantirConfiguracaoJwt(WebApplicationBuilder builder)
@@ -198,6 +231,16 @@ static Guid? ObterOperadorId(ClaimsPrincipal usuario)
         : null;
 }
 
+static string? ObterAccessToken(HttpContext httpContext)
+{
+    var authorization = httpContext.Request.Headers.Authorization.ToString();
+    const string prefixo = "Bearer ";
+
+    return authorization.StartsWith(prefixo, StringComparison.OrdinalIgnoreCase)
+        ? authorization[prefixo.Length..].Trim()
+        : null;
+}
+
 static IResult MapearFalha<T>(ResultadoOperacao<T> resultado)
 {
     return resultado.CodigoErro switch
@@ -205,6 +248,9 @@ static IResult MapearFalha<T>(ResultadoOperacao<T> resultado)
         CodigoErroOperacao.Validacao => Results.BadRequest(new RespostaErro(resultado.Erro ?? "Requisicao invalida.")),
         CodigoErroOperacao.Conflito => Results.Conflict(new RespostaErro(resultado.Erro ?? "Conflito.")),
         CodigoErroOperacao.NaoEncontrado => Results.NotFound(new RespostaErro(resultado.Erro ?? "Recurso nao encontrado.")),
+        CodigoErroOperacao.DependenciaIndisponivel => Results.Problem(
+            resultado.Erro ?? "Dependencia indisponivel.",
+            statusCode: StatusCodes.Status503ServiceUnavailable),
         _ => Results.BadRequest(new RespostaErro(resultado.Erro ?? "Requisicao invalida."))
     };
 }

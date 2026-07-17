@@ -5,7 +5,8 @@ public enum CodigoErroOperacao
     Nenhum = 0,
     Validacao = 1,
     Conflito = 2,
-    NaoEncontrado = 3
+    NaoEncontrado = 3,
+    DependenciaIndisponivel = 4
 }
 
 public sealed class ResultadoOperacao<T>
@@ -41,5 +42,10 @@ public sealed class ResultadoOperacao<T>
     public static ResultadoOperacao<T> NaoEncontrado(string erro)
     {
         return new ResultadoOperacao<T>(false, default, CodigoErroOperacao.NaoEncontrado, erro);
+    }
+
+    public static ResultadoOperacao<T> DependenciaIndisponivel(string erro)
+    {
+        return new ResultadoOperacao<T>(false, default, CodigoErroOperacao.DependenciaIndisponivel, erro);
     }
 }

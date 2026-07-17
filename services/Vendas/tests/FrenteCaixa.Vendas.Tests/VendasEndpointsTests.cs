@@ -105,6 +105,81 @@ public sealed class VendasEndpointsTests
         Assert.Equal(HttpStatusCode.NotFound, resposta.StatusCode);
     }
 
+    [Fact]
+    public async Task sales_operator_can_checkout_sale()
+    {
+        using var factory = new VendasApiFactory();
+        var vendaExistente = await factory.SemearVendaComItensAsync();
+        var client = factory.CreateClient();
+        Autenticar(client, VendasApiFactory.OperadorPadraoId, "VENDEDOR");
+
+        var resposta = await client.PostAsJsonAsync(
+            $"/sales/{vendaExistente.Id}/checkout",
+            new FinalizarVendaRequest("Dinheiro", 30.00m));
+        var checkout = await resposta.Content.ReadFromJsonAsync<CheckoutVendaResponse>();
+        var banco = factory.ObterBanco();
+
+        Assert.Equal(HttpStatusCode.OK, resposta.StatusCode);
+        Assert.NotNull(checkout);
+        Assert.Equal("Concluida", checkout.Venda.Status);
+        Assert.Single(banco.Pagamentos);
+        Assert.Equal(vendaExistente.Id, banco.Pagamentos.Single().VendaId);
+        Assert.Equal(2, banco.DeducoesEstoque.Count);
+        Assert.Contains("vendas.venda-concluida.v1", banco.OutboxRoutingKeys);
+    }
+
+    [Fact]
+    public async Task sales_checkout_rejects_empty_sale()
+    {
+        using var factory = new VendasApiFactory();
+        var vendaExistente = await factory.SemearVendaAsync();
+        var client = factory.CreateClient();
+        Autenticar(client, VendasApiFactory.OperadorPadraoId, "VENDEDOR");
+
+        var resposta = await client.PostAsJsonAsync(
+            $"/sales/{vendaExistente.Id}/checkout",
+            new FinalizarVendaRequest("Dinheiro", 30.00m));
+
+        Assert.Equal(HttpStatusCode.BadRequest, resposta.StatusCode);
+        Assert.Equal("EmAndamento", vendaExistente.Status.ToString());
+    }
+
+    [Fact]
+    public async Task sales_checkout_rejects_insufficient_stock()
+    {
+        using var factory = new VendasApiFactory();
+        var vendaExistente = await factory.SemearVendaComItensAsync();
+        var banco = factory.ObterBanco();
+        banco.RejeitarDeducaoEstoque = true;
+        var client = factory.CreateClient();
+        Autenticar(client, VendasApiFactory.OperadorPadraoId, "VENDEDOR");
+
+        var resposta = await client.PostAsJsonAsync(
+            $"/sales/{vendaExistente.Id}/checkout",
+            new FinalizarVendaRequest("Dinheiro", 30.00m));
+
+        Assert.Equal(HttpStatusCode.Conflict, resposta.StatusCode);
+        Assert.Equal("EmAndamento", vendaExistente.Status.ToString());
+        Assert.Empty(banco.Pagamentos);
+        Assert.Empty(banco.OutboxRoutingKeys);
+    }
+
+    [Fact]
+    public async Task sales_checkout_rejects_already_completed_sale()
+    {
+        using var factory = new VendasApiFactory();
+        var vendaExistente = await factory.SemearVendaComItensAsync();
+        vendaExistente.Concluir(DateTimeOffset.UtcNow);
+        var client = factory.CreateClient();
+        Autenticar(client, VendasApiFactory.OperadorPadraoId, "VENDEDOR");
+
+        var resposta = await client.PostAsJsonAsync(
+            $"/sales/{vendaExistente.Id}/checkout",
+            new FinalizarVendaRequest("Dinheiro", 30.00m));
+
+        Assert.Equal(HttpStatusCode.Conflict, resposta.StatusCode);
+    }
+
     private static void Autenticar(HttpClient client, Guid operadorId, string perfil)
     {
         var token = CriarToken(operadorId, perfil);

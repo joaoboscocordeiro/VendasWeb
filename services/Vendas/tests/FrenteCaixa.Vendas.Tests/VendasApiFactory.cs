@@ -1,4 +1,6 @@
+using FrenteCaixa.Vendas.Application.Vendas.Eventos;
 using FrenteCaixa.Vendas.Application.Vendas.Interfaces;
+using FrenteCaixa.Vendas.Application.Vendas.Integracoes;
 using FrenteCaixa.Vendas.Application.Vendas.Repositorios;
 using FrenteCaixa.Vendas.Domain.Vendas;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +31,8 @@ public sealed class VendasApiFactory : WebApplicationFactory<Program>
                 ["ConnectionStrings:Vendas"] = "Host=localhost;Database=frente_caixa_vendas_testes",
                 ["Jwt:Issuer"] = JwtIssuer,
                 ["Jwt:Audience"] = JwtAudience,
-                ["Jwt:Chave"] = JwtKey
+                ["Jwt:Chave"] = JwtKey,
+                ["Outbox:Habilitado"] = "false"
             });
         });
 
@@ -38,11 +41,19 @@ public sealed class VendasApiFactory : WebApplicationFactory<Program>
             services.RemoveAll<IVendaRepositorio>();
             services.RemoveAll<IUnidadeTrabalho>();
             services.RemoveAll<IRelogio>();
+            services.RemoveAll<IClienteCaixa>();
+            services.RemoveAll<IClienteEstoque>();
+            services.RemoveAll<IClientePagamentos>();
+            services.RemoveAll<IRegistradorEventosVenda>();
 
             services.AddSingleton<BancoVendasEmMemoria>();
             services.AddScoped<IVendaRepositorio, VendaRepositorioEmMemoria>();
             services.AddScoped<IUnidadeTrabalho, UnidadeTrabalhoEmMemoria>();
             services.AddSingleton<IRelogio, RelogioFixo>();
+            services.AddScoped<IClienteCaixa, ClienteCaixaEmMemoria>();
+            services.AddScoped<IClienteEstoque, ClienteEstoqueEmMemoria>();
+            services.AddScoped<IClientePagamentos, ClientePagamentosEmMemoria>();
+            services.AddScoped<IRegistradorEventosVenda, RegistradorEventosVendaEmMemoria>();
         });
     }
 
@@ -79,5 +90,12 @@ public sealed class VendasApiFactory : WebApplicationFactory<Program>
             DateTimeOffset.UtcNow.AddSeconds(1));
 
         return venda;
+    }
+
+    public BancoVendasEmMemoria ObterBanco()
+    {
+        using var scope = Services.CreateScope();
+
+        return scope.ServiceProvider.GetRequiredService<BancoVendasEmMemoria>();
     }
 }

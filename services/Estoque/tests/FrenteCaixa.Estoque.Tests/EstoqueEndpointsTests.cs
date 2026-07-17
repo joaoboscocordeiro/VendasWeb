@@ -79,6 +79,50 @@ public sealed class EstoqueEndpointsTests
     }
 
     [Fact]
+    public async Task stock_operator_can_register_sale_deduction()
+    {
+        using var factory = new EstoqueApiFactory();
+        var produtoId = Guid.NewGuid();
+        await factory.SemearSaldoAsync(produtoId, 10m);
+        var client = factory.CreateClient();
+        Autenticar(client, "VENDEDOR");
+
+        var resposta = await client.PostAsJsonAsync(
+            "/stock/deductions",
+            new DeducaoEstoqueRequest(
+                Guid.NewGuid(),
+                [new ItemDeducaoEstoqueRequest(produtoId, 3m)]));
+        var consulta = await client.GetAsync($"/stock/products/{produtoId}");
+        var saldo = await consulta.Content.ReadFromJsonAsync<SaldoProdutoResponse>();
+
+        Assert.Equal(HttpStatusCode.Created, resposta.StatusCode);
+        Assert.NotNull(saldo);
+        Assert.Equal(7m, saldo.QuantidadeDisponivel);
+    }
+
+    [Fact]
+    public async Task stock_sale_deduction_rejects_insufficient_balance()
+    {
+        using var factory = new EstoqueApiFactory();
+        var produtoId = Guid.NewGuid();
+        await factory.SemearSaldoAsync(produtoId, 2m);
+        var client = factory.CreateClient();
+        Autenticar(client, "VENDEDOR");
+
+        var resposta = await client.PostAsJsonAsync(
+            "/stock/deductions",
+            new DeducaoEstoqueRequest(
+                Guid.NewGuid(),
+                [new ItemDeducaoEstoqueRequest(produtoId, 3m)]));
+        var consulta = await client.GetAsync($"/stock/products/{produtoId}");
+        var saldo = await consulta.Content.ReadFromJsonAsync<SaldoProdutoResponse>();
+
+        Assert.Equal(HttpStatusCode.Conflict, resposta.StatusCode);
+        Assert.NotNull(saldo);
+        Assert.Equal(2m, saldo.QuantidadeDisponivel);
+    }
+
+    [Fact]
     public async Task stock_authenticated_user_can_get_balance()
     {
         using var factory = new EstoqueApiFactory();

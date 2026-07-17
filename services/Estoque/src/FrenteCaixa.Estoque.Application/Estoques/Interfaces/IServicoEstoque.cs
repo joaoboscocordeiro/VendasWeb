@@ -13,4 +13,8 @@ public interface IServicoEstoque
     Task<ResultadoOperacao<MovimentacaoEstoqueResponse>> RegistrarAjusteAsync(
         RegistrarAjusteEstoqueRequest request,
         CancellationToken cancellationToken);
+
+    Task<ResultadoOperacao<IReadOnlyCollection<MovimentacaoEstoqueResponse>>> RegistrarDeducaoVendaAsync(
+        DeducaoEstoqueRequest request,
+        CancellationToken cancellationToken);
 }

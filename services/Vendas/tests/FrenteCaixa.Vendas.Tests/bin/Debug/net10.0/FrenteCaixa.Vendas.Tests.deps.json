@@ -163,7 +163,7 @@
           "Microsoft.Extensions.FileSystemGlobbing.Reference": "10.0.0.0",
           "Microsoft.Extensions.Hosting.Abstractions.Reference": "10.0.0.0",
           "Microsoft.Extensions.Hosting.Reference": "10.0.0.0",
-          "Microsoft.Extensions.Http": "10.0.0.0",
+          "Microsoft.Extensions.Http.Reference": "10.0.0.0",
           "Microsoft.Extensions.Identity.Core": "10.0.0.0",
           "Microsoft.Extensions.Identity.Stores": "10.0.0.0",
           "Microsoft.Extensions.Localization.Abstractions": "10.0.0.0",
@@ -1043,6 +1043,7 @@
           "FrenteCaixa.Vendas.Application": "1.0.0",
           "FrenteCaixa.Vendas.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "9.0.9",
+          "Microsoft.Extensions.Http": "10.0.9",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
         },
         "runtime": {
@@ -1745,7 +1746,7 @@
         },
         "compileOnly": true
       },
-      "Microsoft.Extensions.Http/10.0.0.0": {
+      "Microsoft.Extensions.Http.Reference/10.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Http.dll": {}
         },
@@ -3059,6 +3060,17 @@
         },
         "compileOnly": true
       },
+      "Microsoft.Extensions.Http/10.0.9": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "10.0.9",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9",
+          "Microsoft.Extensions.Diagnostics": "10.0.9",
+          "Microsoft.Extensions.Logging": "10.0.9",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.9",
+          "Microsoft.Extensions.Options": "10.0.9"
+        },
+        "compileOnly": true
+      },
       "Microsoft.Extensions.Logging/10.0.9": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "10.0.9",
@@ -3974,7 +3986,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Extensions.Http/10.0.0.0": {
+    "Microsoft.Extensions.Http.Reference/10.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -5080,6 +5092,13 @@
       "sha512": "sha512-Xd/2F+uWblTiUp+ssaDZN2ea4vmnHmW6PXugmqBHumyhqVkyeh6RJ3S2Zo/F+1bXIL/KuGqe2pKv6UiGOc1KeQ==",
       "path": "microsoft.extensions.hosting.abstractions/10.0.9",
       "hashPath": "microsoft.extensions.hosting.abstractions.10.0.9.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Http/10.0.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5jdmuLRg1HO7x/v8McOf6ndhkMQWImkRBtJpXM8+xIocXNdLqCItyyFLKusdILc62TDzHuLlqaWoxtOA5FFOPg==",
+      "path": "microsoft.extensions.http/10.0.9",
+      "hashPath": "microsoft.extensions.http.10.0.9.nupkg.sha512"
     },
     "Microsoft.Extensions.Logging/10.0.9": {
       "type": "package",

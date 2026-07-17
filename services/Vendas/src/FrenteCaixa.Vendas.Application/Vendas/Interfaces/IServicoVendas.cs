@@ -25,4 +25,11 @@ public interface IServicoVendas
         Guid vendaId,
         Guid itemId,
         CancellationToken cancellationToken);
+
+    Task<ResultadoOperacao<CheckoutVendaResponse>> FinalizarAsync(
+        Guid operadorId,
+        Guid vendaId,
+        FinalizarVendaRequest request,
+        string accessToken,
+        CancellationToken cancellationToken);
 }

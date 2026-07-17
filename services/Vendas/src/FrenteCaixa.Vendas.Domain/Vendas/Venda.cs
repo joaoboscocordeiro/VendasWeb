@@ -61,4 +61,10 @@ public sealed class Venda
 
         return true;
     }
+
+    public void Concluir(DateTimeOffset concluidaEm)
+    {
+        Status = StatusVenda.Concluida;
+        AtualizadaEm = concluidaEm;
+    }
 }

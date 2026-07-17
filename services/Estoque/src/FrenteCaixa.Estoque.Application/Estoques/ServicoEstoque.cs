@@ -75,6 +75,57 @@ public sealed class ServicoEstoque : IServicoEstoque
         return ResultadoOperacao<MovimentacaoEstoqueResponse>.Ok(MapearMovimentacao(movimentacao));
     }
 
+    public async Task<ResultadoOperacao<IReadOnlyCollection<MovimentacaoEstoqueResponse>>> RegistrarDeducaoVendaAsync(
+        DeducaoEstoqueRequest request,
+        CancellationToken cancellationToken)
+    {
+        var validacao = ValidarDeducao(request);
+
+        if (validacao is not null)
+        {
+            return ResultadoOperacao<IReadOnlyCollection<MovimentacaoEstoqueResponse>>.FalhaValidacao(validacao);
+        }
+
+        var itensAgrupados = request.Itens
+            .GroupBy(item => item.ProdutoId)
+            .Select(grupo => new ItemDeducaoEstoqueRequest(grupo.Key, grupo.Sum(item => item.Quantidade)))
+            .ToArray();
+        var saldos = new Dictionary<Guid, SaldoProduto>();
+
+        foreach (var item in itensAgrupados)
+        {
+            var saldo = await _estoque.ObterSaldoPorProdutoAsync(item.ProdutoId, cancellationToken);
+
+            if (saldo is null || saldo.QuantidadeDisponivel < item.Quantidade)
+            {
+                return ResultadoOperacao<IReadOnlyCollection<MovimentacaoEstoqueResponse>>.Conflito(
+                    $"Estoque insuficiente para o produto {item.ProdutoId}.");
+            }
+
+            saldos[item.ProdutoId] = saldo;
+        }
+
+        var movimentacoes = new List<MovimentacaoEstoque>();
+        var motivo = $"Deducao da venda {request.VendaId}";
+
+        foreach (var item in itensAgrupados)
+        {
+            var movimentacao = saldos[item.ProdutoId].AplicarAjuste(
+                TipoMovimentacaoEstoque.Saida,
+                item.Quantidade,
+                motivo,
+                _relogio.Agora);
+
+            await _estoque.AdicionarMovimentacaoAsync(movimentacao, cancellationToken);
+            movimentacoes.Add(movimentacao);
+        }
+
+        await _unidadeTrabalho.SalvarAlteracoesAsync(cancellationToken);
+
+        return ResultadoOperacao<IReadOnlyCollection<MovimentacaoEstoqueResponse>>.Ok(
+            movimentacoes.Select(MapearMovimentacao).ToArray());
+    }
+
     private static string? ValidarRequest(
         RegistrarAjusteEstoqueRequest request,
         out TipoMovimentacaoEstoque tipo)
@@ -105,6 +156,31 @@ public sealed class ServicoEstoque : IServicoEstoque
         if (request.Motivo.Trim().Length > 300)
         {
             return "Motivo deve possuir no maximo 300 caracteres.";
+        }
+
+        return null;
+    }
+
+    private static string? ValidarDeducao(DeducaoEstoqueRequest request)
+    {
+        if (request.VendaId == Guid.Empty)
+        {
+            return "VendaId e obrigatorio.";
+        }
+
+        if (request.Itens.Count == 0)
+        {
+            return "Ao menos um item e obrigatorio.";
+        }
+
+        if (request.Itens.Any(item => item.ProdutoId == Guid.Empty))
+        {
+            return "ProdutoId e obrigatorio.";
+        }
+
+        if (request.Itens.Any(item => item.Quantidade <= 0))
+        {
+            return "Quantidade deve ser maior que zero.";
         }
 
         return null;

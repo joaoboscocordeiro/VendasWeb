@@ -102,6 +102,20 @@ estoque.MapPost("/adjustments", async (
     .RequireAuthorization("SomenteAdministrador")
     .WithName("RegistrarAjusteEstoque");
 
+estoque.MapPost("/deductions", async (
+        DeducaoEstoqueRequest request,
+        IServicoEstoque servicoEstoque,
+        CancellationToken cancellationToken) =>
+    {
+        var resultado = await servicoEstoque.RegistrarDeducaoVendaAsync(request, cancellationToken);
+
+        return resultado.Sucesso
+            ? Results.Created($"/stock/deductions/{request.VendaId}", resultado.Valor)
+            : MapearFalha(resultado);
+    })
+    .RequireAuthorization("OperadorCaixa")
+    .WithName("RegistrarDeducaoVenda");
+
 app.Run();
 
 static void GarantirConfiguracaoJwt(WebApplicationBuilder builder)

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrenteCaixa.Pagamentos.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ec44b758abb1d70fd55c41b1b99b9ae88f7f8a8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28d1883a2e6c42be02cee53185f3f101535eb82b")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrenteCaixa.Pagamentos.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrenteCaixa.Pagamentos.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
