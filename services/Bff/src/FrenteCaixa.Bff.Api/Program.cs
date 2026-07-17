@@ -3,6 +3,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using FrenteCaixa.Bff.Api.Admin;
 using FrenteCaixa.Bff.Api.Pdv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -23,6 +24,10 @@ builder.Services.AddHttpClient<IPdvProdutosService, CatalogoProdutosPdvService>(
     client.Timeout = TimeSpan.FromSeconds(5);
 });
 builder.Services.AddHttpClient<IPdvCaixaService, CaixaPdvService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(5);
+});
+builder.Services.AddHttpClient<IAdminRelatoriosService, AdminRelatoriosService>(client =>
 {
     client.Timeout = TimeSpan.FromSeconds(5);
 });
@@ -52,6 +57,7 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("UsuarioAutenticado", policy => policy.RequireAuthenticatedUser());
     options.AddPolicy("OperadorCaixa", policy => policy.RequireRole("ADM", "VENDEDOR"));
+    options.AddPolicy("SomenteAdministrador", policy => policy.RequireRole("ADM"));
 });
 
 var app = builder.Build();
@@ -314,6 +320,56 @@ pdv.MapPost("/cash-register/{id:guid}/close", async (
         }
     })
     .WithName("FecharCaixaPdv");
+
+var adminReports = app.MapGroup("/admin/reports")
+    .RequireAuthorization("SomenteAdministrador")
+    .WithTags("Admin Relatorios");
+
+adminReports.MapGet("/sales", async (
+        HttpRequest request,
+        IAdminRelatoriosService relatoriosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var vendas = await relatoriosService.ListarVendasAsync(
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(vendas);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Relatorios indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ListarVendasConcluidasAdmin");
+
+adminReports.MapGet("/financial-summary", async (
+        HttpRequest request,
+        IAdminRelatoriosService relatoriosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var resumo = await relatoriosService.ObterResumoFinanceiroAsync(
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(resumo);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Relatorios indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ObterResumoFinanceiroAdmin");
 
 app.Run();
 

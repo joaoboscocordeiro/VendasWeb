@@ -1,4 +1,5 @@
 using FrenteCaixa.Bff.Api.Pdv;
+using FrenteCaixa.Bff.Api.Admin;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,7 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
     public FakeBackendHealthClient BackendHealthClient { get; } = new();
     public FakePdvProdutosService ProdutosService { get; } = new();
     public FakePdvCaixaService CaixaService { get; } = new();
+    public FakeAdminRelatoriosService RelatoriosService { get; } = new();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -47,6 +49,7 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
             services.RemoveAll<IBackendHealthClient>();
             services.RemoveAll<IPdvProdutosService>();
             services.RemoveAll<IPdvCaixaService>();
+            services.RemoveAll<IAdminRelatoriosService>();
 
             services.AddSingleton(BackendHealthClient);
             services.AddSingleton<IBackendHealthClient>(sp =>
@@ -57,6 +60,9 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
             services.AddSingleton(CaixaService);
             services.AddSingleton<IPdvCaixaService>(sp =>
                 sp.GetRequiredService<FakePdvCaixaService>());
+            services.AddSingleton(RelatoriosService);
+            services.AddSingleton<IAdminRelatoriosService>(sp =>
+                sp.GetRequiredService<FakeAdminRelatoriosService>());
         });
     }
 }
