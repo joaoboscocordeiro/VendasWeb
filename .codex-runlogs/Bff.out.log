@@ -1,0 +1,123 @@
+Usando as configurações de inicialização de services\Bff\src\FrenteCaixa.Bff.Api\Properties\launchSettings.json...
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5265
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5227/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5227/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5089/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5089/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5252/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5252/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5165/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5165/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5216/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5216/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5002/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5002/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5227/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5227/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5089/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5089/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5252/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5252/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5062/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5062/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5165/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5165/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5216/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5216/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:5002/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[100]
+      Sending HTTP request GET http://localhost:5002/api/saude
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 136.2032ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 141.6563ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 153.6453ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 143.6092ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 237.423ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 237.6068ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 243.2428ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 243.4628ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 263.5572ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 263.6071ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 263.7136ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 263.7296ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 263.8308ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 263.8492ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 270.852ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 270.9077ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 272.6331ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 272.4021ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 272.7393ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 272.4339ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 332.0428ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 332.1153ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 332.0682ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 332.0923ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 347.4506ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 347.807ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.ClientHandler[101]
+      Received HTTP response headers after 348.3008ms - 200
+info: System.Net.Http.HttpClient.IBackendHealthClient.LogicalHandler[101]
+      End processing HTTP request after 348.3266ms - 200
