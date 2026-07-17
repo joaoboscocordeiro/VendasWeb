@@ -5,8 +5,8 @@ F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\ob
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\FrenteCaixa.Identidade.Domain.AssemblyInfoInputs.cache
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\FrenteCaixa.Identidade.Domain.AssemblyInfo.cs
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\FrenteCaixa.Identidade.Domain.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\FrenteCaixa.Identidade.Domain.sourcelink.json
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\FrenteCaixa.Identidade.Domain.dll
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\refint\FrenteCaixa.Identidade.Domain.dll
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\FrenteCaixa.Identidade.Domain.pdb
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\ref\FrenteCaixa.Identidade.Domain.dll
-F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Domain\obj\Debug\net10.0\FrenteCaixa.Identidade.Domain.sourcelink.json

@@ -420,10 +420,10 @@ F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCaixa.Bff.Tests.AssemblyInfoInputs.cache
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCaixa.Bff.Tests.AssemblyInfo.cs
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCaixa.Bff.Tests.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCaixa.Bff.Tests.sourcelink.json
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCa.9EC42C7C.Up2Date
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCaixa.Bff.Tests.dll
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\refint\FrenteCaixa.Bff.Tests.dll
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCaixa.Bff.Tests.pdb
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCaixa.Bff.Tests.genruntimeconfig.cache
 F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\ref\FrenteCaixa.Bff.Tests.dll
-F:\Projetos\FrenteCaixa\services\Bff\tests\FrenteCaixa.Bff.Tests\obj\Debug\net10.0\FrenteCaixa.Bff.Tests.sourcelink.json

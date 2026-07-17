@@ -5,8 +5,8 @@ F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\ob
 F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\FrenteCaixa.Relatorios.Domain.AssemblyInfoInputs.cache
 F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\FrenteCaixa.Relatorios.Domain.AssemblyInfo.cs
 F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\FrenteCaixa.Relatorios.Domain.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\FrenteCaixa.Relatorios.Domain.sourcelink.json
 F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\FrenteCaixa.Relatorios.Domain.dll
 F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\refint\FrenteCaixa.Relatorios.Domain.dll
 F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\FrenteCaixa.Relatorios.Domain.pdb
 F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\ref\FrenteCaixa.Relatorios.Domain.dll
-F:\Projetos\FrenteCaixa\services\Relatorios\src\FrenteCaixa.Relatorios.Domain\obj\Debug\net10.0\FrenteCaixa.Relatorios.Domain.sourcelink.json

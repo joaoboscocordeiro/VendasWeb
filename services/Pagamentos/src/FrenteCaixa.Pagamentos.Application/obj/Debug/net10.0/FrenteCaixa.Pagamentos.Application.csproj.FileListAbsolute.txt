@@ -8,9 +8,9 @@ F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Applicati
 F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Application.AssemblyInfoInputs.cache
 F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Application.AssemblyInfo.cs
 F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Application.csproj.CoreCompileInputs.cache
+F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Application.sourcelink.json
 F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\FrenteCa.4F5C6218.Up2Date
 F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Application.dll
 F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\refint\FrenteCaixa.Pagamentos.Application.dll
 F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Application.pdb
 F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\ref\FrenteCaixa.Pagamentos.Application.dll
-F:\Projetos\FrenteCaixa\services\Pagamentos\src\FrenteCaixa.Pagamentos.Application\obj\Debug\net10.0\FrenteCaixa.Pagamentos.Application.sourcelink.json

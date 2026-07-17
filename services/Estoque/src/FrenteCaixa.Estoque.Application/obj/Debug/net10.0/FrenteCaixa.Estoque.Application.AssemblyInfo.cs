@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrenteCaixa.Estoque.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd30d1f0748a5cdd0c6bae74eecb047fcd0fe63b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ec44b758abb1d70fd55c41b1b99b9ae88f7f8a8")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrenteCaixa.Estoque.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrenteCaixa.Estoque.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

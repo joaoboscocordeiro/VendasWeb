@@ -1,14 +1,7 @@
-F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\appsettings.Development.json
-F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\appsettings.json
-F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.staticwebassets.endpoints.json
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.exe
-F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.deps.json
-F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.runtimeconfig.json
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.dll
-F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.pdb
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
-F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
@@ -16,6 +9,10 @@ F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\M
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.OpenApi.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\appsettings.Development.json
+F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\appsettings.json
+F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.staticwebassets.endpoints.json
+F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.csproj.AssemblyReference.cache
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\rpswa.dswa.cache.json
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.GeneratedMSBuildEditorConfig.editorconfig
@@ -24,6 +21,7 @@ F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\F
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.csproj.CoreCompileInputs.cache
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.MvcApplicationPartsAssemblyInfo.cs
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.MvcApplicationPartsAssemblyInfo.cache
+F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.sourcelink.json
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\rjimswa.dswa.cache.json
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
@@ -37,6 +35,8 @@ F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\F
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\refint\FrenteCaixa.Bff.Api.dll
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.pdb
+F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.deps.json
+F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.runtimeconfig.json
+F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\bin\Debug\net10.0\FrenteCaixa.Bff.Api.pdb
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.genruntimeconfig.cache
 F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\ref\FrenteCaixa.Bff.Api.dll
-F:\Projetos\FrenteCaixa\services\Bff\src\FrenteCaixa.Bff.Api\obj\Debug\net10.0\FrenteCaixa.Bff.Api.sourcelink.json
