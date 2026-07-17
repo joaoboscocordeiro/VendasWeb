@@ -35,6 +35,10 @@ builder.Services.AddHttpClient<IAdminProdutosService, AdminProdutosService>(clie
 {
     client.Timeout = TimeSpan.FromSeconds(5);
 });
+builder.Services.AddHttpClient<IAdminEstoqueService, AdminEstoqueService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(5);
+});
 builder.Services.AddScoped<IPdvBootstrapService, PdvBootstrapService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -530,6 +534,99 @@ adminProducts.MapPatch("/{id:guid}/disable", async (
     })
     .WithName("InativarProdutoAdmin");
 
+var adminInventory = app.MapGroup("/admin/inventory")
+    .RequireAuthorization("SomenteAdministrador")
+    .WithTags("Admin Estoque");
+
+adminInventory.MapGet("/products/{productId:guid}", async (
+        Guid productId,
+        HttpRequest request,
+        IAdminEstoqueService estoqueService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var saldo = await estoqueService.ObterSaldoAsync(
+                productId,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(saldo);
+        }
+        catch (AdminEstoqueHttpException ex)
+        {
+            return MapearFalhaEstoque(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Estoque indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ObterSaldoProdutoAdmin");
+
+adminInventory.MapGet("/products/{productId:guid}/movements", async (
+        Guid productId,
+        HttpRequest request,
+        IAdminEstoqueService estoqueService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var movimentacoes = await estoqueService.ListarMovimentacoesAsync(
+                productId,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(movimentacoes);
+        }
+        catch (AdminEstoqueHttpException ex)
+        {
+            return MapearFalhaEstoque(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Estoque indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ListarMovimentacoesProdutoAdmin");
+
+adminInventory.MapPost("/adjustments", async (
+        AdminAjusteEstoqueRequest ajuste,
+        HttpRequest request,
+        IAdminEstoqueService estoqueService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var movimentacao = await estoqueService.RegistrarAjusteAsync(
+                ajuste,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Created(
+                $"/admin/inventory/products/{movimentacao.ProdutoId}/movements/{movimentacao.Id}",
+                movimentacao);
+        }
+        catch (AdminEstoqueHttpException ex)
+        {
+            return MapearFalhaEstoque(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Servico de Estoque indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("RegistrarAjusteEstoqueAdmin");
+
 app.Run();
 
 static void GarantirConfiguracaoJwt(WebApplicationBuilder builder)
@@ -586,6 +683,20 @@ static IResult MapearFalhaProdutos(AdminProdutosHttpException ex)
         HttpStatusCode.NotFound => Results.NotFound(new RespostaErro(ex.Message)),
         _ => Results.Problem(
             title: "Catalogo de produtos retornou erro.",
+            detail: ex.Message,
+            statusCode: StatusCodes.Status502BadGateway)
+    };
+}
+
+static IResult MapearFalhaEstoque(AdminEstoqueHttpException ex)
+{
+    return ex.StatusCode switch
+    {
+        HttpStatusCode.BadRequest => Results.BadRequest(new RespostaErro(ex.Message)),
+        HttpStatusCode.Conflict => Results.Conflict(new RespostaErro(ex.Message)),
+        HttpStatusCode.NotFound => Results.NotFound(new RespostaErro(ex.Message)),
+        _ => Results.Problem(
+            title: "Servico de Estoque retornou erro.",
             detail: ex.Message,
             statusCode: StatusCodes.Status502BadGateway)
     };

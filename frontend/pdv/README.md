@@ -23,4 +23,4 @@ As chamadas HTTP usam proxy local:
 
 Fluxo atual da tela: login, bootstrap do BFF, abertura de caixa, busca de produto,
 venda em andamento, checkout, resumo do turno, fechamento de caixa, cadastro de
-produtos e relatorios administrativos para usuarios ADM.
+produtos, saldo/ajustes de estoque e relatorios administrativos para usuarios ADM.

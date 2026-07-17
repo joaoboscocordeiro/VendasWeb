@@ -70,7 +70,19 @@ const initialAdminProductForm = {
   precoVenda: '',
 }
 
+const initialAdminInventory = {
+  balance: null,
+  movements: [],
+}
+
+const initialAdminInventoryAdjustment = {
+  tipo: 'Entrada',
+  quantidade: '',
+  motivo: '',
+}
+
 const paymentMethods = ['Dinheiro', 'Cartao', 'Pix']
+const inventoryAdjustmentTypes = ['Entrada', 'Saida']
 
 function App() {
   const [auth, setAuth] = useState(readStoredAuth)
@@ -93,6 +105,10 @@ function App() {
   const [adminProducts, setAdminProducts] = useState([])
   const [adminProductSearch, setAdminProductSearch] = useState(initialAdminProductSearch)
   const [adminProductForm, setAdminProductForm] = useState(initialAdminProductForm)
+  const [adminInventory, setAdminInventory] = useState(initialAdminInventory)
+  const [adminInventoryAdjustment, setAdminInventoryAdjustment] = useState(
+    initialAdminInventoryAdjustment,
+  )
   const [loading, setLoading] = useState('')
   const [error, setError] = useState('')
 
@@ -139,6 +155,8 @@ function App() {
       setAdminProducts([])
       setAdminProductSearch(initialAdminProductSearch)
       setAdminProductForm(initialAdminProductForm)
+      setAdminInventory(initialAdminInventory)
+      setAdminInventoryAdjustment(initialAdminInventoryAdjustment)
       return
     }
 
@@ -343,6 +361,8 @@ function App() {
     setAdminProducts([])
     setAdminProductSearch(initialAdminProductSearch)
     setAdminProductForm(initialAdminProductForm)
+    setAdminInventory(initialAdminInventory)
+    setAdminInventoryAdjustment(initialAdminInventoryAdjustment)
   }
 
   async function fecharCaixa(event) {
@@ -566,10 +586,84 @@ function App() {
       precoCusto: String(produto.precoCusto),
       precoVenda: String(produto.precoVenda),
     })
+    setAdminInventory(initialAdminInventory)
+    setAdminInventoryAdjustment(initialAdminInventoryAdjustment)
+    carregarEstoqueAdmin(produto.id)
   }
 
   function limparFormularioProdutoAdmin() {
     setAdminProductForm(initialAdminProductForm)
+    setAdminInventory(initialAdminInventory)
+    setAdminInventoryAdjustment(initialAdminInventoryAdjustment)
+  }
+
+  async function carregarEstoqueAdmin(produtoId = adminProductForm.id) {
+    if (!isAdmin || !produtoId) {
+      return
+    }
+
+    setError('')
+    setLoading('admin-estoque')
+
+    try {
+      const [balance, movements] = await Promise.all([
+        requestJson(`/bff/admin/inventory/products/${produtoId}`, {
+          token: auth.accessToken,
+        }),
+        requestJson(`/bff/admin/inventory/products/${produtoId}/movements`, {
+          token: auth.accessToken,
+        }),
+      ])
+      setAdminInventory({ balance, movements })
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading('')
+    }
+  }
+
+  async function registrarAjusteEstoqueAdmin(event) {
+    event.preventDefault()
+
+    if (!adminProductForm.id) {
+      setError('Selecione um produto antes de ajustar o estoque.')
+      return
+    }
+
+    const quantidade = Number(adminInventoryAdjustment.quantidade)
+    const motivo = adminInventoryAdjustment.motivo.trim()
+
+    if (quantidade <= 0) {
+      setError('Quantidade do ajuste deve ser maior que zero.')
+      return
+    }
+
+    if (!motivo) {
+      setError('Informe o motivo do ajuste de estoque.')
+      return
+    }
+
+    setError('')
+    setLoading('ajustar-estoque')
+
+    try {
+      await requestJson('/bff/admin/inventory/adjustments', {
+        method: 'POST',
+        token: auth.accessToken,
+        body: {
+          produtoId: adminProductForm.id,
+          tipo: adminInventoryAdjustment.tipo,
+          quantidade,
+          motivo,
+        },
+      })
+      setAdminInventoryAdjustment(initialAdminInventoryAdjustment)
+      await carregarEstoqueAdmin(adminProductForm.id)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading('')
+    }
   }
 
   async function salvarProdutoAdmin(event) {
@@ -790,10 +884,16 @@ function App() {
             loading={loading}
             currency={currency}
             casasDecimais={casasDecimais}
+            inventory={adminInventory}
+            inventoryAdjustment={adminInventoryAdjustment}
+            inventoryAdjustmentTypes={inventoryAdjustmentTypes}
             onSearchChange={setAdminProductSearch}
             onFormChange={setAdminProductForm}
+            onInventoryAdjustmentChange={setAdminInventoryAdjustment}
             onSubmitSearch={carregarProdutosAdmin}
             onSubmitForm={salvarProdutoAdmin}
+            onSubmitInventoryAdjustment={registrarAjusteEstoqueAdmin}
+            onRefreshInventory={carregarEstoqueAdmin}
             onSelectProduct={selecionarProdutoAdmin}
             onDisableProduct={inativarProdutoAdmin}
             onClearForm={limparFormularioProdutoAdmin}
@@ -1202,15 +1302,22 @@ function AdminProductsView({
   loading,
   currency,
   casasDecimais,
+  inventory,
+  inventoryAdjustment,
+  inventoryAdjustmentTypes,
   onSearchChange,
   onFormChange,
+  onInventoryAdjustmentChange,
   onSubmitSearch,
   onSubmitForm,
+  onSubmitInventoryAdjustment,
+  onRefreshInventory,
   onSelectProduct,
   onDisableProduct,
   onClearForm,
 }) {
   const editing = Boolean(form.id)
+  const movements = inventory.movements ?? []
 
   return (
     <div className="admin-pane">
@@ -1310,6 +1417,122 @@ function AdminProductsView({
           {loading === 'salvar-produto' ? 'Salvando...' : editing ? 'Salvar' : 'Cadastrar'}
         </button>
       </form>
+
+      {editing && (
+        <section className="admin-inventory" aria-labelledby="admin-inventory-title">
+          <div className="admin-inventory-header">
+            <div className="section-heading">
+              <RefreshCw aria-hidden="true" size={20} />
+              <h2 id="admin-inventory-title">Estoque</h2>
+            </div>
+            <button
+              type="button"
+              className="secondary-action"
+              onClick={() => onRefreshInventory(form.id)}
+              disabled={loading === 'admin-estoque'}
+            >
+              <RefreshCw aria-hidden="true" size={16} />
+              {loading === 'admin-estoque' ? 'Atualizando...' : 'Atualizar'}
+            </button>
+          </div>
+
+          <div className="admin-inventory-summary" aria-label="Saldo do produto">
+            <Metric
+              label="Saldo"
+              value={formatQuantity(inventory.balance?.quantidadeDisponivel ?? 0)}
+              strong
+            />
+            <Metric
+              label="Atualizado"
+              value={formatDateTime(inventory.balance?.atualizadoEm)}
+            />
+          </div>
+
+          <form className="admin-inventory-form" onSubmit={onSubmitInventoryAdjustment}>
+            <label>
+              Tipo
+              <select
+                value={inventoryAdjustment.tipo}
+                onChange={(event) =>
+                  onInventoryAdjustmentChange((current) => ({
+                    ...current,
+                    tipo: event.target.value,
+                  }))
+                }
+              >
+                {inventoryAdjustmentTypes.map((tipo) => (
+                  <option key={tipo} value={tipo}>
+                    {tipo}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Quantidade
+              <input
+                type="number"
+                min="0.01"
+                step="0.01"
+                value={inventoryAdjustment.quantidade}
+                onChange={(event) =>
+                  onInventoryAdjustmentChange((current) => ({
+                    ...current,
+                    quantidade: event.target.value,
+                  }))
+                }
+                required
+              />
+            </label>
+            <label className="span-2">
+              Motivo
+              <input
+                value={inventoryAdjustment.motivo}
+                onChange={(event) =>
+                  onInventoryAdjustmentChange((current) => ({
+                    ...current,
+                    motivo: event.target.value,
+                  }))
+                }
+                placeholder="Compra, quebra operacional, conferencia..."
+                required
+              />
+            </label>
+            <button
+              type="submit"
+              className="primary-action"
+              disabled={loading === 'ajustar-estoque'}
+            >
+              <Save aria-hidden="true" size={18} />
+              {loading === 'ajustar-estoque' ? 'Ajustando...' : 'Registrar ajuste'}
+            </button>
+          </form>
+
+          <div className="admin-movements-table" role="table" aria-label="Movimentacoes de estoque">
+            <div className="admin-movements-row admin-movements-head" role="row">
+              <span role="columnheader">Tipo</span>
+              <span role="columnheader">Qtd</span>
+              <span role="columnheader">Anterior</span>
+              <span role="columnheader">Atual</span>
+              <span role="columnheader">Motivo</span>
+              <span role="columnheader">Data</span>
+            </div>
+            {movements.length ? (
+              movements.map((movimentacao) => (
+                <div className="admin-movements-row" role="row" key={movimentacao.id}>
+                  <span role="cell">{movimentacao.tipo}</span>
+                  <span role="cell">{formatQuantity(movimentacao.quantidade)}</span>
+                  <span role="cell">{formatQuantity(movimentacao.quantidadeAnterior)}</span>
+                  <span role="cell">{formatQuantity(movimentacao.quantidadeAtual)}</span>
+                  <span role="cell">{movimentacao.motivo}</span>
+                  <span role="cell">{formatDateTime(movimentacao.criadaEm)}</span>
+                </div>
+              ))
+            ) : (
+              <div className="empty-state">Sem movimentacoes de estoque</div>
+            )}
+          </div>
+        </section>
+      )}
 
       <section className="admin-products" aria-labelledby="admin-products-title">
         <div className="section-heading">
@@ -1509,7 +1732,7 @@ async function readApiError(response) {
   }
 
   const payload = await response.json()
-  return payload.mensagem ?? payload.message ?? payload.title ?? payload.detail ?? fallback
+  return payload.erro ?? payload.mensagem ?? payload.message ?? payload.title ?? payload.detail ?? fallback
 }
 
 function readStoredAuth() {
