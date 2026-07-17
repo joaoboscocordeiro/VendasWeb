@@ -8,7 +8,10 @@ public interface IServicoProdutos
         CadastrarProdutoRequest request,
         CancellationToken cancellationToken);
 
-    Task<IReadOnlyCollection<ProdutoResponse>> ListarAsync(CancellationToken cancellationToken);
+    Task<IReadOnlyCollection<ProdutoResponse>> ListarAsync(
+        string? termo,
+        bool somenteAtivos,
+        CancellationToken cancellationToken);
 
     Task<ResultadoOperacao<ProdutoResponse>> ObterPorIdAsync(Guid id, CancellationToken cancellationToken);
 

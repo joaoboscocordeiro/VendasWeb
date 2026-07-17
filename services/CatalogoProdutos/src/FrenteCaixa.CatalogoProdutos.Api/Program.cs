@@ -79,10 +79,12 @@ produtos.MapPost("", async (
     .WithName("CadastrarProduto");
 
 produtos.MapGet("", async (
+        string? term,
+        bool? onlyActive,
         IServicoProdutos servicoProdutos,
         CancellationToken cancellationToken) =>
     {
-        var resultado = await servicoProdutos.ListarAsync(cancellationToken);
+        var resultado = await servicoProdutos.ListarAsync(term, onlyActive == true, cancellationToken);
 
         return Results.Ok(resultado);
     })

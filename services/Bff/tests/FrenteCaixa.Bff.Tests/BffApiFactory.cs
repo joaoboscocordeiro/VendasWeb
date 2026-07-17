@@ -14,6 +14,7 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
     public const string JwtKey = "chave-de-testes-com-mais-de-32-bytes-para-bff";
 
     public FakeBackendHealthClient BackendHealthClient { get; } = new();
+    public FakePdvProdutosService ProdutosService { get; } = new();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -40,10 +41,14 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
         builder.ConfigureServices(services =>
         {
             services.RemoveAll<IBackendHealthClient>();
+            services.RemoveAll<IPdvProdutosService>();
 
             services.AddSingleton(BackendHealthClient);
             services.AddSingleton<IBackendHealthClient>(sp =>
                 sp.GetRequiredService<FakeBackendHealthClient>());
+            services.AddSingleton(ProdutosService);
+            services.AddSingleton<IPdvProdutosService>(sp =>
+                sp.GetRequiredService<FakePdvProdutosService>());
         });
     }
 }

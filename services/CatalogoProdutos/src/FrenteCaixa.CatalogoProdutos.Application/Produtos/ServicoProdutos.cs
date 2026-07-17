@@ -57,9 +57,12 @@ public sealed class ServicoProdutos : IServicoProdutos
         return ResultadoOperacao<ProdutoResponse>.Ok(Mapear(produto));
     }
 
-    public async Task<IReadOnlyCollection<ProdutoResponse>> ListarAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<ProdutoResponse>> ListarAsync(
+        string? termo,
+        bool somenteAtivos,
+        CancellationToken cancellationToken)
     {
-        var produtos = await _produtos.ListarAsync(cancellationToken);
+        var produtos = await _produtos.ListarAsync(NormalizarTermoBusca(termo), somenteAtivos, cancellationToken);
 
         return produtos.Select(Mapear).ToArray();
     }
@@ -199,5 +202,12 @@ public sealed class ServicoProdutos : IServicoProdutos
         return string.IsNullOrWhiteSpace(codigoBarrasEan)
             ? null
             : codigoBarrasEan.Trim();
+    }
+
+    private static string? NormalizarTermoBusca(string? termo)
+    {
+        return string.IsNullOrWhiteSpace(termo)
+            ? null
+            : termo.Trim();
     }
 }

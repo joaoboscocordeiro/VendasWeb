@@ -110,6 +110,27 @@ public sealed class ProdutosEndpointsTests
     }
 
     [Fact]
+    public async Task catalog_products_query_filters_active_products_by_term()
+    {
+        using var factory = new CatalogoApiFactory();
+        await factory.SemearProdutoAsync("Cafe Torrado 500g", "7891234567895");
+        var inativo = await factory.SemearProdutoAsync("Cafe Inativo 500g", "7891234567896");
+        inativo.Inativar(DateTimeOffset.UtcNow);
+        await factory.SemearProdutoAsync("Acucar Cristal 1kg", "7891234567897");
+        var client = factory.CreateClient();
+        Autenticar(client, "VENDEDOR");
+
+        var resposta = await client.GetAsync("/products?term=cafe&onlyActive=true");
+        var produtos = await resposta.Content.ReadFromJsonAsync<ProdutoResponse[]>();
+
+        Assert.Equal(HttpStatusCode.OK, resposta.StatusCode);
+        Assert.NotNull(produtos);
+        var produto = Assert.Single(produtos);
+        Assert.Equal("Cafe Torrado 500g", produto.Descricao);
+        Assert.True(produto.Ativo);
+    }
+
+    [Fact]
     public async Task catalog_admin_can_update_product()
     {
         using var factory = new CatalogoApiFactory();

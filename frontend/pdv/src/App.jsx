@@ -1,17 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
   AlertCircle,
-  CheckCircle2,
   CircleDollarSign,
   LogIn,
   LogOut,
   Plus,
   RefreshCw,
+  Search,
   ShoppingCart,
   Trash2,
   User,
-  Wifi,
-  WifiOff,
 } from 'lucide-react'
 import './App.css'
 
@@ -34,11 +32,19 @@ const initialItemForm = {
   precoUnitario: '',
 }
 
+const initialProductSearch = {
+  termo: '',
+  codigoBarras: '',
+}
+
 function App() {
   const [auth, setAuth] = useState(readStoredAuth)
   const [loginForm, setLoginForm] = useState(initialLogin)
   const [saleForm, setSaleForm] = useState(initialSaleForm)
   const [itemForm, setItemForm] = useState(initialItemForm)
+  const [productSearch, setProductSearch] = useState(initialProductSearch)
+  const [productResults, setProductResults] = useState([])
+  const [selectedProduct, setSelectedProduct] = useState(null)
   const [bootstrap, setBootstrap] = useState(null)
   const [venda, setVenda] = useState(null)
   const [loading, setLoading] = useState('')
@@ -56,6 +62,8 @@ function App() {
     if (!isAuthenticated) {
       setBootstrap(null)
       setVenda(null)
+      setProductResults([])
+      setSelectedProduct(null)
       return
     }
 
@@ -143,7 +151,8 @@ function App() {
         },
       })
       setVenda(response)
-      setItemForm({ ...initialItemForm, produtoId: itemForm.produtoId })
+      setItemForm(initialItemForm)
+      setSelectedProduct(null)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -174,6 +183,9 @@ function App() {
     setLoginForm(initialLogin)
     setSaleForm(initialSaleForm)
     setItemForm(initialItemForm)
+    setProductSearch(initialProductSearch)
+    setProductResults([])
+    setSelectedProduct(null)
     setError('')
   }
 
@@ -181,8 +193,62 @@ function App() {
     setSaleForm((current) => ({ ...current, caixaId: crypto.randomUUID() }))
   }
 
-  function preencherProdutoLocal() {
-    setItemForm((current) => ({ ...current, produtoId: crypto.randomUUID() }))
+  async function buscarProdutos(event) {
+    event.preventDefault()
+    setError('')
+    setLoading('produtos')
+
+    try {
+      const params = new URLSearchParams()
+
+      if (productSearch.termo.trim()) {
+        params.set('term', productSearch.termo.trim())
+      }
+
+      const response = await requestJson(`/bff/pdv/products?${params.toString()}`, {
+        token: auth.accessToken,
+      })
+      setProductResults(response)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading('')
+    }
+  }
+
+  async function buscarProdutoPorCodigoBarras(event) {
+    event.preventDefault()
+    const codigoBarras = productSearch.codigoBarras.trim()
+
+    if (!codigoBarras) {
+      setError('Informe o codigo de barras para buscar.')
+      return
+    }
+
+    setError('')
+    setLoading('barcode')
+
+    try {
+      const produto = await requestJson(`/bff/pdv/products/by-barcode/${encodeURIComponent(codigoBarras)}`, {
+        token: auth.accessToken,
+      })
+      selecionarProduto(produto)
+      setProductResults([produto])
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading('')
+    }
+  }
+
+  function selecionarProduto(produto) {
+    setSelectedProduct(produto)
+    setItemForm((current) => ({
+      ...current,
+      produtoId: produto.id,
+      descricaoProduto: produto.descricao,
+      precoUnitario: String(produto.precoVenda),
+    }))
   }
 
   if (!isAuthenticated) {
@@ -192,7 +258,7 @@ function App() {
           <div className="brand-mark">
             <CircleDollarSign aria-hidden="true" size={28} />
           </div>
-          <p className="eyebrow">FrenteCaixa</p>
+          <p className="eyebrow">Cantina MCV</p>
           <h1 id="login-title">PDV</h1>
 
           <form className="login-form" onSubmit={login}>
@@ -235,7 +301,7 @@ function App() {
     <main className="app-shell">
       <header className="topbar">
         <div>
-          <p className="eyebrow">FrenteCaixa</p>
+          <p className="eyebrow">Cantina MCV</p>
           <h1>PDV</h1>
         </div>
         <div className="operator-strip">
@@ -298,6 +364,72 @@ function App() {
             </button>
           </form>
 
+          <section className="product-finder" aria-labelledby="product-search-title">
+            <div className="section-heading">
+              <Search aria-hidden="true" size={20} />
+              <h2 id="product-search-title">Produto</h2>
+            </div>
+
+            <form className="product-search-form" onSubmit={buscarProdutos}>
+              <label>
+                Termo
+                <input
+                  value={productSearch.termo}
+                  onChange={(event) =>
+                    setProductSearch((current) => ({ ...current, termo: event.target.value }))
+                  }
+                  placeholder="Cafe, acucar, 789..."
+                />
+              </label>
+              <button type="submit" className="secondary-action" disabled={loading === 'produtos'}>
+                <Search aria-hidden="true" size={16} />
+                Buscar
+              </button>
+            </form>
+
+            <form className="product-search-form barcode-form" onSubmit={buscarProdutoPorCodigoBarras}>
+              <label>
+                Codigo de barras
+                <input
+                  value={productSearch.codigoBarras}
+                  onChange={(event) =>
+                    setProductSearch((current) => ({ ...current, codigoBarras: event.target.value }))
+                  }
+                  placeholder="7891234567895"
+                />
+              </label>
+              <button type="submit" className="secondary-action" disabled={loading === 'barcode'}>
+                <Search aria-hidden="true" size={16} />
+                Localizar
+              </button>
+            </form>
+
+            {selectedProduct && (
+              <div className="selected-product">
+                <span>Selecionado</span>
+                <strong>{selectedProduct.descricao}</strong>
+                <em>{formatMoney(selectedProduct.precoVenda, currency, casasDecimais)}</em>
+              </div>
+            )}
+
+            <div className="product-results" aria-live="polite">
+              {productResults.map((produto) => (
+                <button
+                  type="button"
+                  className="product-result-row"
+                  key={produto.id}
+                  onClick={() => selecionarProduto(produto)}
+                >
+                  <span>
+                    <strong>{produto.descricao}</strong>
+                    <small>{produto.codigoBarrasEan ?? 'Sem codigo de barras'}</small>
+                  </span>
+                  <em>{formatMoney(produto.precoVenda, currency, casasDecimais)}</em>
+                </button>
+              ))}
+            </div>
+          </section>
+
           <form className="item-form" onSubmit={adicionarItem}>
             <label className="span-2">
               ProdutoId
@@ -307,13 +439,10 @@ function App() {
                   setItemForm((current) => ({ ...current, produtoId: event.target.value }))
                 }
                 placeholder={emptyGuid}
+                readOnly
                 required
               />
             </label>
-            <button type="button" className="secondary-action align-end" onClick={preencherProdutoLocal}>
-              <RefreshCw aria-hidden="true" size={16} />
-              Gerar
-            </button>
             <label className="span-2">
               Descricao
               <input
@@ -322,6 +451,7 @@ function App() {
                   setItemForm((current) => ({ ...current, descricaoProduto: event.target.value }))
                 }
                 placeholder="Cafe 500g"
+                readOnly
                 required
               />
             </label>
@@ -407,65 +537,6 @@ function App() {
           </div>
         </div>
 
-        <aside className="context-pane">
-          <section aria-labelledby="servicos-title">
-            <div className="section-heading">
-              <Wifi aria-hidden="true" size={20} />
-              <h2 id="servicos-title">Servicos</h2>
-            </div>
-            <div className="service-list">
-              {(bootstrap?.servicos ?? []).map((servico) => (
-                <div className="service-card" key={servico.nome}>
-                  <div>
-                    <strong>{servico.nome}</strong>
-                    <span>{servico.statusCode ? `HTTP ${servico.statusCode}` : servico.baseUrl}</span>
-                  </div>
-                  {servico.status === 'Operacional' ? (
-                    <CheckCircle2 className="ok" aria-label="Operacional" size={20} />
-                  ) : (
-                    <WifiOff className="fail" aria-label="Indisponivel" size={20} />
-                  )}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section aria-labelledby="atalhos-title">
-            <div className="section-heading">
-              <CheckCircle2 aria-hidden="true" size={20} />
-              <h2 id="atalhos-title">Atalhos</h2>
-            </div>
-            <div className="shortcut-list">
-              {(bootstrap?.atalhos ?? []).map((atalho) => (
-                <div className="shortcut-row" key={atalho.codigo}>
-                  <span>{atalho.rotulo}</span>
-                  <code>{atalho.metodo}</code>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section aria-labelledby="sessao-title">
-            <div className="section-heading">
-              <User aria-hidden="true" size={20} />
-              <h2 id="sessao-title">Sessao</h2>
-            </div>
-            <dl className="session-details">
-              <div>
-                <dt>Email</dt>
-                <dd>{bootstrap?.usuario?.email ?? auth.usuario?.email}</dd>
-              </div>
-              <div>
-                <dt>Gerado em</dt>
-                <dd>{bootstrap?.geradoEm ? formatDate(bootstrap.geradoEm) : '-'}</dd>
-              </div>
-              <div>
-                <dt>Venda</dt>
-                <dd>{venda?.status ?? '-'}</dd>
-              </div>
-            </dl>
-          </section>
-        </aside>
       </section>
     </main>
   )
@@ -563,13 +634,6 @@ function formatNumber(value) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
   }).format(Number(value))
-}
-
-function formatDate(value) {
-  return new Intl.DateTimeFormat('pt-BR', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-  }).format(new Date(value))
 }
 
 export default App

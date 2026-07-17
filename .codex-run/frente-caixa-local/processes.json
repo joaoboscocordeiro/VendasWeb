@@ -1,0 +1,50 @@
+﻿[
+    {
+        "Name":  "Identidade",
+        "ProcessId":  15928,
+        "Url":  "http://127.0.0.1:5227",
+        "StartedAt":  "2026-07-17T10:58:32.5092887-03:00"
+    },
+    {
+        "Name":  "CatalogoProdutos",
+        "ProcessId":  15780,
+        "Url":  "http://127.0.0.1:5089",
+        "StartedAt":  "2026-07-17T10:58:35.2422960-03:00"
+    },
+    {
+        "Name":  "Estoque",
+        "ProcessId":  9692,
+        "Url":  "http://127.0.0.1:5252",
+        "StartedAt":  "2026-07-17T10:58:37.9593972-03:00"
+    },
+    {
+        "Name":  "Caixa",
+        "ProcessId":  11308,
+        "Url":  "http://127.0.0.1:5062",
+        "StartedAt":  "2026-07-17T10:58:40.6424761-03:00"
+    },
+    {
+        "Name":  "Vendas",
+        "ProcessId":  8340,
+        "Url":  "http://127.0.0.1:5165",
+        "StartedAt":  "2026-07-17T10:58:43.3472907-03:00"
+    },
+    {
+        "Name":  "Pagamentos",
+        "ProcessId":  288,
+        "Url":  "http://127.0.0.1:5216",
+        "StartedAt":  "2026-07-17T10:58:46.0560726-03:00"
+    },
+    {
+        "Name":  "Relatorios",
+        "ProcessId":  7312,
+        "Url":  "http://127.0.0.1:5002",
+        "StartedAt":  "2026-07-17T10:58:48.7402007-03:00"
+    },
+    {
+        "Name":  "BFF",
+        "ProcessId":  12200,
+        "Url":  "http://127.0.0.1:5265",
+        "StartedAt":  "2026-07-17T10:58:51.4541549-03:00"
+    }
+]

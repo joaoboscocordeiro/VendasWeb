@@ -18,9 +18,29 @@ public sealed class ProdutoRepositorio : IProdutoRepositorio
         await _contexto.Produtos.AddAsync(produto, cancellationToken);
     }
 
-    public async Task<IReadOnlyCollection<Produto>> ListarAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<Produto>> ListarAsync(
+        string? termo,
+        bool somenteAtivos,
+        CancellationToken cancellationToken)
     {
-        return await _contexto.Produtos
+        var consulta = _contexto.Produtos.AsQueryable();
+
+        if (somenteAtivos)
+        {
+            consulta = consulta.Where(produto => produto.Ativo);
+        }
+
+        if (!string.IsNullOrWhiteSpace(termo))
+        {
+            var termoBusca = termo.Trim();
+            var padraoDescricao = $"%{termoBusca}%";
+
+            consulta = consulta.Where(produto =>
+                EF.Functions.ILike(produto.Descricao, padraoDescricao)
+                || produto.CodigoBarrasEan == termoBusca);
+        }
+
+        return await consulta
             .OrderBy(produto => produto.Descricao)
             .ThenBy(produto => produto.CodigoBarrasEan)
             .ToArrayAsync(cancellationToken);

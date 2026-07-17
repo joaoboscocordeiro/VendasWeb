@@ -17,6 +17,10 @@ builder.Services.AddHttpClient<IBackendHealthClient, BackendHealthClient>(client
 {
     client.Timeout = TimeSpan.FromSeconds(2);
 });
+builder.Services.AddHttpClient<IPdvProdutosService, CatalogoProdutosPdvService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(5);
+});
 builder.Services.AddScoped<IPdvBootstrapService, PdvBootstrapService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -81,6 +85,58 @@ pdv.MapGet("/bootstrap", async (
     })
     .WithName("ObterBootstrapPdv");
 
+pdv.MapGet("/products", async (
+        string? term,
+        HttpRequest request,
+        IPdvProdutosService produtosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var produtos = await produtosService.BuscarAsync(
+                term,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(produtos);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Catalogo de produtos indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("BuscarProdutosPdv");
+
+pdv.MapGet("/products/by-barcode/{ean}", async (
+        string ean,
+        HttpRequest request,
+        IPdvProdutosService produtosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var produto = await produtosService.ObterPorCodigoBarrasAsync(
+                ean,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return produto is null
+                ? Results.NotFound(new RespostaErro("Produto ativo nao encontrado."))
+                : Results.Ok(produto);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Catalogo de produtos indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ObterProdutoPdvPorCodigoBarras");
+
 app.Run();
 
 static void GarantirConfiguracaoJwt(WebApplicationBuilder builder)
@@ -117,6 +173,8 @@ static ConfiguracaoJwt ObterConfiguracaoJwt(IConfiguration configuration)
 internal sealed record RespostaSaude(string Servico, string Status);
 
 internal sealed record RespostaServico(string Servico, string Responsabilidade);
+
+internal sealed record RespostaErro(string Erro);
 
 internal sealed record ConfiguracaoJwt(string Issuer, string Audience, string Chave);
 
