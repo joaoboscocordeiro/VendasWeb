@@ -1,3 +1,4 @@
+using FrenteCaixa.BuildingBlocks.Outbox;
 using FrenteCaixa.CatalogoProdutos.Domain.Produtos;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ public sealed class CatalogoProdutosDbContext : DbContext
     }
 
     public DbSet<Produto> Produtos => Set<Produto>();
+    public DbSet<RegistroOutbox> OutboxMensagens => Set<RegistroOutbox>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,6 +33,25 @@ public sealed class CatalogoProdutosDbContext : DbContext
             entity.HasIndex(produto => produto.CodigoBarrasEan)
                 .IsUnique()
                 .HasFilter("\"CodigoBarrasEan\" IS NOT NULL");
+        });
+
+        modelBuilder.Entity<RegistroOutbox>(entity =>
+        {
+            entity.ToTable("outbox_mensagens");
+            entity.HasKey(mensagem => mensagem.Id);
+
+            entity.Property(mensagem => mensagem.Id).ValueGeneratedNever();
+            entity.Property(mensagem => mensagem.RoutingKey).HasMaxLength(160).IsRequired();
+            entity.Property(mensagem => mensagem.Tipo).HasMaxLength(120).IsRequired();
+            entity.Property(mensagem => mensagem.Versao).IsRequired();
+            entity.Property(mensagem => mensagem.PayloadJson).HasColumnType("jsonb").IsRequired();
+            entity.Property(mensagem => mensagem.CriadoEm).IsRequired();
+            entity.Property(mensagem => mensagem.ProcessadoEm);
+            entity.Property(mensagem => mensagem.Tentativas).IsRequired();
+            entity.Property(mensagem => mensagem.UltimoErro).HasMaxLength(1000);
+
+            entity.HasIndex(mensagem => mensagem.ProcessadoEm);
+            entity.HasIndex(mensagem => mensagem.RoutingKey);
         });
     }
 }

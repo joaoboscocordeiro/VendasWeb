@@ -1,3 +1,4 @@
+using FrenteCaixa.CatalogoProdutos.Application.Produtos.Eventos;
 using FrenteCaixa.CatalogoProdutos.Application.Produtos.Interfaces;
 using FrenteCaixa.CatalogoProdutos.Application.Produtos.Repositorios;
 using FrenteCaixa.CatalogoProdutos.Domain.Produtos;
@@ -25,7 +26,8 @@ public sealed class CatalogoApiFactory : WebApplicationFactory<Program>
                 ["ConnectionStrings:CatalogoProdutos"] = "Host=localhost;Database=frente_caixa_catalogo_testes",
                 ["Jwt:Issuer"] = JwtIssuer,
                 ["Jwt:Audience"] = JwtAudience,
-                ["Jwt:Chave"] = JwtKey
+                ["Jwt:Chave"] = JwtKey,
+                ["Outbox:Habilitado"] = "false"
             });
         });
 
@@ -34,11 +36,13 @@ public sealed class CatalogoApiFactory : WebApplicationFactory<Program>
             services.RemoveAll<IProdutoRepositorio>();
             services.RemoveAll<IUnidadeTrabalho>();
             services.RemoveAll<IRelogio>();
+            services.RemoveAll<IRegistradorEventosProduto>();
 
             services.AddSingleton<BancoCatalogoEmMemoria>();
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorioEmMemoria>();
             services.AddScoped<IUnidadeTrabalho, UnidadeTrabalhoEmMemoria>();
             services.AddSingleton<IRelogio, RelogioFixo>();
+            services.AddScoped<IRegistradorEventosProduto, RegistradorEventosProdutoEmMemoria>();
         });
     }
 

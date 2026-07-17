@@ -1,6 +1,10 @@
+using FrenteCaixa.BuildingBlocks.Mensageria;
+using FrenteCaixa.BuildingBlocks.Outbox;
 using FrenteCaixa.CatalogoProdutos.Application.Produtos;
+using FrenteCaixa.CatalogoProdutos.Application.Produtos.Eventos;
 using FrenteCaixa.CatalogoProdutos.Application.Produtos.Interfaces;
 using FrenteCaixa.CatalogoProdutos.Application.Produtos.Repositorios;
+using FrenteCaixa.CatalogoProdutos.Infrastructure.Mensageria;
 using FrenteCaixa.CatalogoProdutos.Infrastructure.Persistencia;
 using FrenteCaixa.CatalogoProdutos.Infrastructure.Persistencia.Repositorios;
 using FrenteCaixa.CatalogoProdutos.Infrastructure.Tempo;
@@ -24,10 +28,16 @@ public static class ConfiguracaoServicos
         }
 
         services.AddDbContext<CatalogoProdutosDbContext>(options => options.UseNpgsql(connectionString));
+        services.AdicionarRabbitMq(configuration);
+        services.AdicionarOutbox(configuration);
         services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+        services.AddScoped<IRepositorioOutbox, OutboxRepositorio>();
+        services.AddScoped<IRegistradorEventosProduto, RegistradorEventosProdutoOutbox>();
         services.AddScoped<IUnidadeTrabalho, UnidadeTrabalho>();
         services.AddScoped<IServicoProdutos, ServicoProdutos>();
-        services.AddSingleton<IRelogio, RelogioSistema>();
+        services.AddSingleton<
+            FrenteCaixa.CatalogoProdutos.Application.Produtos.Interfaces.IRelogio,
+            FrenteCaixa.CatalogoProdutos.Infrastructure.Tempo.RelogioSistema>();
 
         return services;
     }

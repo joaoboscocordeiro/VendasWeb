@@ -25,7 +25,8 @@ public sealed class EstoqueApiFactory : WebApplicationFactory<Program>
                 ["ConnectionStrings:Estoque"] = "Host=localhost;Database=frente_caixa_estoque_testes",
                 ["Jwt:Issuer"] = JwtIssuer,
                 ["Jwt:Audience"] = JwtAudience,
-                ["Jwt:Chave"] = JwtKey
+                ["Jwt:Chave"] = JwtKey,
+                ["RabbitMqConsumers:ProdutoCriado:Habilitado"] = "false"
             });
         });
 
@@ -34,9 +35,11 @@ public sealed class EstoqueApiFactory : WebApplicationFactory<Program>
             services.RemoveAll<IEstoqueRepositorio>();
             services.RemoveAll<IUnidadeTrabalho>();
             services.RemoveAll<IRelogio>();
+            services.RemoveAll<IInboxRepositorioEstoque>();
 
             services.AddSingleton<BancoEstoqueEmMemoria>();
             services.AddScoped<IEstoqueRepositorio, EstoqueRepositorioEmMemoria>();
+            services.AddScoped<IInboxRepositorioEstoque, InboxRepositorioEstoqueEmMemoria>();
             services.AddScoped<IUnidadeTrabalho, UnidadeTrabalhoEmMemoria>();
             services.AddSingleton<IRelogio, RelogioFixo>();
         });

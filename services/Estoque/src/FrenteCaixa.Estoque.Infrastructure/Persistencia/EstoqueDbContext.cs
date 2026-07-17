@@ -1,3 +1,4 @@
+using FrenteCaixa.BuildingBlocks.Inbox;
 using FrenteCaixa.Estoque.Domain.Estoques;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,7 @@ public sealed class EstoqueDbContext : DbContext
 
     public DbSet<SaldoProduto> SaldosProdutos => Set<SaldoProduto>();
     public DbSet<MovimentacaoEstoque> MovimentacoesEstoque => Set<MovimentacaoEstoque>();
+    public DbSet<RegistroInbox> InboxMensagens => Set<RegistroInbox>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,6 +45,18 @@ public sealed class EstoqueDbContext : DbContext
             entity.Property(movimentacao => movimentacao.CriadaEm).IsRequired();
 
             entity.HasIndex(movimentacao => movimentacao.ProdutoId);
+        });
+
+        modelBuilder.Entity<RegistroInbox>(entity =>
+        {
+            entity.ToTable("inbox_mensagens");
+            entity.HasKey(registro => registro.MensagemId);
+
+            entity.Property(registro => registro.MensagemId).ValueGeneratedNever();
+            entity.Property(registro => registro.RoutingKey).HasMaxLength(160).IsRequired();
+            entity.Property(registro => registro.ConsumidoEm).IsRequired();
+
+            entity.HasIndex(registro => registro.RoutingKey);
         });
     }
 }

@@ -22,6 +22,26 @@ namespace FrenteCaixa.Estoque.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("FrenteCaixa.BuildingBlocks.Inbox.RegistroInbox", b =>
+                {
+                    b.Property<Guid>("MensagemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("ConsumidoEm")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RoutingKey")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("character varying(160)");
+
+                    b.HasKey("MensagemId");
+
+                    b.HasIndex("RoutingKey");
+
+                    b.ToTable("inbox_mensagens", (string)null);
+                });
+
             modelBuilder.Entity("FrenteCaixa.Estoque.Domain.Estoques.MovimentacaoEstoque", b =>
                 {
                     b.Property<Guid>("Id")

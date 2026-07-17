@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text;
 using FrenteCaixa.CatalogoProdutos.Application.Produtos.Contratos;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FrenteCaixa.CatalogoProdutos.Tests;
@@ -27,6 +28,26 @@ public sealed class ProdutosEndpointsTests
         Assert.NotNull(produto);
         Assert.Equal("Cafe Torrado 500g", produto.Descricao);
         Assert.Equal("7891234567895", produto.CodigoBarrasEan);
+    }
+
+    [Fact]
+    public async Task catalog_create_product_records_product_created_outbox()
+    {
+        using var factory = new CatalogoApiFactory();
+        var client = factory.CreateClient();
+        Autenticar(client, "ADM");
+
+        var resposta = await client.PostAsJsonAsync(
+            "/products",
+            new CadastrarProdutoRequest("Acucar Cristal 1kg", "7891000000002", 3.20m, 5.90m));
+
+        using var scope = factory.Services.CreateScope();
+        var banco = scope.ServiceProvider.GetRequiredService<BancoCatalogoEmMemoria>();
+        var produtoComEvento = Assert.Single(banco.ProdutosCriadosComEvento);
+
+        Assert.Equal(HttpStatusCode.Created, resposta.StatusCode);
+        Assert.Equal("Acucar Cristal 1kg", produtoComEvento.Descricao);
+        Assert.Equal("7891000000002", produtoComEvento.CodigoBarrasEan);
     }
 
     [Fact]

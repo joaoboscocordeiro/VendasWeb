@@ -1,4 +1,5 @@
 using FrenteCaixa.CatalogoProdutos.Application.Produtos.Contratos;
+using FrenteCaixa.CatalogoProdutos.Application.Produtos.Eventos;
 using FrenteCaixa.CatalogoProdutos.Application.Produtos.Interfaces;
 using FrenteCaixa.CatalogoProdutos.Application.Produtos.Repositorios;
 using FrenteCaixa.CatalogoProdutos.Domain.Produtos;
@@ -8,15 +9,18 @@ namespace FrenteCaixa.CatalogoProdutos.Application.Produtos;
 public sealed class ServicoProdutos : IServicoProdutos
 {
     private readonly IProdutoRepositorio _produtos;
+    private readonly IRegistradorEventosProduto _eventosProduto;
     private readonly IRelogio _relogio;
     private readonly IUnidadeTrabalho _unidadeTrabalho;
 
     public ServicoProdutos(
         IProdutoRepositorio produtos,
+        IRegistradorEventosProduto eventosProduto,
         IRelogio relogio,
         IUnidadeTrabalho unidadeTrabalho)
     {
         _produtos = produtos;
+        _eventosProduto = eventosProduto;
         _relogio = relogio;
         _unidadeTrabalho = unidadeTrabalho;
     }
@@ -47,6 +51,7 @@ public sealed class ServicoProdutos : IServicoProdutos
             _relogio.Agora);
 
         await _produtos.AdicionarAsync(produto, cancellationToken);
+        await _eventosProduto.RegistrarProdutoCriadoAsync(produto, cancellationToken);
         await _unidadeTrabalho.SalvarAlteracoesAsync(cancellationToken);
 
         return ResultadoOperacao<ProdutoResponse>.Ok(Mapear(produto));

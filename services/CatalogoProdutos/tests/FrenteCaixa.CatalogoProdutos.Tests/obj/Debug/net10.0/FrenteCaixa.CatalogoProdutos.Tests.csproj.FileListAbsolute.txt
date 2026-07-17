@@ -440,3 +440,4 @@ F:\Projetos\FrenteCaixa\services\CatalogoProdutos\tests\FrenteCaixa.CatalogoProd
 F:\Projetos\FrenteCaixa\services\CatalogoProdutos\tests\FrenteCaixa.CatalogoProdutos.Tests\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 F:\Projetos\FrenteCaixa\services\CatalogoProdutos\tests\FrenteCaixa.CatalogoProdutos.Tests\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
 F:\Projetos\FrenteCaixa\services\CatalogoProdutos\tests\FrenteCaixa.CatalogoProdutos.Tests\obj\Debug\net10.0\MvcTestingAppManifest.json
+F:\Projetos\FrenteCaixa\services\CatalogoProdutos\tests\FrenteCaixa.CatalogoProdutos.Tests\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.InMemory.dll
