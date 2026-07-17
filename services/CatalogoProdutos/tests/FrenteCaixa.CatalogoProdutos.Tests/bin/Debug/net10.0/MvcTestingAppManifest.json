@@ -1,7 +1,0 @@
-{
-  "FrenteCaixa.BuildingBlocks, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\building-blocks\\FrenteCaixa.BuildingBlocks",
-  "FrenteCaixa.CatalogoProdutos.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\CatalogoProdutos\\src\\FrenteCaixa.CatalogoProdutos.Api",
-  "FrenteCaixa.CatalogoProdutos.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\CatalogoProdutos\\src\\FrenteCaixa.CatalogoProdutos.Application",
-  "FrenteCaixa.CatalogoProdutos.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\CatalogoProdutos\\src\\FrenteCaixa.CatalogoProdutos.Domain",
-  "FrenteCaixa.CatalogoProdutos.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\CatalogoProdutos\\src\\FrenteCaixa.CatalogoProdutos.Infrastructure"
-}

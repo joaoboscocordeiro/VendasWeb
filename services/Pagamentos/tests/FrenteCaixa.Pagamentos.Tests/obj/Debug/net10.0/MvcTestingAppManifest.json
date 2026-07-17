@@ -1,7 +1,0 @@
-{
-  "FrenteCaixa.BuildingBlocks, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\building-blocks\\FrenteCaixa.BuildingBlocks",
-  "FrenteCaixa.Pagamentos.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Pagamentos\\src\\FrenteCaixa.Pagamentos.Api",
-  "FrenteCaixa.Pagamentos.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Pagamentos\\src\\FrenteCaixa.Pagamentos.Application",
-  "FrenteCaixa.Pagamentos.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Pagamentos\\src\\FrenteCaixa.Pagamentos.Domain",
-  "FrenteCaixa.Pagamentos.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Pagamentos\\src\\FrenteCaixa.Pagamentos.Infrastructure"
-}

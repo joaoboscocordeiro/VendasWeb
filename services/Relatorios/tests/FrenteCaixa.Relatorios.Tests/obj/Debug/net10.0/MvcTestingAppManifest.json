@@ -1,7 +1,0 @@
-{
-  "FrenteCaixa.BuildingBlocks, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\building-blocks\\FrenteCaixa.BuildingBlocks",
-  "FrenteCaixa.Relatorios.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Relatorios\\src\\FrenteCaixa.Relatorios.Api",
-  "FrenteCaixa.Relatorios.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Relatorios\\src\\FrenteCaixa.Relatorios.Application",
-  "FrenteCaixa.Relatorios.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Relatorios\\src\\FrenteCaixa.Relatorios.Domain",
-  "FrenteCaixa.Relatorios.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Relatorios\\src\\FrenteCaixa.Relatorios.Infrastructure"
-}

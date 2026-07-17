@@ -1,0 +1,35 @@
+# Build outputs
+bin/
+obj/
+dist/
+dist-ssr/
+
+# Frontend dependencies and generated assets
+node_modules/
+.playwright-cli/
+
+# Logs and local run artifacts
+*.log
+logs/
+.codex-run/
+.codex-runlogs/
+
+# IDE and editor state
+.vs/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local environment overrides
+.env
+.env.*
+*.local
