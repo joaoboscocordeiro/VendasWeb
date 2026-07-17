@@ -1,0 +1,7 @@
+{
+  "FrenteCaixa.BuildingBlocks, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\building-blocks\\FrenteCaixa.BuildingBlocks",
+  "FrenteCaixa.Estoque.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Estoque\\src\\FrenteCaixa.Estoque.Api",
+  "FrenteCaixa.Estoque.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Estoque\\src\\FrenteCaixa.Estoque.Application",
+  "FrenteCaixa.Estoque.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Estoque\\src\\FrenteCaixa.Estoque.Domain",
+  "FrenteCaixa.Estoque.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Estoque\\src\\FrenteCaixa.Estoque.Infrastructure"
+}
