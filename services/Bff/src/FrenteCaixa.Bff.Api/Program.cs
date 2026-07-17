@@ -31,6 +31,10 @@ builder.Services.AddHttpClient<IAdminRelatoriosService, AdminRelatoriosService>(
 {
     client.Timeout = TimeSpan.FromSeconds(5);
 });
+builder.Services.AddHttpClient<IAdminProdutosService, AdminProdutosService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(5);
+});
 builder.Services.AddScoped<IPdvBootstrapService, PdvBootstrapService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -371,6 +375,161 @@ adminReports.MapGet("/financial-summary", async (
     })
     .WithName("ObterResumoFinanceiroAdmin");
 
+var adminProducts = app.MapGroup("/admin/products")
+    .RequireAuthorization("SomenteAdministrador")
+    .WithTags("Admin Produtos");
+
+adminProducts.MapGet("", async (
+        string? term,
+        bool? onlyActive,
+        HttpRequest request,
+        IAdminProdutosService produtosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var produtos = await produtosService.ListarAsync(
+                term,
+                onlyActive == true,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(produtos);
+        }
+        catch (AdminProdutosHttpException ex)
+        {
+            return MapearFalhaProdutos(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Catalogo de produtos indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ListarProdutosAdmin");
+
+adminProducts.MapGet("/{id:guid}", async (
+        Guid id,
+        HttpRequest request,
+        IAdminProdutosService produtosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var produto = await produtosService.ObterPorIdAsync(
+                id,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return produto is null
+                ? Results.NotFound(new RespostaErro("Produto nao encontrado."))
+                : Results.Ok(produto);
+        }
+        catch (AdminProdutosHttpException ex)
+        {
+            return MapearFalhaProdutos(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Catalogo de produtos indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("ObterProdutoAdminPorId");
+
+adminProducts.MapPost("", async (
+        AdminProdutoRequest produto,
+        HttpRequest request,
+        IAdminProdutosService produtosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var produtoCriado = await produtosService.CadastrarAsync(
+                produto,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Created($"/admin/products/{produtoCriado.Id}", produtoCriado);
+        }
+        catch (AdminProdutosHttpException ex)
+        {
+            return MapearFalhaProdutos(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Catalogo de produtos indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("CadastrarProdutoAdmin");
+
+adminProducts.MapPut("/{id:guid}", async (
+        Guid id,
+        AdminProdutoRequest produto,
+        HttpRequest request,
+        IAdminProdutosService produtosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            var produtoAtualizado = await produtosService.AtualizarAsync(
+                id,
+                produto,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.Ok(produtoAtualizado);
+        }
+        catch (AdminProdutosHttpException ex)
+        {
+            return MapearFalhaProdutos(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Catalogo de produtos indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("AtualizarProdutoAdmin");
+
+adminProducts.MapPatch("/{id:guid}/disable", async (
+        Guid id,
+        HttpRequest request,
+        IAdminProdutosService produtosService,
+        CancellationToken cancellationToken) =>
+    {
+        try
+        {
+            await produtosService.InativarAsync(
+                id,
+                request.Headers.Authorization.ToString(),
+                cancellationToken);
+
+            return Results.NoContent();
+        }
+        catch (AdminProdutosHttpException ex)
+        {
+            return MapearFalhaProdutos(ex);
+        }
+        catch (HttpRequestException ex)
+        {
+            return Results.Problem(
+                title: "Catalogo de produtos indisponivel.",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status502BadGateway);
+        }
+    })
+    .WithName("InativarProdutoAdmin");
+
 app.Run();
 
 static void GarantirConfiguracaoJwt(WebApplicationBuilder builder)
@@ -413,6 +572,20 @@ static IResult MapearFalhaCaixa(PdvCaixaHttpException ex)
         HttpStatusCode.NotFound => Results.NotFound(new RespostaErro("Nenhum caixa aberto para o operador.")),
         _ => Results.Problem(
             title: "Servico de Caixa retornou erro.",
+            detail: ex.Message,
+            statusCode: StatusCodes.Status502BadGateway)
+    };
+}
+
+static IResult MapearFalhaProdutos(AdminProdutosHttpException ex)
+{
+    return ex.StatusCode switch
+    {
+        HttpStatusCode.BadRequest => Results.BadRequest(new RespostaErro(ex.Message)),
+        HttpStatusCode.Conflict => Results.Conflict(new RespostaErro(ex.Message)),
+        HttpStatusCode.NotFound => Results.NotFound(new RespostaErro(ex.Message)),
+        _ => Results.Problem(
+            title: "Catalogo de produtos retornou erro.",
             detail: ex.Message,
             statusCode: StatusCodes.Status502BadGateway)
     };

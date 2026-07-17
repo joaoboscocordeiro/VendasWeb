@@ -18,6 +18,7 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
     public FakePdvProdutosService ProdutosService { get; } = new();
     public FakePdvCaixaService CaixaService { get; } = new();
     public FakeAdminRelatoriosService RelatoriosService { get; } = new();
+    public FakeAdminProdutosService AdminProdutosService { get; } = new();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -50,6 +51,7 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
             services.RemoveAll<IPdvProdutosService>();
             services.RemoveAll<IPdvCaixaService>();
             services.RemoveAll<IAdminRelatoriosService>();
+            services.RemoveAll<IAdminProdutosService>();
 
             services.AddSingleton(BackendHealthClient);
             services.AddSingleton<IBackendHealthClient>(sp =>
@@ -63,6 +65,9 @@ public sealed class BffApiFactory : WebApplicationFactory<Program>
             services.AddSingleton(RelatoriosService);
             services.AddSingleton<IAdminRelatoriosService>(sp =>
                 sp.GetRequiredService<FakeAdminRelatoriosService>());
+            services.AddSingleton(AdminProdutosService);
+            services.AddSingleton<IAdminProdutosService>(sp =>
+                sp.GetRequiredService<FakeAdminProdutosService>());
         });
     }
 }

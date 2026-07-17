@@ -2,12 +2,16 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   AlertCircle,
   BarChart3,
+  Ban,
   CircleDollarSign,
   LogIn,
   LogOut,
+  Package,
+  Pencil,
   Plus,
   RefreshCw,
   ReceiptText,
+  Save,
   Search,
   ShoppingCart,
   Trash2,
@@ -53,6 +57,19 @@ const initialAdminReports = {
   summary: null,
 }
 
+const initialAdminProductSearch = {
+  termo: '',
+  somenteAtivos: false,
+}
+
+const initialAdminProductForm = {
+  id: '',
+  descricao: '',
+  codigoBarrasEan: '',
+  precoCusto: '',
+  precoVenda: '',
+}
+
 const paymentMethods = ['Dinheiro', 'Cartao', 'Pix']
 
 function App() {
@@ -73,6 +90,9 @@ function App() {
   const [venda, setVenda] = useState(null)
   const [activeView, setActiveView] = useState('vendas')
   const [adminReports, setAdminReports] = useState(initialAdminReports)
+  const [adminProducts, setAdminProducts] = useState([])
+  const [adminProductSearch, setAdminProductSearch] = useState(initialAdminProductSearch)
+  const [adminProductForm, setAdminProductForm] = useState(initialAdminProductForm)
   const [loading, setLoading] = useState('')
   const [error, setError] = useState('')
 
@@ -116,6 +136,9 @@ function App() {
       setSelectedProduct(null)
       setActiveView('vendas')
       setAdminReports(initialAdminReports)
+      setAdminProducts([])
+      setAdminProductSearch(initialAdminProductSearch)
+      setAdminProductForm(initialAdminProductForm)
       return
     }
 
@@ -123,7 +146,7 @@ function App() {
   }, [auth?.accessToken, isAuthenticated])
 
   useEffect(() => {
-    if (!isAdmin && activeView === 'relatorios') {
+    if (!isAdmin && (activeView === 'relatorios' || activeView === 'produtos')) {
       setActiveView('vendas')
     }
   }, [activeView, isAdmin])
@@ -317,6 +340,9 @@ function App() {
     setError('')
     setActiveView('vendas')
     setAdminReports(initialAdminReports)
+    setAdminProducts([])
+    setAdminProductSearch(initialAdminProductSearch)
+    setAdminProductForm(initialAdminProductForm)
   }
 
   async function fecharCaixa(event) {
@@ -494,6 +520,149 @@ function App() {
     }
   }
 
+  async function carregarProdutosAdmin(event) {
+    event?.preventDefault()
+
+    if (!isAdmin) {
+      return
+    }
+
+    setError('')
+    setLoading('admin-produtos')
+
+    try {
+      const params = new URLSearchParams()
+
+      if (adminProductSearch.termo.trim()) {
+        params.set('term', adminProductSearch.termo.trim())
+      }
+
+      params.set('onlyActive', String(adminProductSearch.somenteAtivos))
+
+      const produtos = await requestJson(`/bff/admin/products?${params.toString()}`, {
+        token: auth.accessToken,
+      })
+      setAdminProducts(produtos)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading('')
+    }
+  }
+
+  function abrirViewProdutos() {
+    setActiveView('produtos')
+
+    if (!adminProducts.length && loading !== 'admin-produtos') {
+      carregarProdutosAdmin()
+    }
+  }
+
+  function selecionarProdutoAdmin(produto) {
+    setAdminProductForm({
+      id: produto.id,
+      descricao: produto.descricao,
+      codigoBarrasEan: produto.codigoBarrasEan ?? '',
+      precoCusto: String(produto.precoCusto),
+      precoVenda: String(produto.precoVenda),
+    })
+  }
+
+  function limparFormularioProdutoAdmin() {
+    setAdminProductForm(initialAdminProductForm)
+  }
+
+  async function salvarProdutoAdmin(event) {
+    event.preventDefault()
+
+    const precoCusto = Number(adminProductForm.precoCusto)
+    const precoVenda = Number(adminProductForm.precoVenda)
+
+    if (!adminProductForm.descricao.trim()) {
+      setError('Informe a descricao do produto.')
+      return
+    }
+
+    if (precoCusto < 0 || precoVenda <= 0) {
+      setError('Preco de custo nao pode ser negativo e preco de venda deve ser maior que zero.')
+      return
+    }
+
+    setError('')
+    setLoading('salvar-produto')
+
+    try {
+      const editando = Boolean(adminProductForm.id)
+      const produto = await requestJson(
+        editando
+          ? `/bff/admin/products/${adminProductForm.id}`
+          : '/bff/admin/products',
+        {
+          method: editando ? 'PUT' : 'POST',
+          token: auth.accessToken,
+          body: {
+            descricao: adminProductForm.descricao.trim(),
+            codigoBarrasEan: adminProductForm.codigoBarrasEan.trim() || null,
+            precoCusto,
+            precoVenda,
+          },
+        },
+      )
+
+      setAdminProducts((current) => {
+        const existing = current.some((item) => item.id === produto.id)
+
+        return existing
+          ? current.map((item) => (item.id === produto.id ? produto : item))
+          : [produto, ...current]
+      })
+      setProductResults((current) =>
+        current.map((item) =>
+          item.id === produto.id
+            ? {
+              ...item,
+              descricao: produto.descricao,
+              codigoBarrasEan: produto.codigoBarrasEan,
+              precoVenda: produto.precoVenda,
+              ativo: produto.ativo,
+            }
+            : item,
+        ),
+      )
+      limparFormularioProdutoAdmin()
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading('')
+    }
+  }
+
+  async function inativarProdutoAdmin(produto) {
+    setError('')
+    setLoading(`inativar-produto-${produto.id}`)
+
+    try {
+      await requestJson(`/bff/admin/products/${produto.id}/disable`, {
+        method: 'PATCH',
+        token: auth.accessToken,
+      })
+      const produtoInativo = { ...produto, ativo: false }
+      setAdminProducts((current) =>
+        current.map((item) => (item.id === produto.id ? produtoInativo : item)),
+      )
+      setProductResults((current) =>
+        current.filter((item) => item.id !== produto.id),
+      )
+      if (adminProductForm.id === produto.id) {
+        limparFormularioProdutoAdmin()
+      }
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading('')
+    }
+  }
+
   if (!isAuthenticated) {
     return (
       <main className="login-shell">
@@ -579,15 +748,26 @@ function App() {
           Vendas
         </button>
         {isAdmin && (
-          <button
-            type="button"
-            className={activeView === 'relatorios' ? 'view-tab active' : 'view-tab'}
-            aria-pressed={activeView === 'relatorios'}
-            onClick={abrirViewRelatorios}
-          >
-            <BarChart3 aria-hidden="true" size={17} />
-            Relatorios
-          </button>
+          <>
+            <button
+              type="button"
+              className={activeView === 'produtos' ? 'view-tab active' : 'view-tab'}
+              aria-pressed={activeView === 'produtos'}
+              onClick={abrirViewProdutos}
+            >
+              <Package aria-hidden="true" size={17} />
+              Produtos
+            </button>
+            <button
+              type="button"
+              className={activeView === 'relatorios' ? 'view-tab active' : 'view-tab'}
+              aria-pressed={activeView === 'relatorios'}
+              onClick={abrirViewRelatorios}
+            >
+              <BarChart3 aria-hidden="true" size={17} />
+              Relatorios
+            </button>
+          </>
         )}
       </nav>
 
@@ -602,7 +782,23 @@ function App() {
       </section>
 
       <section className="workspace">
-        {activeView === 'relatorios' && isAdmin ? (
+        {activeView === 'produtos' && isAdmin ? (
+          <AdminProductsView
+            products={adminProducts}
+            search={adminProductSearch}
+            form={adminProductForm}
+            loading={loading}
+            currency={currency}
+            casasDecimais={casasDecimais}
+            onSearchChange={setAdminProductSearch}
+            onFormChange={setAdminProductForm}
+            onSubmitSearch={carregarProdutosAdmin}
+            onSubmitForm={salvarProdutoAdmin}
+            onSelectProduct={selecionarProdutoAdmin}
+            onDisableProduct={inativarProdutoAdmin}
+            onClearForm={limparFormularioProdutoAdmin}
+          />
+        ) : activeView === 'relatorios' && isAdmin ? (
           <AdminReportsView
             reports={adminReports}
             loading={loading}
@@ -996,6 +1192,184 @@ function App() {
 
       </section>
     </main>
+  )
+}
+
+function AdminProductsView({
+  products,
+  search,
+  form,
+  loading,
+  currency,
+  casasDecimais,
+  onSearchChange,
+  onFormChange,
+  onSubmitSearch,
+  onSubmitForm,
+  onSelectProduct,
+  onDisableProduct,
+  onClearForm,
+}) {
+  const editing = Boolean(form.id)
+
+  return (
+    <div className="admin-pane">
+      <div className="admin-header">
+        <div className="section-heading">
+          <Package aria-hidden="true" size={20} />
+          <h2>Produtos</h2>
+        </div>
+        <button
+          type="button"
+          className="secondary-action"
+          onClick={onClearForm}
+          disabled={!editing && !form.descricao && !form.codigoBarrasEan && !form.precoVenda}
+        >
+          <Plus aria-hidden="true" size={16} />
+          Novo
+        </button>
+      </div>
+
+      <form className="admin-product-search" onSubmit={onSubmitSearch}>
+        <label>
+          Busca
+          <input
+            value={search.termo}
+            onChange={(event) =>
+              onSearchChange((current) => ({ ...current, termo: event.target.value }))
+            }
+            placeholder="Cafe, bolo, 789..."
+          />
+        </label>
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            checked={search.somenteAtivos}
+            onChange={(event) =>
+              onSearchChange((current) => ({ ...current, somenteAtivos: event.target.checked }))
+            }
+          />
+          Somente ativos
+        </label>
+        <button type="submit" className="secondary-action" disabled={loading === 'admin-produtos'}>
+          <Search aria-hidden="true" size={16} />
+          {loading === 'admin-produtos' ? 'Buscando...' : 'Buscar'}
+        </button>
+      </form>
+
+      <form className="admin-product-form" onSubmit={onSubmitForm}>
+        <label className="span-2">
+          Descricao
+          <input
+            value={form.descricao}
+            onChange={(event) =>
+              onFormChange((current) => ({ ...current, descricao: event.target.value }))
+            }
+            placeholder="Cafe Torrado 500g"
+            required
+          />
+        </label>
+        <label>
+          Codigo de barras
+          <input
+            value={form.codigoBarrasEan}
+            onChange={(event) =>
+              onFormChange((current) => ({ ...current, codigoBarrasEan: event.target.value }))
+            }
+            placeholder="7891234567895"
+          />
+        </label>
+        <label>
+          Preco custo
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            value={form.precoCusto}
+            onChange={(event) =>
+              onFormChange((current) => ({ ...current, precoCusto: event.target.value }))
+            }
+            required
+          />
+        </label>
+        <label>
+          Preco venda
+          <input
+            type="number"
+            min="0.01"
+            step="0.01"
+            value={form.precoVenda}
+            onChange={(event) =>
+              onFormChange((current) => ({ ...current, precoVenda: event.target.value }))
+            }
+            required
+          />
+        </label>
+        <button type="submit" className="primary-action" disabled={loading === 'salvar-produto'}>
+          <Save aria-hidden="true" size={18} />
+          {loading === 'salvar-produto' ? 'Salvando...' : editing ? 'Salvar' : 'Cadastrar'}
+        </button>
+      </form>
+
+      <section className="admin-products" aria-labelledby="admin-products-title">
+        <div className="section-heading">
+          <Package aria-hidden="true" size={20} />
+          <h2 id="admin-products-title">Cadastro de produtos</h2>
+        </div>
+
+        <div className="admin-products-table" role="table" aria-label="Cadastro de produtos">
+          <div className="admin-products-row admin-products-head" role="row">
+            <span role="columnheader">Produto</span>
+            <span role="columnheader">Codigo</span>
+            <span role="columnheader">Custo</span>
+            <span role="columnheader">Venda</span>
+            <span role="columnheader">Status</span>
+            <span role="columnheader">Acoes</span>
+          </div>
+          {products.length ? (
+            products.map((produto) => (
+              <div className="admin-products-row" role="row" key={produto.id}>
+                <span role="cell">
+                  <strong>{produto.descricao}</strong>
+                  <small>{shortId(produto.id)}</small>
+                </span>
+                <span role="cell">{produto.codigoBarrasEan ?? '-'}</span>
+                <span role="cell">{formatMoney(produto.precoCusto, currency, casasDecimais)}</span>
+                <span role="cell">{formatMoney(produto.precoVenda, currency, casasDecimais)}</span>
+                <span role="cell">
+                  <span className={produto.ativo ? 'status-pill active' : 'status-pill inactive'}>
+                    {produto.ativo ? 'Ativo' : 'Inativo'}
+                  </span>
+                </span>
+                <span role="cell" className="row-actions">
+                  <button
+                    type="button"
+                    className="icon-action"
+                    onClick={() => onSelectProduct(produto)}
+                    title="Editar produto"
+                    aria-label={`Editar ${produto.descricao}`}
+                  >
+                    <Pencil aria-hidden="true" size={17} />
+                  </button>
+                  <button
+                    type="button"
+                    className="icon-action danger"
+                    onClick={() => onDisableProduct(produto)}
+                    title="Inativar produto"
+                    aria-label={`Inativar ${produto.descricao}`}
+                    disabled={!produto.ativo || loading === `inativar-produto-${produto.id}`}
+                  >
+                    <Ban aria-hidden="true" size={17} />
+                  </button>
+                </span>
+              </div>
+            ))
+          ) : (
+            <div className="empty-state">Sem produtos para exibir</div>
+          )}
+        </div>
+      </section>
+    </div>
   )
 }
 
