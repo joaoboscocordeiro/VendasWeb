@@ -59,4 +59,16 @@ public sealed class Usuario
         Ativo = false;
         AtualizadoEm = atualizadoEm;
     }
+
+    public void AtualizarDados(
+        string nome,
+        string email,
+        PerfilUsuario perfil,
+        DateTimeOffset atualizadoEm)
+    {
+        Nome = nome.Trim();
+        Email = email.Trim().ToLowerInvariant();
+        Perfil = perfil;
+        AtualizadoEm = atualizadoEm;
+    }
 }

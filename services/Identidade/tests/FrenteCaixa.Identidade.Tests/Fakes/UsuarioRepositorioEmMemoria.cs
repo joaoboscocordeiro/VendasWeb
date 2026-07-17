@@ -25,4 +25,21 @@ public sealed class UsuarioRepositorioEmMemoria : IUsuarioRepositorio
 
         return Task.FromResult(usuario);
     }
+
+    public Task<IReadOnlyCollection<Usuario>> ListarAsync(CancellationToken cancellationToken)
+    {
+        IReadOnlyCollection<Usuario> usuarios = _banco.Usuarios
+            .OrderBy(usuario => usuario.Nome)
+            .ThenBy(usuario => usuario.Email)
+            .ToArray();
+
+        return Task.FromResult(usuarios);
+    }
+
+    public Task AdicionarAsync(Usuario usuario, CancellationToken cancellationToken)
+    {
+        _banco.Usuarios.Add(usuario);
+
+        return Task.CompletedTask;
+    }
 }

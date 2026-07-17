@@ -22,4 +22,17 @@ public sealed class UsuarioRepositorio : IUsuarioRepositorio
     {
         return _contexto.Usuarios.SingleOrDefaultAsync(usuario => usuario.Id == id, cancellationToken);
     }
+
+    public async Task<IReadOnlyCollection<Usuario>> ListarAsync(CancellationToken cancellationToken)
+    {
+        return await _contexto.Usuarios
+            .OrderBy(usuario => usuario.Nome)
+            .ThenBy(usuario => usuario.Email)
+            .ToArrayAsync(cancellationToken);
+    }
+
+    public async Task AdicionarAsync(Usuario usuario, CancellationToken cancellationToken)
+    {
+        await _contexto.Usuarios.AddAsync(usuario, cancellationToken);
+    }
 }

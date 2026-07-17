@@ -4,6 +4,8 @@ using System.Security.Cryptography;
 using System.Text;
 using FrenteCaixa.Identidade.Application.Autenticacao.Contratos;
 using FrenteCaixa.Identidade.Application.Autenticacao.Interfaces;
+using FrenteCaixa.Identidade.Application.Usuarios.Contratos;
+using FrenteCaixa.Identidade.Application.Usuarios.Interfaces;
 using FrenteCaixa.Identidade.Infrastructure;
 using FrenteCaixa.Identidade.Infrastructure.Seguranca;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -138,6 +140,73 @@ app.MapGet("/auth/me", async (
     .RequireAuthorization("UsuarioAutenticado")
     .WithName("ObterUsuarioAutenticado");
 
+var usuarios = app.MapGroup("/users")
+    .RequireAuthorization("SomenteAdministrador")
+    .WithTags("Usuarios");
+
+usuarios.MapPost("", async (
+        CadastrarUsuarioRequest request,
+        IServicoUsuarios servicoUsuarios,
+        CancellationToken cancellationToken) =>
+    {
+        var resultado = await servicoUsuarios.CadastrarAsync(request, cancellationToken);
+
+        return resultado.Sucesso
+            ? Results.Created($"/users/{resultado.Valor!.Id}", resultado.Valor)
+            : MapearFalha(resultado);
+    })
+    .WithName("CadastrarUsuario");
+
+usuarios.MapGet("", async (
+        IServicoUsuarios servicoUsuarios,
+        CancellationToken cancellationToken) =>
+    {
+        var resultado = await servicoUsuarios.ListarAsync(cancellationToken);
+
+        return Results.Ok(resultado);
+    })
+    .WithName("ListarUsuarios");
+
+usuarios.MapGet("/{id:guid}", async (
+        Guid id,
+        IServicoUsuarios servicoUsuarios,
+        CancellationToken cancellationToken) =>
+    {
+        var resultado = await servicoUsuarios.ObterPorIdAsync(id, cancellationToken);
+
+        return resultado.Sucesso
+            ? Results.Ok(resultado.Valor)
+            : MapearFalha(resultado);
+    })
+    .WithName("ObterUsuarioPorId");
+
+usuarios.MapPut("/{id:guid}", async (
+        Guid id,
+        AtualizarUsuarioRequest request,
+        IServicoUsuarios servicoUsuarios,
+        CancellationToken cancellationToken) =>
+    {
+        var resultado = await servicoUsuarios.AtualizarAsync(id, request, cancellationToken);
+
+        return resultado.Sucesso
+            ? Results.Ok(resultado.Valor)
+            : MapearFalha(resultado);
+    })
+    .WithName("AtualizarUsuario");
+
+usuarios.MapPatch("/{id:guid}/disable", async (
+        Guid id,
+        IServicoUsuarios servicoUsuarios,
+        CancellationToken cancellationToken) =>
+    {
+        var resultado = await servicoUsuarios.InativarAsync(id, cancellationToken);
+
+        return resultado.Sucesso
+            ? Results.NoContent()
+            : MapearFalha(resultado);
+    })
+    .WithName("InativarUsuario");
+
 app.MapGet("/administracao/verificacao", () => Results.Ok(new { Status = "Acesso administrativo autorizado" }))
     .RequireAuthorization("SomenteAdministrador")
     .WithName("VerificarAcessoAdministrativo");
@@ -183,9 +252,27 @@ static ConfiguracaoJwt ObterConfiguracaoJwt(IConfiguration configuration)
     };
 }
 
+static IResult MapearFalha<T>(FrenteCaixa.Identidade.Application.Autenticacao.ResultadoOperacao<T> resultado)
+{
+    return resultado.CodigoErro switch
+    {
+        FrenteCaixa.Identidade.Application.Autenticacao.CodigoErroOperacao.Validacao =>
+            Results.BadRequest(new RespostaErro(resultado.Erro ?? "Requisicao invalida.")),
+        FrenteCaixa.Identidade.Application.Autenticacao.CodigoErroOperacao.Conflito =>
+            Results.Conflict(new RespostaErro(resultado.Erro ?? "Conflito.")),
+        FrenteCaixa.Identidade.Application.Autenticacao.CodigoErroOperacao.NaoEncontrado =>
+            Results.NotFound(new RespostaErro(resultado.Erro ?? "Recurso nao encontrado.")),
+        FrenteCaixa.Identidade.Application.Autenticacao.CodigoErroOperacao.NaoAutorizado =>
+            Results.Unauthorized(),
+        _ => Results.BadRequest(new RespostaErro(resultado.Erro ?? "Requisicao invalida."))
+    };
+}
+
 internal sealed record RespostaSaude(string Servico, string Status);
 
 internal sealed record RespostaServico(string Servico, string Responsabilidade);
+
+internal sealed record RespostaErro(string Erro);
 
 public partial class Program
 {

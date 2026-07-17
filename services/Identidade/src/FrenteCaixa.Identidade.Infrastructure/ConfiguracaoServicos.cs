@@ -1,6 +1,8 @@
 using FrenteCaixa.Identidade.Application.Autenticacao;
 using FrenteCaixa.Identidade.Application.Autenticacao.Interfaces;
 using FrenteCaixa.Identidade.Application.Autenticacao.Repositorios;
+using FrenteCaixa.Identidade.Application.Usuarios;
+using FrenteCaixa.Identidade.Application.Usuarios.Interfaces;
 using FrenteCaixa.Identidade.Infrastructure.Persistencia;
 using FrenteCaixa.Identidade.Infrastructure.Persistencia.Repositorios;
 using FrenteCaixa.Identidade.Infrastructure.Seguranca;
@@ -42,6 +44,7 @@ public static class ConfiguracaoServicos
         services.AddScoped<IRefreshTokenRepositorio, RefreshTokenRepositorio>();
         services.AddScoped<IUnidadeTrabalho, UnidadeTrabalho>();
         services.AddScoped<IServicoAutenticacao, ServicoAutenticacao>();
+        services.AddScoped<IServicoUsuarios, ServicoUsuarios>();
         services.AddSingleton<ISenhaHasher, SenhaHasher>();
         services.AddSingleton<IRefreshTokenHasher, RefreshTokenHasher>();
         services.AddSingleton<IGeradorRefreshToken, GeradorRefreshToken>();
