@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
   AlertCircle,
+  BarChart3,
   CircleDollarSign,
   LogIn,
   LogOut,
   Plus,
   RefreshCw,
+  ReceiptText,
   Search,
   ShoppingCart,
   Trash2,
@@ -46,6 +48,11 @@ const initialCheckoutForm = {
   valorPago: '',
 }
 
+const initialAdminReports = {
+  sales: [],
+  summary: null,
+}
+
 const paymentMethods = ['Dinheiro', 'Cartao', 'Pix']
 
 function App() {
@@ -64,10 +71,14 @@ function App() {
   const [movimentacoesCaixa, setMovimentacoesCaixa] = useState([])
   const [resumoCaixa, setResumoCaixa] = useState(null)
   const [venda, setVenda] = useState(null)
+  const [activeView, setActiveView] = useState('vendas')
+  const [adminReports, setAdminReports] = useState(initialAdminReports)
   const [loading, setLoading] = useState('')
   const [error, setError] = useState('')
 
   const isAuthenticated = Boolean(auth?.accessToken)
+  const operatorProfile = bootstrap?.usuario?.perfil ?? auth?.usuario?.perfil ?? ''
+  const isAdmin = operatorProfile === 'ADM'
   const currency = bootstrap?.configuracao?.moeda ?? 'BRL'
   const casasDecimais = bootstrap?.configuracao?.casasDecimais ?? 2
   const caixaAberto = caixaAtual?.status === 'Aberto'
@@ -103,11 +114,19 @@ function App() {
       setCheckoutResult(null)
       setProductResults([])
       setSelectedProduct(null)
+      setActiveView('vendas')
+      setAdminReports(initialAdminReports)
       return
     }
 
     loadPdvContext(auth.accessToken)
   }, [auth?.accessToken, isAuthenticated])
+
+  useEffect(() => {
+    if (!isAdmin && activeView === 'relatorios') {
+      setActiveView('vendas')
+    }
+  }, [activeView, isAdmin])
 
   async function login(event) {
     event.preventDefault()
@@ -294,7 +313,10 @@ function App() {
     setCaixaAtual(null)
     setMovimentacoesCaixa([])
     setResumoCaixa(null)
+    setBootstrap(null)
     setError('')
+    setActiveView('vendas')
+    setAdminReports(initialAdminReports)
   }
 
   async function fecharCaixa(event) {
@@ -442,6 +464,36 @@ function App() {
     }))
   }
 
+  async function carregarRelatoriosAdmin() {
+    if (!isAdmin) {
+      return
+    }
+
+    setError('')
+    setLoading('relatorios')
+
+    try {
+      const [sales, summary] = await Promise.all([
+        requestJson('/bff/admin/reports/sales', { token: auth.accessToken }),
+        requestJson('/bff/admin/reports/financial-summary', { token: auth.accessToken }),
+      ])
+
+      setAdminReports({ sales, summary })
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading('')
+    }
+  }
+
+  function abrirViewRelatorios() {
+    setActiveView('relatorios')
+
+    if (!adminReports.summary && loading !== 'relatorios') {
+      carregarRelatoriosAdmin()
+    }
+  }
+
   if (!isAuthenticated) {
     return (
       <main className="login-shell">
@@ -516,17 +568,49 @@ function App() {
         </div>
       </header>
 
+      <nav className="view-tabs" aria-label="Areas do sistema">
+        <button
+          type="button"
+          className={activeView === 'vendas' ? 'view-tab active' : 'view-tab'}
+          aria-pressed={activeView === 'vendas'}
+          onClick={() => setActiveView('vendas')}
+        >
+          <ShoppingCart aria-hidden="true" size={17} />
+          Vendas
+        </button>
+        {isAdmin && (
+          <button
+            type="button"
+            className={activeView === 'relatorios' ? 'view-tab active' : 'view-tab'}
+            aria-pressed={activeView === 'relatorios'}
+            onClick={abrirViewRelatorios}
+          >
+            <BarChart3 aria-hidden="true" size={17} />
+            Relatorios
+          </button>
+        )}
+      </nav>
+
       {error && <InlineError message={error} />}
 
       <section className="status-band" aria-label="Status do PDV">
         <Metric label="Status" value={loading ? 'Sincronizando' : 'Operacional'} />
-        <Metric label="Perfil" value={bootstrap?.usuario?.perfil ?? auth.usuario?.perfil ?? '-'} />
+        <Metric label="Perfil" value={operatorProfile || '-'} />
         <Metric label="Caixa" value={caixaAtual?.status ?? 'Fechado'} />
         <Metric label="Itens" value={String(totalItens)} />
         <Metric label="Total" value={formatMoney(venda?.total ?? 0, currency, casasDecimais)} strong />
       </section>
 
       <section className="workspace">
+        {activeView === 'relatorios' && isAdmin ? (
+          <AdminReportsView
+            reports={adminReports}
+            loading={loading}
+            currency={currency}
+            casasDecimais={casasDecimais}
+            onRefresh={carregarRelatoriosAdmin}
+          />
+        ) : (
         <div className="sale-pane">
           <div className="section-heading">
             <ShoppingCart aria-hidden="true" size={20} />
@@ -908,9 +992,86 @@ function App() {
             )}
           </form>
         </div>
+        )}
 
       </section>
     </main>
+  )
+}
+
+function AdminReportsView({ reports, loading, currency, casasDecimais, onRefresh }) {
+  const summary = reports.summary
+  const sales = reports.sales ?? []
+
+  return (
+    <div className="admin-pane">
+      <div className="admin-header">
+        <div className="section-heading">
+          <BarChart3 aria-hidden="true" size={20} />
+          <h2>Relatorios</h2>
+        </div>
+        <button
+          type="button"
+          className="secondary-action"
+          onClick={onRefresh}
+          disabled={loading === 'relatorios'}
+        >
+          <RefreshCw aria-hidden="true" size={16} />
+          {loading === 'relatorios' ? 'Atualizando...' : 'Atualizar'}
+        </button>
+      </div>
+
+      <section className="admin-summary" aria-label="Resumo financeiro">
+        <Metric label="Vendas" value={String(summary?.quantidadeVendas ?? 0)} />
+        <Metric
+          label="Valor total"
+          value={formatMoney(summary?.valorTotal ?? 0, currency, casasDecimais)}
+          strong
+        />
+        {(summary?.totaisPorFormaPagamento ?? []).map((total) => (
+          <Metric
+            key={total.formaPagamento}
+            label={total.formaPagamento}
+            value={formatMoney(total.valorTotal, currency, casasDecimais)}
+          />
+        ))}
+      </section>
+
+      <section className="admin-sales" aria-labelledby="admin-sales-title">
+        <div className="section-heading">
+          <ReceiptText aria-hidden="true" size={20} />
+          <h2 id="admin-sales-title">Vendas concluidas</h2>
+        </div>
+
+        <div className="admin-sales-table" role="table" aria-label="Vendas concluidas">
+          <div className="admin-sales-row admin-sales-head" role="row">
+            <span role="columnheader">Venda</span>
+            <span role="columnheader">Pagamento</span>
+            <span role="columnheader">Forma</span>
+            <span role="columnheader">Itens</span>
+            <span role="columnheader">Total</span>
+            <span role="columnheader">Concluida</span>
+          </div>
+          {sales.length ? (
+            sales.map((sale) => (
+              <div className="admin-sales-row" role="row" key={sale.vendaId}>
+                <span role="cell">
+                  <strong>{shortId(sale.vendaId)}</strong>
+                  <small>Caixa {shortId(sale.caixaId)}</small>
+                </span>
+                <span role="cell">{shortId(sale.pagamentoId)}</span>
+                <span role="cell">{sale.formaPagamento}</span>
+                <span role="cell">{formatQuantity(totalSaleItems(sale))}</span>
+                <span role="cell">{formatMoney(sale.valorTotal, currency, casasDecimais)}</span>
+                <span role="cell">{formatDateTime(sale.concluidaEm)}</span>
+              </div>
+            ))
+          ) : (
+            <div className="empty-state">Sem vendas concluidas</div>
+          )}
+        </div>
+      </section>
+    </div>
   )
 }
 
@@ -1010,6 +1171,31 @@ function formatNumber(value) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
   }).format(Number(value))
+}
+
+function shortId(value) {
+  return value ? String(value).slice(0, 8) : '-'
+}
+
+function totalSaleItems(sale) {
+  return sale.itens?.reduce((sum, item) => sum + Number(item.quantidade ?? 0), 0) ?? 0
+}
+
+function formatQuantity(value) {
+  return new Intl.NumberFormat('pt-BR', {
+    maximumFractionDigits: 3,
+  }).format(Number(value ?? 0))
+}
+
+function formatDateTime(value) {
+  if (!value) {
+    return '-'
+  }
+
+  return new Intl.DateTimeFormat('pt-BR', {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  }).format(new Date(value))
 }
 
 export default App
