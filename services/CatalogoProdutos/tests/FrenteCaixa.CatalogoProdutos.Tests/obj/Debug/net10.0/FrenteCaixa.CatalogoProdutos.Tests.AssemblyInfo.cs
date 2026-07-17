@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrenteCaixa.CatalogoProdutos.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6db0f6e5b1c44c9fcc05bcfa2235872cea983c1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23cf858aa31ce321a567f41a6b73c6a2e3199dfe")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrenteCaixa.CatalogoProdutos.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrenteCaixa.CatalogoProdutos.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

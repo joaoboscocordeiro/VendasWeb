@@ -1,0 +1,7 @@
+{
+  "FrenteCaixa.BuildingBlocks, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\building-blocks\\FrenteCaixa.BuildingBlocks",
+  "FrenteCaixa.Caixa.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Caixa\\src\\FrenteCaixa.Caixa.Api",
+  "FrenteCaixa.Caixa.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Caixa\\src\\FrenteCaixa.Caixa.Application",
+  "FrenteCaixa.Caixa.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Caixa\\src\\FrenteCaixa.Caixa.Domain",
+  "FrenteCaixa.Caixa.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Caixa\\src\\FrenteCaixa.Caixa.Infrastructure"
+}
