@@ -13,3 +13,4 @@ F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Applicati
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Application\obj\Debug\net10.0\refint\FrenteCaixa.Identidade.Application.dll
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Application\obj\Debug\net10.0\FrenteCaixa.Identidade.Application.pdb
 F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Application\obj\Debug\net10.0\ref\FrenteCaixa.Identidade.Application.dll
+F:\Projetos\FrenteCaixa\services\Identidade\src\FrenteCaixa.Identidade.Application\obj\Debug\net10.0\FrenteCaixa.Identidade.Application.sourcelink.json

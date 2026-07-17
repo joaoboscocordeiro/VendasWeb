@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "FrenteCaixa.Vendas.Application/1.0.0": {
+        "dependencies": {
+          "FrenteCaixa.Vendas.Domain": "1.0.0"
+        },
+        "runtime": {
+          "FrenteCaixa.Vendas.Application.dll": {}
+        }
+      },
+      "FrenteCaixa.Vendas.Domain/1.0.0": {
+        "runtime": {
+          "FrenteCaixa.Vendas.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FrenteCaixa.Vendas.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FrenteCaixa.Vendas.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

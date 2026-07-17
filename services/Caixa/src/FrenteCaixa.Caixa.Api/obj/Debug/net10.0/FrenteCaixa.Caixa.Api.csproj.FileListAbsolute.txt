@@ -136,3 +136,4 @@ F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Api\bin\Debug\net10
 F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Api\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Api\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Api\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Api\obj\Debug\net10.0\FrenteCaixa.Caixa.Api.sourcelink.json

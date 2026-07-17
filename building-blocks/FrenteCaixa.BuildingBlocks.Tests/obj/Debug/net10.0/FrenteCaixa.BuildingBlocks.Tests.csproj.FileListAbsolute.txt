@@ -111,3 +111,4 @@ F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks.Tests\obj\Deb
 F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks.Tests\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.Tests.pdb
 F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks.Tests\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.Tests.genruntimeconfig.cache
 F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks.Tests\obj\Debug\net10.0\ref\FrenteCaixa.BuildingBlocks.Tests.dll
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks.Tests\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.Tests.sourcelink.json

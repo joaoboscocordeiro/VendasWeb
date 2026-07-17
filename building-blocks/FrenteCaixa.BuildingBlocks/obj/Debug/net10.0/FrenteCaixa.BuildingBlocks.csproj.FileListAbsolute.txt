@@ -10,3 +10,4 @@ F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net
 F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\refint\FrenteCaixa.BuildingBlocks.dll
 F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.pdb
 F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\ref\FrenteCaixa.BuildingBlocks.dll
+F:\Projetos\FrenteCaixa\building-blocks\FrenteCaixa.BuildingBlocks\obj\Debug\net10.0\FrenteCaixa.BuildingBlocks.sourcelink.json

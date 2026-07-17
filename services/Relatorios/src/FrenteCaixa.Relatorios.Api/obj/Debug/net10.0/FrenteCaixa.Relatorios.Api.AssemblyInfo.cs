@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrenteCaixa.Relatorios.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5f03c6b278897e4e1017576a88557f5f36d392e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd30d1f0748a5cdd0c6bae74eecb047fcd0fe63b")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrenteCaixa.Relatorios.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrenteCaixa.Relatorios.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

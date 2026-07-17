@@ -440,3 +440,4 @@ F:\Projetos\FrenteCaixa\services\Identidade\tests\FrenteCaixa.Identidade.Tests\o
 F:\Projetos\FrenteCaixa\services\Identidade\tests\FrenteCaixa.Identidade.Tests\bin\Debug\net10.0\RabbitMQ.Client.dll
 F:\Projetos\FrenteCaixa\services\Identidade\tests\FrenteCaixa.Identidade.Tests\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.dll
 F:\Projetos\FrenteCaixa\services\Identidade\tests\FrenteCaixa.Identidade.Tests\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.pdb
+F:\Projetos\FrenteCaixa\services\Identidade\tests\FrenteCaixa.Identidade.Tests\obj\Debug\net10.0\FrenteCaixa.Identidade.Tests.sourcelink.json

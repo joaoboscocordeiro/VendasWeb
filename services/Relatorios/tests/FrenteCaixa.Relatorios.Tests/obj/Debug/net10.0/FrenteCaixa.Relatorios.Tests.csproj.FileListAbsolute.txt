@@ -115,3 +115,4 @@ F:\Projetos\FrenteCaixa\services\Relatorios\tests\FrenteCaixa.Relatorios.Tests\o
 F:\Projetos\FrenteCaixa\services\Relatorios\tests\FrenteCaixa.Relatorios.Tests\bin\Debug\net10.0\RabbitMQ.Client.dll
 F:\Projetos\FrenteCaixa\services\Relatorios\tests\FrenteCaixa.Relatorios.Tests\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.dll
 F:\Projetos\FrenteCaixa\services\Relatorios\tests\FrenteCaixa.Relatorios.Tests\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.pdb
+F:\Projetos\FrenteCaixa\services\Relatorios\tests\FrenteCaixa.Relatorios.Tests\obj\Debug\net10.0\FrenteCaixa.Relatorios.Tests.sourcelink.json

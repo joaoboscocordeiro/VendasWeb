@@ -17,3 +17,4 @@ F:\Projetos\FrenteCaixa\services\CatalogoProdutos\src\FrenteCaixa.CatalogoProdut
 F:\Projetos\FrenteCaixa\services\CatalogoProdutos\src\FrenteCaixa.CatalogoProdutos.Infrastructure\obj\Debug\net10.0\ref\FrenteCaixa.CatalogoProdutos.Infrastructure.dll
 F:\Projetos\FrenteCaixa\services\CatalogoProdutos\src\FrenteCaixa.CatalogoProdutos.Infrastructure\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.dll
 F:\Projetos\FrenteCaixa\services\CatalogoProdutos\src\FrenteCaixa.CatalogoProdutos.Infrastructure\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.pdb
+F:\Projetos\FrenteCaixa\services\CatalogoProdutos\src\FrenteCaixa.CatalogoProdutos.Infrastructure\obj\Debug\net10.0\FrenteCaixa.CatalogoProdutos.Infrastructure.sourcelink.json

@@ -1,0 +1,7 @@
+{
+  "FrenteCaixa.BuildingBlocks, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\building-blocks\\FrenteCaixa.BuildingBlocks",
+  "FrenteCaixa.Vendas.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Vendas\\src\\FrenteCaixa.Vendas.Api",
+  "FrenteCaixa.Vendas.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Vendas\\src\\FrenteCaixa.Vendas.Application",
+  "FrenteCaixa.Vendas.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Vendas\\src\\FrenteCaixa.Vendas.Domain",
+  "FrenteCaixa.Vendas.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "F:\\Projetos\\FrenteCaixa\\services\\Vendas\\src\\FrenteCaixa.Vendas.Infrastructure"
+}

@@ -17,3 +17,4 @@ F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Infrastructure\obj\
 F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Infrastructure\obj\Debug\net10.0\ref\FrenteCaixa.Caixa.Infrastructure.dll
 F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Infrastructure\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.dll
 F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Infrastructure\bin\Debug\net10.0\FrenteCaixa.BuildingBlocks.pdb
+F:\Projetos\FrenteCaixa\services\Caixa\src\FrenteCaixa.Caixa.Infrastructure\obj\Debug\net10.0\FrenteCaixa.Caixa.Infrastructure.sourcelink.json
