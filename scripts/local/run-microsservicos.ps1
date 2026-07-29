@@ -4,6 +4,7 @@ param(
     [switch]$SkipBuild,
     [switch]$SkipMigrations,
     [switch]$SkipSeed,
+    [switch]$SkipDemoFlow,
     [switch]$HealthOnly,
     [switch]$Stop,
     [int]$TimeoutSeconds = 90
@@ -15,6 +16,35 @@ $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 $RunDir = Join-Path $RepoRoot '.codex-run\frente-caixa-local'
 $ProcessFile = Join-Path $RunDir 'processes.json'
 $JwtKey = 'frente-caixa-dev-local-chave-compartilhada-para-todos-os-servicos'
+$DemoProducts = @(
+    @{
+        Id = '33333333-3333-3333-3333-333333333333'
+        Descricao = 'Cafe Torrado Demo 500g'
+        CodigoBarrasEan = '7891000000015'
+        PrecoCusto = '9.50'
+        PrecoVenda = '14.90'
+        Estoque = '200.000'
+        MovimentoSeedId = '66666666-6666-6666-6666-666666666661'
+    },
+    @{
+        Id = '44444444-4444-4444-4444-444444444444'
+        Descricao = 'Leite Integral Demo 1L'
+        CodigoBarrasEan = '7891000000022'
+        PrecoCusto = '3.40'
+        PrecoVenda = '5.99'
+        Estoque = '200.000'
+        MovimentoSeedId = '66666666-6666-6666-6666-666666666662'
+    },
+    @{
+        Id = '55555555-5555-5555-5555-555555555555'
+        Descricao = 'Pao Frances Demo Kg'
+        CodigoBarrasEan = '7891000000039'
+        PrecoCusto = '8.80'
+        PrecoVenda = '15.50'
+        Estoque = '200.000'
+        MovimentoSeedId = '66666666-6666-6666-6666-666666666663'
+    }
+)
 
 $Services = @(
     @{
@@ -263,13 +293,16 @@ function New-PasswordHash {
 }
 
 function Invoke-PostgresSql {
-    param([string]$Sql)
+    param(
+        [string]$Sql,
+        [string]$Database = 'frente_caixa_identidade'
+    )
 
     $tempFile = Join-Path $RunDir "seed-$([Guid]::NewGuid()).sql"
     Set-Content -LiteralPath $tempFile -Value $Sql -Encoding UTF8
 
     try {
-        Get-Content -LiteralPath $tempFile | docker exec -i frente-caixa-postgres psql -U frente_caixa -d frente_caixa_identidade -v ON_ERROR_STOP=1
+        Get-Content -LiteralPath $tempFile | docker exec -i frente-caixa-postgres psql -U frente_caixa -d $Database -v ON_ERROR_STOP=1
         if ($LASTEXITCODE -ne 0) {
             throw "psql retornou codigo $LASTEXITCODE"
         }
@@ -296,6 +329,51 @@ SET "SenhaHash" = EXCLUDED."SenhaHash",
 "@
 
     Invoke-PostgresSql $sql | Out-Null
+}
+
+function Seed-DemoProducts {
+    Write-Step "Semeando produtos demo em CatalogoProdutos e Estoque"
+
+    $now = (Get-Date).ToUniversalTime().ToString('O')
+    $catalogRows = $DemoProducts | ForEach-Object {
+        "  ('$($_.Id)', '$($_.Descricao)', '$($_.CodigoBarrasEan)', $($_.PrecoCusto), $($_.PrecoVenda), TRUE, '$now', '$now')"
+    }
+    $stockRows = $DemoProducts | ForEach-Object {
+        "  ('$($_.Id)', $($_.Estoque), '$now')"
+    }
+    $movementRows = $DemoProducts | ForEach-Object {
+        "  ('$($_.MovimentoSeedId)', '$($_.Id)', 'Entrada', $($_.Estoque), 0, $($_.Estoque), 'Seed demo local', '$now')"
+    }
+
+    $catalogSql = @"
+INSERT INTO produtos ("Id", "Descricao", "CodigoBarrasEan", "PrecoCusto", "PrecoVenda", "Ativo", "CriadoEm", "AtualizadoEm")
+VALUES
+$($catalogRows -join ",`n")
+ON CONFLICT ("Id") DO UPDATE
+SET "Descricao" = EXCLUDED."Descricao",
+    "CodigoBarrasEan" = EXCLUDED."CodigoBarrasEan",
+    "PrecoCusto" = EXCLUDED."PrecoCusto",
+    "PrecoVenda" = EXCLUDED."PrecoVenda",
+    "Ativo" = TRUE,
+    "AtualizadoEm" = EXCLUDED."AtualizadoEm";
+"@
+
+    $stockSql = @"
+INSERT INTO saldos_produtos ("ProdutoId", "QuantidadeDisponivel", "AtualizadoEm")
+VALUES
+$($stockRows -join ",`n")
+ON CONFLICT ("ProdutoId") DO UPDATE
+SET "QuantidadeDisponivel" = GREATEST(saldos_produtos."QuantidadeDisponivel", EXCLUDED."QuantidadeDisponivel"),
+    "AtualizadoEm" = EXCLUDED."AtualizadoEm";
+
+INSERT INTO movimentacoes_estoque ("Id", "ProdutoId", "Tipo", "Quantidade", "QuantidadeAnterior", "QuantidadeAtual", "Motivo", "CriadaEm")
+VALUES
+$($movementRows -join ",`n")
+ON CONFLICT ("Id") DO NOTHING;
+"@
+
+    Invoke-PostgresSql -Database 'frente_caixa_catalogo' -Sql $catalogSql | Out-Null
+    Invoke-PostgresSql -Database 'frente_caixa_estoque' -Sql $stockSql | Out-Null
 }
 
 function Test-HealthChecks {
@@ -338,6 +416,175 @@ function Invoke-AuthenticatedSmoke {
     Write-Step "Smoke autenticado OK para $($bootstrap.usuario.email)"
 }
 
+function Wait-Until {
+    param(
+        [scriptblock]$Condition,
+        [string]$TimeoutMessage,
+        [int]$Timeout = $TimeoutSeconds
+    )
+
+    $deadline = (Get-Date).AddSeconds($Timeout)
+    $lastError = $null
+
+    do {
+        try {
+            $result = & $Condition
+            if ($result) {
+                return $result
+            }
+        } catch {
+            $lastError = $_
+        }
+
+        Start-Sleep -Milliseconds 500
+    } while ((Get-Date) -lt $deadline)
+
+    if ($lastError) {
+        throw "$TimeoutMessage Ultimo erro: $($lastError.Exception.Message)"
+    }
+
+    throw $TimeoutMessage
+}
+
+function Invoke-DemoSaleSmoke {
+    $demoProduct = $DemoProducts[0]
+    $loginBody = @{
+        email = 'vendedor@frentecaixa.local'
+        senha = 'Senha@123'
+    } | ConvertTo-Json
+
+    Write-Step "Validando venda completa demo"
+    $login = Invoke-RestMethod `
+        -Uri 'http://127.0.0.1:5227/auth/login' `
+        -Method Post `
+        -Body $loginBody `
+        -ContentType 'application/json' `
+        -TimeoutSec 10
+
+    $headers = @{ Authorization = "Bearer $($login.accessToken)" }
+    $product = Invoke-RestMethod `
+        -Uri "http://127.0.0.1:5265/pdv/products/by-barcode/$($demoProduct.CodigoBarrasEan)" `
+        -Headers $headers `
+        -TimeoutSec 10
+
+    if ($product.id -ne $demoProduct.Id) {
+        throw "Produto demo retornado difere do esperado: $($product.id)"
+    }
+
+    $stockBefore = Invoke-RestMethod `
+        -Uri "http://127.0.0.1:5252/stock/products/$($product.id)" `
+        -Headers $headers `
+        -TimeoutSec 10
+
+    try {
+        $cash = Invoke-RestMethod `
+            -Uri 'http://127.0.0.1:5265/pdv/cash-register/current' `
+            -Headers $headers `
+            -TimeoutSec 10
+    } catch {
+        $cash = Invoke-RestMethod `
+            -Uri 'http://127.0.0.1:5265/pdv/cash-register/open' `
+            -Method Post `
+            -Headers $headers `
+            -Body (@{ valorInicial = 50 } | ConvertTo-Json) `
+            -ContentType 'application/json' `
+            -TimeoutSec 10
+    }
+
+    $summaryBefore = Invoke-RestMethod `
+        -Uri 'http://127.0.0.1:5265/pdv/cash-register/current/summary' `
+        -Headers $headers `
+        -TimeoutSec 10
+
+    $sale = Invoke-RestMethod `
+        -Uri 'http://127.0.0.1:5165/sales' `
+        -Method Post `
+        -Headers $headers `
+        -Body (@{ caixaId = $cash.id } | ConvertTo-Json) `
+        -ContentType 'application/json' `
+        -TimeoutSec 10
+
+    $sale = Invoke-RestMethod `
+        -Uri "http://127.0.0.1:5165/sales/$($sale.id)/items" `
+        -Method Post `
+        -Headers $headers `
+        -Body (@{
+            produtoId = $product.id
+            descricaoProduto = $product.descricao
+            quantidade = 1
+            precoUnitario = $product.precoVenda
+        } | ConvertTo-Json) `
+        -ContentType 'application/json' `
+        -TimeoutSec 10
+
+    $checkout = Invoke-RestMethod `
+        -Uri "http://127.0.0.1:5165/sales/$($sale.id)/checkout" `
+        -Method Post `
+        -Headers $headers `
+        -Body (@{
+            formaPagamento = 'Dinheiro'
+            valorPago = $sale.total
+        } | ConvertTo-Json) `
+        -ContentType 'application/json' `
+        -TimeoutSec 15
+
+    if ($checkout.venda.status -ne 'Concluida') {
+        throw "Checkout demo nao concluiu a venda $($sale.id)."
+    }
+
+    $stockAfter = Invoke-RestMethod `
+        -Uri "http://127.0.0.1:5252/stock/products/$($product.id)" `
+        -Headers $headers `
+        -TimeoutSec 10
+
+    $expectedStock = [decimal]$stockBefore.quantidadeDisponivel - 1
+    if ([decimal]$stockAfter.quantidadeDisponivel -ne $expectedStock) {
+        throw "Estoque demo nao baixou como esperado. Antes=$($stockBefore.quantidadeDisponivel), depois=$($stockAfter.quantidadeDisponivel)."
+    }
+
+    $summaryAfter = Wait-Until `
+        -TimeoutMessage "Resumo do caixa nao refletiu a venda demo $($sale.id)." `
+        -Condition {
+            $summary = Invoke-RestMethod `
+                -Uri 'http://127.0.0.1:5265/pdv/cash-register/current/summary' `
+                -Headers $headers `
+                -TimeoutSec 10
+
+            $quantityIncreased = [int]$summary.quantidadeVendas -gt [int]$summaryBefore.quantidadeVendas
+            $totalIncreased = [decimal]$summary.totalVendido -ge ([decimal]$summaryBefore.totalVendido + [decimal]$sale.total)
+
+            if ($quantityIncreased -and $totalIncreased) {
+                return $summary
+            }
+
+            return $null
+        }
+
+    $adminLogin = Invoke-RestMethod `
+        -Uri 'http://127.0.0.1:5227/auth/login' `
+        -Method Post `
+        -Body (@{
+            email = 'admin@frentecaixa.local'
+            senha = 'Senha@123'
+        } | ConvertTo-Json) `
+        -ContentType 'application/json' `
+        -TimeoutSec 10
+
+    $adminHeaders = @{ Authorization = "Bearer $($adminLogin.accessToken)" }
+    $reportedSale = Wait-Until `
+        -TimeoutMessage "Relatorios nao refletiram a venda demo $($sale.id)." `
+        -Condition {
+            $sales = Invoke-RestMethod `
+                -Uri 'http://127.0.0.1:5265/admin/reports/sales' `
+                -Headers $adminHeaders `
+                -TimeoutSec 10
+
+            $sales | Where-Object { $_.vendaId -eq $sale.id } | Select-Object -First 1
+        }
+
+    Write-Step "Smoke venda demo OK para $($product.descricao) na venda $($sale.id)"
+}
+
 Push-Location $RepoRoot
 try {
     New-Item -ItemType Directory -Force -Path $RunDir | Out-Null
@@ -370,6 +617,7 @@ try {
 
     if (!$SkipSeed -and !$HealthOnly) {
         Seed-DevUsers
+        Seed-DemoProducts
     }
 
     $started = @()
@@ -389,6 +637,9 @@ try {
 
     Test-HealthChecks
     Invoke-AuthenticatedSmoke
+    if (!$HealthOnly -and !$SkipDemoFlow) {
+        Invoke-DemoSaleSmoke
+    }
 
     Write-Host ''
     Write-Host 'status = ok'

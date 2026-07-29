@@ -47,7 +47,52 @@ public sealed class LocalOrchestrationScriptTests
         Assert.Contains("Get-Content $ProcessFile", script);
     }
 
+    [Fact]
+    public void local_orchestration_script_seeds_demo_products_and_stock()
+    {
+        var script = ReadScript();
+
+        Assert.Contains("Seed-DemoProducts", script);
+        Assert.Contains("Cafe Torrado Demo 500g", script);
+        Assert.Contains("7891000000015", script);
+        Assert.Contains("frente_caixa_catalogo", script);
+        Assert.Contains("frente_caixa_estoque", script);
+        Assert.Contains("ON CONFLICT (\"ProdutoId\") DO UPDATE", script);
+    }
+
+    [Fact]
+    public void local_orchestration_script_validates_complete_demo_sale_flow()
+    {
+        var script = ReadScript();
+
+        Assert.Contains("[switch]$SkipDemoFlow", script);
+        Assert.Contains("Invoke-DemoSaleSmoke", script);
+        Assert.Contains("/pdv/products/by-barcode/", script);
+        Assert.Contains("/sales/$($sale.id)/checkout", script);
+        Assert.Contains("/pdv/cash-register/current/summary", script);
+        Assert.Contains("/admin/reports/sales", script);
+    }
+
+    [Fact]
+    public void pdv_e2e_script_prepares_local_stack_and_runs_playwright()
+    {
+        var script = ReadScript("run-pdv-e2e.ps1");
+
+        Assert.Contains("run-microsservicos.ps1", script);
+        Assert.Contains("-SkipDemoFlow", script);
+        Assert.Contains("npm.cmd", script);
+        Assert.Contains("[switch]$SkipBrowserInstall", script);
+        Assert.Contains("playwright install chromium", script);
+        Assert.Contains("PLAYWRIGHT_BASE_URL", script);
+        Assert.Contains("@('playwright', 'test')", script);
+    }
+
     private static string ReadScript()
+    {
+        return ReadScript("run-microsservicos.ps1");
+    }
+
+    private static string ReadScript(string fileName)
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
 
@@ -57,7 +102,7 @@ public sealed class LocalOrchestrationScriptTests
         }
 
         Assert.NotNull(directory);
-        var scriptPath = Path.Combine(directory.FullName, "scripts", "local", "run-microsservicos.ps1");
+        var scriptPath = Path.Combine(directory.FullName, "scripts", "local", fileName);
 
         Assert.True(File.Exists(scriptPath), $"Script nao encontrado em {scriptPath}");
 

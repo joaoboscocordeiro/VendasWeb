@@ -11,6 +11,7 @@ node_modules/
 # Logs and local run artifacts
 *.log
 logs/
+output/
 .codex-run/
 .codex-runlogs/
 
